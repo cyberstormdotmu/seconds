@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Rsrc-Class-Path: ./ mysql-connector-java-5.1.18-bin.jar jsch-0.1.49.ja
+ r
+Class-Path: .
+Rsrc-Main-Class: Storytime
+Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+

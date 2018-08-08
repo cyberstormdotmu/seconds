@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- Activates various annotations to be detected in bean classes: Spring's @Required and @Autowired, as well as JSR 250's 
+ 		@PostConstruct, @PreDestroy and @Resource -->
+	<context:annotation-config />
+	
+	<!-- Scans the classpath for annotated components that will be auto-registered as Spring beans. By default, the Spring-provided 
+ 		@Component, @Repository, @Service, and @Controller stereotypes will be detected -->
+	<context:component-scan base-package="com.tatva" />
+	
+	<!-- Configures the annotation-driven Spring MVC Controller programming model. Note that, with Spring 3.0, this tag works in 
+ 		 Servlet MVC only -->
+	<mvc:annotation-driven /> 
+	
+	<!-- Enables the use of the @AspectJ style of Spring AOP -->
+	<aop:aspectj-autoproxy />
+	
+	<!-- Register AOP bean -->
+	<bean id="applicationLoggingAdvice" class="com.tatva.aop.ApplicationLoggingAspect" />
+	
+	<!--  
+		Using without Annotation 
+	<aop:config>
+        <aop:pointcut id="applicationLoggingPointcut" expression="execution(* com.tatva.controller.*.*(..))" />
+ 
+        <aop:advisor advice-ref="applicationLoggingAdvice" pointcut-ref="applicationLoggingPointcut" id="applicationLoggingInterceptorAdvisor" />
+    </aop:config> -->
+    
+    <import resource="orm-context.xml"/>
+    
+</beans>

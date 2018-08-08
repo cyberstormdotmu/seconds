@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+	<definition name="main.defination"
+	template="/WEB-INF/jsp/main.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/mainHeader.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/jsp/mainFooter.jsp"/>
+		<put-attribute name="body" value=""/>
+		<put-attribute name="menu" value="/WEB-INF/jsp/mainMenu.jsp"/>
+		<put-attribute name="title" value=""/>
+		<!-- <put-attribute name="adv" value="/WEB-INF/jsp/mainAdv.jsp"></put-attribute> -->
+	</definition>
+	
+	<definition name="index" extends="main.defination">
+		<put-attribute name="title" value="Index"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/index.jsp"/>
+	</definition>
+	
+	<definition name="login" extends="main.defination">
+		<put-attribute name="title" value="Login"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/jsp/loginHeader.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="home" extends="main.defination">
+		<put-attribute name="body" value="/WEB-INF/jsp/home.jsp"/>
+		<put-attribute name="title" value="Home"></put-attribute>
+	</definition>
+	
+	<definition name="editUser" extends="main.defination">
+		<put-attribute name="body" value="/WEB-INF/jsp/editUser.jsp"/>
+		<put-attribute name="title" value="Edit Details"/>
+	</definition>
+	
+	<definition name="inActive" extends="main.defination">
+		<put-attribute name="body" value="/WEB-INF/jsp/inActive.jsp"/>
+		<put-attribute name="title" value="In Active User"/>
+	</definition>
+	
+	<definition name="listUser" extends="main.defination">
+		<put-attribute name="body" value="/WEB-INF/jsp/listUser.jsp"/>
+		<put-attribute name="title" value="List"/>
+	</definition>
+	
+	<definition name="signUp" extends="main.defination">
+		<put-attribute name="body" value="/WEB-INF/jsp/signUp.jsp"/>
+		<put-attribute name="title" value="/WEB-INF/jsp/signUpHeader.jsp"/>
+		<put-attribute name="menu" value=""/>
+	</definition>	
+	
+	
+	<definition name="listUserTemp" extends="main.defination">
+		<put-attribute name="body" value="/WEB-INF/jsp/listUserTemp.jsp"/>
+		<put-attribute name="title" value="Vehicle List"/>
+	</definition>	
+	
+	<definition name="listVehicle" extends="main.defination">
+		<put-attribute name="body" value="/WEB-INF/jsp/listVehicle.jsp"/>
+		<put-attribute name="title" value="Vehicle List"/>
+		<put-attribute name="header" value=" "/>
+		<put-attribute name="footer" value=" "/>
+	</definition>	
+	
+</tiles-definitions>

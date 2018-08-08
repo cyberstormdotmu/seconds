@@ -1,0 +1,12 @@
+OAUTH::::
+
+Client ID	750732704926.apps.googleusercontent.com
+Email address	750732704926@developer.gserviceaccount.com
+Public key fingerprints	::::7c7464984f7606d9d48e533226f9d6210786e208
+
+public API Access::
+
+API key	AIzaSyDLkZ6HPGIJK8UPJpPJxlhZeNkd6L6FBiA
+IPs	 Any IP allowed
+Activation date	Dec 31, 1969 4:00 PM
+Activated by	 tarkikshah@gmail.com (you)

@@ -1,0 +1,11 @@
+.button:hover {
+   
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(200,200,200,0.5) , 1,0,1,0 );
+}

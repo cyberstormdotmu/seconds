@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/antlr-2.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/c3p0-0.9.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/dom4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/ehcache-core-2.4.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-c3p0-4.2.5.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-commons-annotations-4.0.2.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-core-4.2.5.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-ehcache-4.2.5.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-entitymanager-4.2.5.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-envers-4.2.5.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-infinispan-4.2.5.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-infinispan-4.2.5.Final-tests.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-osgi-4.2.5.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/hibernate-proxool-4.2.5.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/infinispan-core-5.2.0.Beta3.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/javassist-3.15.0-GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/jboss-logging-3.1.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/jboss-logging-3.1.1.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/jboss-marshalling-1.3.15.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/jboss-marshalling-river-1.3.15.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/jboss-transaction-api_1.1_spec-1.0.1.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/jgroups-3.2.0.CR1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/mchange-commons-java-0.2.3.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/org.osgi.core-4.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/proxool-0.8.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/rhq-pluginAnnotations-3.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/slf4j-api-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/stax2-api-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/staxmapper-1.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Hibernate Jar/woodstox-core-asl-4.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Final Jar/Final Commons/mysql-connector-java-5.1.23.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
