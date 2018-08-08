@@ -1,0 +1,194 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>backoffice-web</artifactId>
+  <packaging>war</packaging>
+  <name>Backoffice Web</name>
+  <description />
+
+  <parent> 
+    <groupId>com.cubeia.network</groupId>
+    <artifactId>cubeia-network-parent</artifactId>
+    <version>1.5.2-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
+  </parent>
+    
+
+  <dependencies>
+  
+	<!--  CUBEIA NETWORK DEPENDENCIES -->
+    <dependency>
+      <groupId>com.cubeia.network</groupId>
+      <artifactId>user-accounting-admin-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cubeia.network</groupId>
+      <artifactId>operator-admin-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cubeia.network</groupId>
+      <artifactId>user-accounting-admin-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cubeia.network</groupId>
+      <artifactId>backoffice-shared-web</artifactId>
+        <version>${project.version}</version>
+    </dependency>
+    
+	<!--  WICKET DEPENDENCIES -->
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-jmx</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-devutils</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-extensions</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-datetime</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-auth-roles</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-spring</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+	
+    <!-- SPRING DEPENDENCIES -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>    
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>    
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>    
+    
+    <!-- OTHER DEPENDENCIES -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>compile</scope>
+      <version>2.4</version>
+    </dependency>
+     
+    <dependency>
+		<groupId>jasperreports</groupId>
+		<artifactId>jasperreports</artifactId>
+		<version>3.5.3</version>
+	</dependency>
+    
+    <dependency>
+	    <groupId>commons-configuration</groupId>
+	    <artifactId>commons-configuration</artifactId>
+	    <version>1.6</version>
+        <exclusions>
+          <exclusion>  
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+          </exclusion>
+        </exclusions> 	    
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springmodules</groupId>
+	    <artifactId>spring-modules-jakarta-commons</artifactId>
+	    <version>0.8</version>
+	    <exclusions>
+	    	<exclusion>
+	    		<artifactId>commons-collections</artifactId>
+	    		<groupId>commons-collections</groupId>
+	    	</exclusion>
+	    </exclusions>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-api</artifactId>
+	</dependency>
+	<dependency>
+	  <groupId>cglib</groupId>
+	  <artifactId>cglib-nodep</artifactId>
+	</dependency>
+  </dependencies>
+
+  <build>
+  
+    <finalName>${project.artifactId}</finalName>
+    
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>7</source>
+          <target>7</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <forkMode>once</forkMode>
+          <excludes>
+            <exclude>**/Abstract*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+        <plugin>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>8.1.7.v20120910</version>
+            <configuration>
+                <reload>automatic</reload>
+                <useTestScope>true</useTestScope>
+                <webAppConfig>
+                    <!-- turn off scanning of WEB-INF/lib jars for servlet 3.0 annotations, takes a looong time... -->
+                    <webInfIncludeJarPattern>do_not_scan_web-inf_lib_because_it_is_sooooo_slooooow.jar</webInfIncludeJarPattern>
+                </webAppConfig>
+                <connectors>
+                    <connector implementation="org.eclipse.jetty.server.bio.SocketConnector">
+                        <port>8888</port>
+                        <maxIdleTime>60000</maxIdleTime>
+                    </connector>
+                </connectors>
+
+
+            </configuration>
+        </plugin>
+
+    </plugins>
+  </build>
+  
+</project>

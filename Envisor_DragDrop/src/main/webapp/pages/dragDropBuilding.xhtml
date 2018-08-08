@@ -1,0 +1,584 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+<h:outputStylesheet id="layoutCSS">  
+    body {  
+        margin: 4px !important;  
+    }  
+
+.vr {
+    width:1px;
+    background-color:#000;
+    position:absolute;
+    top:0;
+    bottom:0;
+}
+
+.safe{
+	<!-- padding:0; 
+	margin:0; 
+	position:relative;  -->
+	top:60px; 
+	left:0px; 
+	z-index:99; 
+	display:none;
+}
+
+.rowColor{
+	background-color:#FFFFFF;
+}
+
+</h:outputStylesheet>  
+</h:head>
+
+<h:body>
+
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{dragDropBuildingBean.onLoadBuilding}" />
+	</f:metadata>
+
+	<p:growl id="msgs" showDetail="true" showSummary="true"/>
+	<h:form id="mainForm">	
+				
+		<p:layout style="width:100%; height:100%;">
+
+		    <p:layoutUnit position="north" resizable="false" size="100" minSize="100" maxSize="100">
+				<ui:insert name="header">
+					<ui:include src="commonHeader.xhtml" />
+				</ui:insert>
+				<p:breadCrumb model="#{breadCrumbBean.menuModel}">
+				</p:breadCrumb>
+		    </p:layoutUnit>
+
+		    <p:layoutUnit position="west" resizable="false" size="60%">
+		    	<table style="width:100%; height:100%;">
+		    		<tr>
+		    			<td valign="top" width="35%">
+		    				<table>
+		    					<tbody>
+		    						<tr>
+		    							<td><p:outputPanel styleClass="letter"><p:outputLabel value="Cati"/></p:outputPanel></td>
+		    							<td>
+											<p:outputPanel id="dragKatCati" style="width:250px; height:40px;">
+												<p:graphicImage id="katCati"  value="#{dragDropBuildingBean.katcatiimageurl}" style="width:250px; height:40px;">
+													<p:inputText id="catiName" value="Cati" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>													
+											</p:outputPanel>						
+											<p:draggable for="dragKatCati" revert="true" helper="clone"/>							
+		    							</td>
+		    						</tr>	
+		    						<tr>
+		    							<td><p:outputPanel styleClass="letter"><p:outputLabel value="Duplex"/></p:outputPanel></td>
+		    							<td>
+											<p:outputPanel id="dragKatDuplex" style="width:250px; height:40px;">
+												<p:graphicImage id="katDuplex"  value="#{dragDropBuildingBean.katdupleximageurl}" style="width:250px; height:40px;">
+													<p:inputText id="duplexName" value="Duplex" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragKatDuplex" revert="true" helper="clone"/>
+		    							</td>
+		    						</tr>	
+		    						<tr>
+		    							<td><p:outputPanel styleClass="letter"><p:outputLabel value="Normal"/></p:outputPanel></td>
+		    							<td>
+											<p:outputPanel id="dragKatNormal" style="width:250px; height:40px;">
+												<p:graphicImage id="katNormal"  value="#{dragDropBuildingBean.katnormalimageurl}" style="width:250px; height:40px;" >
+													<p:inputText id="normalName" value="Normal" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>
+											<p:draggable for="dragKatNormal" revert="true" helper="clone"/>						
+		    							</td>
+		    						</tr>	
+		    						<tr>
+		    							<td><p:outputPanel styleClass="letter"><p:outputLabel value="Giriâ"/></p:outputPanel></td>
+		    							<td>
+											<p:outputPanel id="dragKatGiris" style="width:250px; height:40px;">
+												<p:graphicImage id="katGiris"  value="#{dragDropBuildingBean.katgirisimageurl}" style="width:250px; height:40px;" >
+													<p:inputText id="girisName" value="Giris" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragKatGiris" revert="true" helper="clone" />
+		    							</td>
+		    						</tr>	
+		    						<tr>
+		    							<td><p:outputPanel styleClass="letter"><p:outputLabel value="Bodrum"/></p:outputPanel></td>
+		    							<td>
+											<p:outputPanel id="dragKatBodrum" style="width:250px; height:40px;">
+												<p:graphicImage id="katBodrum"  value="#{dragDropBuildingBean.katbodrumimageurl}" style="width:250px; height:40px;" >
+													<p:inputText id="bodrumName" value="Bodrum" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragKatBodrum" revert="true" helper="clone"/>
+		    							</td>
+		    						</tr>	
+		    					</tbody>
+		    				</table>
+        					<br></br>
+        					<hr></hr>
+        					<br></br>
+        					<table>
+        						<tr>
+        							<td><p:outputLabel value="Project:"/></td>
+        							<td><p:inputText id="selectedProjectName" value="#{dragDropBuildingBean.selectedProject.projectName}" disabled="true"/></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel value="Building:"/></td>
+        							<td><p:inputText id="selectedBuildingName" value="#{dragDropBuildingBean.selectedBuilding.name}" disabled="true"/></td>
+        						</tr>
+        					</table>
+        					<br></br>
+        					<hr></hr>
+        					<br></br>
+        					<table>
+        						<tr>
+        							<td><p:commandButton value="Create Table " id="create" onclick="createTable()" update="msgs" icon="ui-icon-disk" /></td>
+        							<td><p:commandButton value="Save " id="save" actionListener="#{dragDropBuildingBean.saveBina}" onclick="validateIsCreateTable()" oncomplete="updateFloors()" icon="ui-icon-disk" /></td>
+        						</tr>
+        						<tr>
+        							<td><p:commandButton value="Copy to... " id="saveAs" actionListener="#{dragDropBuildingBean.saveAsBina}" onclick="validateIsCreateTable()" oncomplete="updateFloors()" icon="ui-icon-disk" /></td>
+        							<td>
+										<p:selectManyMenu id="buildingsForSaveAs" value="#{dragDropBuildingBean.selectedBuildingsForSaveAs}" style="width:125px">
+								            <f:selectItems value="#{dragDropBuildingBean.buildings}" var="building" itemLabel="#{building.name}" itemValue="#{building.id}"/>
+			        					</p:selectManyMenu>
+									</td>
+        						</tr>
+        					</table>        					        					
+		    			</td>
+		    			<td  width="2%">
+		    				<div class="vr"></div> <!-- this div is use to create vertical line between draggable and droppable section -->
+		    			</td>
+		    			<td valign="top" width="63%">
+							<p:outputPanel  id="droppablePanel" layout="block" style="width: 700px; height: 700px; border: 1px solid black;background-image: url('../resources/images/Matrix.jpg');">
+							</p:outputPanel>
+							<p:droppable for="droppablePanel" onDrop="createClone" ></p:droppable>
+		    			</td>
+		    		</tr>
+		    	</table>
+		    </p:layoutUnit>
+
+		    <p:layoutUnit position="center" resizable="false" size="40%">
+		        <p:dataTable id="selectedBuildingFloors" var="floor" value="#{dragDropBuildingBean.floorsFromDb}"  rowStyleClass="rowColor" style="overflow-x: hidden; overflow-y: auto; height:500px;">
+				    <p:column>
+				    	<f:facet name="header">ID</f:facet>
+				        <h:outputText value="#{floor.id}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Floor Name</f:facet>
+				        <h:outputText value="#{floor.name}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Floor Type</f:facet>
+				        <h:outputText value="#{floor.imageType}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">X-Axis (top)</f:facet>
+				        <h:outputText value="#{floor.imageTop}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Y-Axis (left)</f:facet>
+				        <h:outputText value="#{floor.imageLeft}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Width</f:facet>
+				        <h:outputText value="#{floor.imageWidth}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Height</f:facet>
+				        <h:outputText value="#{floor.imageHeight}" />
+				    </p:column>	
+				    <p:column>
+				        <f:facet name="header">Status</f:facet>
+				        <h:outputText value="#{floor.status}" />
+				    </p:column>				
+				</p:dataTable>
+		    </p:layoutUnit>
+
+		</p:layout>		
+		
+		<h:inputHidden id="hiddenCreateTable" value="#{dragDropBuildingBean.isCreateTable}" />
+
+		<p:remoteCommand name="goToSelectedFloor" action="#{dragDropBuildingBean.goToSelectedFloor}" />
+		<p:remoteCommand name="command" action="#{dragDropBuildingBean.setFloorsList}" />
+		<p:remoteCommand name="setIsCreateTableVar"  action="#{dragDropBuildingBean.setIsCreateTableVar}" />
+		<p:remoteCommand name="deleteTmpFloorFromFloors" action="#{dragDropBuildingBean.deleteTmpFloorFromFloors}" />							
+	</h:form>
+	
+</h:body>
+
+<h:outputScript>
+
+	var isDragDropEventOccured = true;	//variable is use to check whether any drag drop event is occured or not.
+	
+	//Following function is used to delete selected Image while press 'Delete' key.
+	$(document).ready(function() {
+	
+		$('html').click(function(e){
+		e = e|| event;
+		$.lastClicked = e.target || e.srcElement;
+		});	
+		
+		$('html').keyup(function(e){
+			if(e.keyCode == 46) {
+				if($.lastClicked != undefined &amp;&amp; !($($.lastClicked).hasClass('safe'))){
+					if($($.lastClicked).parent().parent().hasClass('ui-outputpanel')){
+	                    var hiddenTag = $($.lastClicked).parent().parent().find('input:hidden');
+	                    var deletedfloorDatabaseId = "";	                    
+	           			if(hiddenTag != null){
+	           				deletedfloorDatabaseId = $(hiddenTag).attr('value');
+	           			}
+						var dltTmpFloorDivId = $($.lastClicked).parent().parent().attr('id'); 	           			
+	           			deleteTmpFloorFromFloors( [ { name: 'dltTmpFloorDivId', value: dltTmpFloorDivId } , { name: 'deletedfloorDatabaseId', value: deletedfloorDatabaseId } ] ); <!-- This will send command to bean to remove deleted element from list -->
+	           			
+						$($.lastClicked).parent().parent().remove();
+						isDragDropEventOccured = true;
+						$("#mainForm\\:hiddenCreateTable").attr('value',false);
+					}
+				}
+			}
+		});
+		
+		getFloors();
+		
+	});
+	
+		var roofCount = 1;
+		var duplexCount = 1;
+		var normalCount = 1;
+		var groundCount = 1;
+		var basementCount = 1;
+		
+		//Following function is used to creat clone of dragged image. 
+		function createClone(event,ui){
+			
+			ui.helper.remove();	
+			var cloned = $(ui.helper).clone();
+			var imageId =  $(ui.draggable)[0].id;
+
+			if(cloned.attr('id') == undefined){
+				var defaultName = '';
+									
+				if(imageId.indexOf("Cati") > -1){
+					cloned.attr('id',imageId+roofCount);
+					defaultName = cloned.find("input").attr('value') + roofCount;
+					roofCount+=1;
+				}else if(imageId.indexOf("Duplex") > -1){
+					cloned.attr('id',imageId+duplexCount);
+					defaultName = cloned.find("input").attr('value') + duplexCount;
+					duplexCount+=1;
+				}else if(imageId.indexOf("Normal") > -1){
+					cloned.attr('id',imageId+normalCount);
+					defaultName = cloned.find("input").attr('value') + normalCount;
+					normalCount+=1;
+				}else if(imageId.indexOf("Giris") > -1){
+					cloned.attr('id',imageId+groundCount);
+					defaultName = cloned.find("input").attr('value') + groundCount;
+					groundCount+=1;
+				}else if(imageId.indexOf("Bodrum") > -1){
+					cloned.attr('id',imageId+basementCount);
+					defaultName = cloned.find("input").attr('value') + basementCount;
+					basementCount+=1;
+				}
+				cloned.find("input").attr('value',defaultName).show();			
+			}
+			
+			cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+			var temp = cloned.first();
+			
+			$("#mainForm\\:droppablePanel").append(temp);
+			cloned.find('.letter').remove();
+			
+			$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+				$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+			})
+			
+			cloned.find("img").resizable({
+				containment:'#mainForm\\:droppablePanel'
+			});	
+			
+			$.lastClicked = temp.find( "img" );		
+			$("#mainForm\\:hiddenCreateTable").attr('value',false);
+			isDragDropEventOccured = true;
+		}
+		
+		//Following function is set table data with backend bean using remote command to set Floors data. 
+		function createTable(){		
+			var childNodes = $("#mainForm\\:droppablePanel").children();
+			var count = childNodes.length;
+			var i=0;
+			var floorList=''; 
+
+			if(count==0){
+				alert('No Building structure created!');
+			} else {
+				$("#mainForm\\:selectedBuildingFloors_data > tr").remove();
+				 for (var i = 0; i &lt; count; i++) {
+	                var e = childNodes[i].nodeName;
+                	var subParent = childNodes[i].childNodes;
+                    var inputType = subParent[0];
+                    var childDiv = subParent[1];
+                    
+                    var floorName = $(inputType).val();
+                    var imgWidth = $(childDiv).css('width'); 
+                    var imgHeight = $(childDiv).css('height');
+                    var imgTop = $(childNodes[i]).css('top');
+                    var imgLeft = $(childNodes[i]).css('left');
+                    var imgId = $(childNodes[i]).attr('id');
+                    
+			       imgWidth = parseInt(imgWidth.substring(0,imgWidth.indexOf("px")));
+			       imgHeight = parseInt(imgHeight.substring(0,imgHeight.indexOf("px")));
+			       imgTop = parseInt(imgTop.substring(0,imgTop.indexOf("px")));
+			       imgLeft = parseInt(imgLeft.substring(0,imgLeft.indexOf("px")));                   
+
+                    var hiddenParent = document.getElementById(imgId);
+                    var hiddenTag = $(hiddenParent).find('input:hidden');
+                    var floorId = "";
+           			if(hiddenTag != null){
+           				floorId = $(hiddenTag).val();
+           			 	if(floorId == undefined){
+           			 		floorId = "";
+           			 	}
+           			}
+                    
+					var imgType = "";
+					if(imgId.indexOf("Cati") > -1){
+						imgType = "Cati";
+					}else if(imgId.indexOf("Duplex") > -1){
+						imgType = "Duplex";
+					}else if(imgId.indexOf("Normal") > -1){
+						imgType = "Normal";;
+					}else if(imgId.indexOf("Giris") > -1){
+						imgType = "Giris";
+					}else if(imgId.indexOf("Bodrum") > -1){
+						imgType = "Bodrum";
+					}
+			
+                    createRow(floorId,floorName,imgType,imgTop,imgLeft,imgWidth,imgHeight);
+
+                    if(isDragDropEventOccured == true){
+						var rowData =    '{ \"imageDivId\": \"' + imgId 
+								  + '\" , \"width\": \"' + imgWidth
+								  + '\" , \"height\": \"' + imgHeight
+								  + '\" , \"top\": \"' + imgTop
+								  + '\" , \"left\": \"' + imgLeft
+								  + '\" , \"imageType\": \"' + imgType
+								  + '\" , \"floorId\": \"' + floorId
+								  + '\" , \"floorName\": \"' + floorName
+								  + '\" } '; 			
+						if(floorList == ""){
+							floorList = rowData;
+						} else {
+							floorList = floorList + ', ' + rowData;
+						}                      	
+                    }
+	           }
+	           
+	           floorList = "[ " + floorList + "]";
+	           command( [ { name: 'floorList', value: floorList } ] );
+	            
+            }
+		   $("#mainForm\\:hiddenCreateTable").attr('value',true);
+           isDragDropEventOccured = false;	
+
+	       $("#mainForm\\:catiName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:duplexName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:normalName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:girisName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:bodrumName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+		}
+		
+		//Following function is set table-row data with to set Floor data : called from createTable().
+		function createRow(objId,name,imgType,imgTop,imgLeft,imgWidth,imgHeight){
+		
+			var currentdate = new Date(); 
+			var datetime =  currentdate.getFullYear() + "-"
+                + (currentdate.getMonth()+1)  + "-" 
+                + currentdate.getDate() + " "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();	
+	
+			var newRow = $("<tr>");
+			var cols = "";
+	        cols += '<td>'+objId+'</td>';
+	        cols += '<td>'+name+'</td>';
+	        cols += '<td>'+imgType+'</td>';
+	        cols += '<td>'+imgTop+'</td>';
+	        cols += '<td>'+imgLeft+'</td>';
+	        cols += '<td>'+imgWidth+'</td>';
+	        cols += '<td>'+imgHeight+'</td>';
+	        cols += '<td>0</td>';
+	        cols += '</tr>';
+	        newRow.append(cols);
+	        
+	        $("#mainForm\\:selectedBuildingFloors_data").append(newRow);
+	        
+		}
+	
+		//Following function is used to set Floors data having status=0 while loading the page.
+		function getFloors(){	
+			$("#mainForm\\:droppablePanel").empty();
+			
+			var childNodes = $("#mainForm\\:selectedBuildingFloors_data").children();
+			var noOfRows = childNodes.length;
+			var i=0; 
+			
+			var floorId = 0
+			var floorName = '';
+			var floorType = '';
+	        var imgWidth = 0; 
+	        var imgHeight = 0;
+	        var imgTop = 0;
+	        var imgLeft = 0;
+	        var imgId = 0;		 
+	        var status = 0;
+
+			roofCount = 1;
+			duplexCount = 1;
+			normalCount = 1;
+			groundCount = 1;
+			basementCount = 1;
+             
+			for (var i = 0; i &lt; noOfRows; i++) {			               	
+               	var row = childNodes[i].childNodes;
+                floorId	= row[0].innerHTML; 
+                
+                if(floorId == 'No records found.'){                	
+                	break;                	
+                } else {
+                
+	                floorName  	=  row[1].innerHTML; 
+	                floorType 	=  row[2].innerHTML; 
+	                imgTop 		=  row[3].innerHTML.indexOf('px') > 0 ? row[3].innerHTML : row[3].innerHTML+'px'; 
+	                imgLeft 	=  row[4].innerHTML.indexOf('px') > 0 ? row[4].innerHTML : row[4].innerHTML+'px';
+	                imgWidth 	=  row[5].innerHTML.indexOf('px') > 0 ? row[5].innerHTML : row[5].innerHTML+'px';
+	                imgHeight 	=  row[6].innerHTML.indexOf('px') > 0 ? row[6].innerHTML : row[6].innerHTML+'px';
+	                status 		=  row[7].innerHTML;
+	
+	                if(status=='0'){
+	                
+		               	var cloned = $("#mainForm\\:dragKat"+floorType).clone();
+		               	
+		              	if(floorType.indexOf("Cati") > -1){		              	
+							
+							cloned.attr('id','mainForm:dragKat'+floorType+roofCount);
+							roofCount = roofCount + 1;
+							
+						}else if(floorType.indexOf("Duplex") > -1){
+						
+							cloned.attr('id','mainForm:dragKat'+floorType+duplexCount);
+							duplexCount = duplexCount + 1;
+							
+						}else if(floorType.indexOf("Normal") > -1){
+						
+							cloned.attr('id','mainForm:dragKat'+floorType+normalCount);
+							normalCount = normalCount + 1;
+							
+						}else if(floorType.indexOf("Giris") > -1){
+						
+							cloned.attr('id','mainForm:dragKat'+floorType+groundCount);
+							groundCount = groundCount + 1;
+							
+						}else if(floorType.indexOf("Bodrum") > -1){
+						
+							cloned.attr('id','mainForm:dragKat'+floorType+basementCount);
+							basementCount = basementCount+ 1;
+							
+						}
+		
+						cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+						var temp = cloned.first();
+						cloned.find("input").attr('value',floorName).show();
+						$('<input></input>').attr('type','hidden').attr('value',floorId).appendTo(temp);
+						$("#mainForm\\:droppablePanel").append(temp);
+						cloned.find('.letter').remove();
+		
+						$(cloned).resize(function () {
+					      isDragDropEventOccured = true;
+					     });
+	
+						$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+							$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+						})
+						
+		               	cloned.css('position','absolute');
+						cloned.css('top',imgTop).css('left',imgLeft);
+						
+						cloned.find("img").resizable({
+							containment:'#mainForm\\:droppablePanel'
+						}).css('width',imgWidth).css('height',imgHeight);		
+						
+						cloned.find("img").parent().css('width',imgWidth).css('height',imgHeight);	
+						cloned.find("img").attr('ondblclick',"goToFloor("+floorId+")");
+						$.lastClicked = temp.find( "img" );		
+	               	}                                
+                }
+			}
+			
+			for (var i = 0; i &lt; noOfRows; i++) {
+	            var row = childNodes[i].childNodes;
+          		floorId = row[0].innerHTML;					
+				if(floorId == 'No records found.') {
+					break;
+				} else {
+	                status 	= row[7].innerHTML;
+	                if(status=='1'){
+	                	childNodes[i].remove();
+	                }				
+				}                	
+           }	
+
+	       $("#mainForm\\:catiName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:duplexName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:normalName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:girisName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:bodrumName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	
+			isDragDropEventOccured = true;
+		
+		} 
+	
+		//Following function is used to go to Floor Page with given floor id.
+		function goToFloor(floorId){
+			$("#mainForm\\:selectedFloorId").attr('value',floorId);
+			goToSelectedFloor( [ { name: 'selectedFloorId', value: floorId }] );
+		}
+		
+		function updateFloors(){		
+			if($("#mainForm\\:hiddenCreateTable").val() == 'true'){
+				$("#mainForm\\:hiddenCreateTable").attr('value',false);
+				getFloors();
+			}		
+		}
+		
+		function validateIsCreateTable(){
+				var hiddenCreateTableVal = $("#mainForm\\:hiddenCreateTable").val();
+				setIsCreateTableVar( [ { name: 'hiddenCreateTableVal', value: hiddenCreateTableVal } ] );
+		}
+	
+</h:outputScript>
+</html>

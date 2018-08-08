@@ -1,0 +1,17 @@
+<project>
+
+	<property name="project.name" value="epooq" />
+	<property name="ant.dir" value="../ant" />
+
+	<path id="extra.class.path" >
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<import file="${ant.dir}/target/clean.xml" />
+	<import file="${ant.dir}/target/compile.xml" />
+	<import file="${ant.dir}/target/war.xml" />
+	<import file="${ant.dir}/target/defaults.xml" />
+
+</project>

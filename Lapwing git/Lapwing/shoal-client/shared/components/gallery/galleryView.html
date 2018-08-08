@@ -1,0 +1,6 @@
+<img class="img-responsive" ng-src="{{ gallery.mainImage.url }}" name="{{ gallery.mainImage.description }}" alt="{{ gallery.mainImage.description }}" />
+<div class="row">
+    <div class="col-xs-4" ng-repeat="thumb in gallery.thumbnails">
+        <img ng-click="gallery.changeImage(thumb)" class="img-responsive img-thumbnail" ng-src="{{ thumb.url }}" alt="{{ thumb.description }}" />
+    </div>
+</div>

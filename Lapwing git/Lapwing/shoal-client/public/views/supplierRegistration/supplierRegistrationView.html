@@ -1,0 +1,284 @@
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="modal-content" id="savedRegistration"
+	ng-hide="vm.registrationForm.isSaved">
+	<div class="modal-header">
+		<h5 class="modal-title">Register for your Supplier Silverwing account</h5>
+		<a href="#" class="close" ng-click="vm.close()"><img
+			src="../app/images/popup-close.png" alt="" /></a>
+	</div>
+	<div class="modal-body">
+		<p class="info">
+			<i class="star">*</i>denotes a required field
+		</p>
+		<form class="row" id="registrationForm" name="registrationForm"
+			sho-mark-required-fields role="form" class="form-horizontal"
+			ng-submit="registrationForm.$valid && vm.save()">
+			<div class="col-sm-6">
+				<div class="form-group" sho-highlight-errors>
+					<label>First Name</label> <input type="text" class="form-control"
+						name="forename" ng-model="vm.registrationForm.buyer.firstName"
+						required />
+					<div class="help-block"
+						ng-messages="registrationForm.forename.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter your first name.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group" sho-highlight-errors>
+					<label>Last Name</label> <input type="text" class="form-control"
+						name="surname" ng-model="vm.registrationForm.buyer.surname"
+						required />
+					<div class="help-block"
+						ng-messages="registrationForm.surname.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter your surname.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="form-group" sho-highlight-errors>
+					<label>Company</label> <input type="text" class="form-control"
+						name="organisation_name"
+						ng-model="vm.registrationForm.organisation.name" required />
+					<div class="help-block"
+						ng-messages="registrationForm.organisation_name.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter your organisation's name.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group" sho-highlight-errors>
+					<label>Company Number</label> <input type="text"
+						class="form-control" name="organisation_reg_number"
+						ng-model="vm.registrationForm.organisation.registrationNumber"
+						sho-company-reg required />
+					<div class="help-block"
+						ng-messages="registrationForm.organisation_reg_number.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter your organisation's unique
+								registration number.</small>
+						</p>
+						<p ng-message="companyReg" class="text-danger">
+							<small>Please enter a valid company registration number.
+								This is up to an 8 digit number (do not include leading zeros),
+								or 2 alpha characters followed by a 6 digit number.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group" sho-highlight-errors>
+					<label>Mobile Number</label>
+					<!-- <div class="input-group"> -->
+					<!-- <span class="input-group-addon">
+										<select class="form-control" ng-model="countryCode" ng-options="country for country in Codelist | orderBy:'country'">
+											<option>{{country}}</option>
+										</select>
+									</span> -->
+					<input type="text" class="form-control"
+						name="organisation_mobile_number"
+						ng-model="vm.registrationForm.organisation.mobileNumber" required
+						integer ng-minlength="11" ng-maxlength="15" />
+					<div class="help-block"
+						ng-messages="registrationForm.organisation_mobile_number.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter the primary mobile number.</small>
+						</p>
+						<p ng-message="integer" class="text-danger">
+							<small>Please enter a valid mobile number.</small>
+						</p>
+						<p ng-message="maxlength" class="text-danger">
+							<small>The mobile number entered is too long. It should
+								be less than 15 digits long with no spaces or country codes(ie
+								+44).</small>
+						</p>
+						<p ng-message="minlength" class="text-danger">
+							<small>The mobile number entered is too short. It should
+								be more than 11 digits long with no spaces or country codes(ie
+								+44).</small>
+						</p>
+					</div>
+				</div>
+				<!-- </div> -->
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group" sho-highlight-errors>
+					<label>Email address</label> <input type="email"
+						class="form-control" name="emailAddress" autocomplete="off"
+						ng-model="vm.registrationForm.buyer.emailAddress" ng-cut="$event.preventDefault()" ng-copy="$event.preventDefault()" ng-paste="$event.preventDefault()" required />
+					<div class="help-block"
+						ng-messages="registrationForm.emailAddress.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter the email address for your account.</small>
+						</p>
+						<p ng-message="email" class="text-danger">
+							<small>Please ensure your email address is valid.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group" sho-highlight-errors>
+					<label>Confirm Email address</label> <input type="email" autocomplete="off"
+						class="form-control" name="confirmEmailAddress" ng-cut="$event.preventDefault()" ng-copy="$event.preventDefault()" ng-paste="$event.preventDefault()"
+						ng-model="confirmEmailAddress" required />
+					<div class="help-block"
+						ng-messages="registrationForm.confirmEmailAddress.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter the confirm email address for your
+								account.</small>
+						</p>
+					</div>
+					<p
+						ng-show="vm.registrationForm.buyer.emailAddress != confirmEmailAddress && confirmEmailAddress != null"
+						class="text-danger">
+						<small>Your email and confirm email must be same</small>
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group" sho-highlight-errors>
+					<label>Password</label> <input type="password" class="form-control" ng-cut="$event.preventDefault()" ng-copy="$event.preventDefault()" ng-paste="$event.preventDefault()" autocomplete="off"
+						name="password" ng-model="vm.registrationForm.buyer.password"
+						required sho-password />
+					<div class="help-block"
+						ng-messages="registrationForm.password.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter your chosen password.</small>
+						</p>
+						<p ng-message="password" class="text-danger">
+							<small>Please ensure your password meets the criteria
+								below.</small>
+						</p>
+					</div>
+					<span class="help-block"><small>Passwords must be
+							between 8 and 20 characters long and must include at least one
+							lowercase letter, one uppercase letter, one digit and one special
+							character.</small></span>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group" sho-highlight-errors>
+					<label>Confirm Password</label> <input type="password" ng-cut="$event.preventDefault()" ng-copy="$event.preventDefault()" ng-paste="$event.preventDefault()" autocomplete="off"
+						class="form-control" name="confirmPassword"
+						ng-model="confirmPassword" required sho-password />
+					<div class="help-block"
+						ng-messages="registrationForm.confirmPassword.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please re-enter your chosen password.</small>
+						</p>
+					</div>
+					<p ng-show="vm.registrationForm.buyer.password != confirmPassword"
+						class="text-danger">
+						<small>Your password and confirm password must be same.</small>
+					</p>
+				</div>
+			</div>
+
+			<div class="col-sm-12">
+				<div class="form-group" sho-highlight-errors>
+					<label class="info-btn-outer">Westcoast Customer Account
+						Number <span>(existing Westcoast customers only)</span><a href="#"
+						title="Info goes here" data-toggle="tooltip" data-placement="left"
+						class="info-btn" tabindex="-1"><img
+							src="../app/images/info-icon.png" alt=""></a>
+					</label> <input type="password" class="form-control"
+						ng-model="vm.registrationForm.buyer.westcoastAccountNumber"
+						name="westcoastAccountNumber" integer ng-minlength="10"
+						ng-maxlength="15" />
+					<div class="help-block"
+						ng-messages="registrationForm.westcoastAccountNumber.$error">
+						<p ng-message="maxlength" class="text-danger">
+							<small>The Westcoast Customer Account Number entered is
+								too long. It should be less than 15 digits.</small>
+						</p>
+						<p ng-message="integer" class="text-danger">
+							<small>Please enter a valid Westcoast Customer Account
+								Number.</small>
+						</p>
+						<p ng-message="minlength" class="text-danger">
+							<small>The Westcoast Customer Account Number entered is
+								too short. It should be more than 10 digits.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="form-group" sho-highlight-errors>
+					<label class="info-btn-outer">Silverwing Account number <span>(existing
+							Silverwing customer only)</span><a href="#" title="Info goes here"
+						data-toggle="tooltip" data-placement="left" class="info-btn"
+						tabindex="-1"><img src="../app/images/info-icon.png" alt=""></a></label>
+					<input type="password" class="form-control"
+						ng-model="vm.registrationForm.buyer.lapwingAccountNumber"
+						name="lapwingAccountNumber" integer ng-minlength="5"
+						ng-maxlength="8" />
+					<div class="help-block"
+						ng-messages="registrationForm.lapwingAccountNumber.$error">
+						<p ng-message="maxlength" class="text-danger">
+							<small>The Silverwing Account number entered is too long. It
+								should be less than 5 digits.</small>
+						</p>
+						<p ng-message="integer" class="text-danger">
+							<small>Please enter a valid Silverwing Account number.</small>
+						</p>
+						<p ng-message="minlength" class="text-danger">
+							<small>The Silverwing Account number entered is too short.
+								It should be more than 8 digits.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12" ng-hide="true">
+				<label class="info-btn-outer">Apply For </label> <input type="text"
+					class="form-control"
+					ng-model="vm.registrationForm.buyer.appliedFor = 'SUPPLIER' " />
+			</div>
+
+			<div class="col-sm-12">
+				<div class="checkbox">
+					<input type="checkbox" id="checkbox1"
+						ng-model="termsAndCondition.isSelected" checked="checked" /> <label
+						for="checkbox1">I have read and understood <a href="#"
+						title="T&amp;Cs">T&amp;Cs</a> and <a href="#"
+						title="privacy policy">privacy policy</a></label>
+				</div>
+			</div>
+			<div class="g-recaptcha" data-sitekey=" "></div>
+			<script src='https://www.google.com/recaptcha/api.js'></script>
+			<div class="col-sm-12">
+				<!-- <div class="form-group">
+								<img src="../app/images/captcha.jpg" alt="">
+							</div>
+ -->
+			</div>
+			<div class="col-md-12">
+				<button type="submit" class="btn btn-primary btn-lg"
+					ng-disabled="(!termsAndCondition.isSelected) || (!registrationForm.$valid)"
+					sho-validate-on-click class="btn btn-primary btn-block">Register</button>
+				&nbsp;
+				<button class="btn btn-default btn-lg" ng-click="vm.close()">Cancel</button>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="modal-content" id="savedRegistration"
+	ng-show="vm.registrationForm.isSaved">
+	<h2 class="text-center">Thank You</h2>
+	<p>Your registration request has been submitted for processing.</p>
+	<p>Once one of the team has approved your details you will be sent
+		a confirmation email with a link inviting you to view the site. You
+		will need your email address and the password you used to register, so
+		please keep a note of these details.</p>
+	<p>Thank you for your interest in .</p>
+</div>
+<!--     </div>
+    </div>
+</div> -->

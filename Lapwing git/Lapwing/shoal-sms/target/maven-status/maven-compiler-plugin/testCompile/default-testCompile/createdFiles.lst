@@ -1,0 +1,4 @@
+com\ishoal\sms\fake\FakeSmsService.class
+com\ishoal\sms\dummy\LoggingSmsServiceTest.class
+com\ishoal\sms\textmagic\TextMagicSmsServiceTest.class
+com\ishoal\sms\config\ShoalSmsTestConfiguration.class

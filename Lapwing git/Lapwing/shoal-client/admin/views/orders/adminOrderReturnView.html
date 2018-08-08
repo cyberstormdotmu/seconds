@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h3 class="modal-title">Order Return Record</h3>
+</div>
+<div class="modal-body">
+    <form class="row" id="adminOrderReturnQuantity" name="adminOrderReturnQuantity" sho-mark-required-fields role="form" class="form-horizontal">
+        <div class="row">
+            <div class="col-sm-2"><p class="text-right"><strong>Quantity:</strong><label class="requiredRed">*<label></p></div>
+            <div class="col-sm-3 form-group" sho-highlight-errors>
+                <div class="input-group">
+                    <input type="number" name="amount" class="form-control" ng-model="vm.returnQuantity.quantity" min="1" max="{{vm.quantity - vm.alreadyReturnedQuantity}}" required ng-required="true" placeholder="{{ vm.quantity - vm.alreadyReturnedQuantity }}"/>
+                </div>
+                <div class="help-block" ng-messages="adminOrderReturnQuantity.amount.$error">
+                    <p ng-message="required" class="text-danger">
+                        <small>Please enter your Quantity.</small>
+                    </p>
+                    <p ng-message="min" class="text-danger">
+                        <small>Quantity cannot be less than 1.</small>
+                    </p>
+                    <p ng-message="max" class="text-danger">
+                        <small>Quantity cannot be greter than {{ vm.quantity - vm.alreadyReturnedQuantity }}.</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-disabled="!adminOrderReturnQuantity.$valid" type="submit" ng-click="vm.ok()">OK</button>
+    <button class="btn btn-danger" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

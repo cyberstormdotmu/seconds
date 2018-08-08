@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="toolbarform">
+
+		<!--  <p:growl id="messages" />   -->
+		<p:remoteCommand name="onclickpassparam"
+			actionListener="#{distributionLineBean.pageClean()}" />
+		<p:menubar autoDisplay="false">
+			<p:submenu label="Projeler" icon="ui-icon-flag">
+				<!-- 				<p:menuitem value="Proje Kurulum" icon="ui-icon-flag" -->
+				<!-- 					url="/pages/projectInstallation.jsf" /> -->
+				<p:menuitem value="Projeler" icon="ui-icon-flag"
+					url="/pages/projects.jsf" />
+			</p:submenu>
+
+			<p:menuitem value="Dağıtım Hatları" icon="ui-icon-arrow-4-diag"
+				outcome="distributionLines" onclick="onclickpassparam()">
+				<f:param name="projectbean" value="20" />
+			</p:menuitem>
+
+			<p:menuitem value="Binalar" icon="ui-icon-home"
+				url="/pages/buildings.jsf" />
+
+			<p:menuitem value="Daireler" icon="ui-icon-flag"
+				url="/pages/flats.jsf" />
+
+			<p:menuitem value="Odalar" icon="ui-icon-flag" url="/pages/rooms.jsf" />
+
+			<p:menuitem value="Pay Ölçerler" icon="ui-icon-flag"
+				outcome="allocatorRadiators" />
+
+			<p:menuitem value="Pay Ölçerler Değerleri" icon="ui-icon-flag"
+				outcome="allocatorReadings" />
+
+			<p:menuitem value="Okuma Yükleme" icon="ui-icon-flag"
+				url="/pages/readingUpload.jsf" />
+
+			<p:menuitem value="Raporlama" icon="ui-icon-flag"
+				url="/pages/reporting.jsf" />
+
+			<p:menuitem value="Faturalar" icon="ui-icon-flag"
+				url="/pages/bills.jsf" />
+
+			<!-- Added for testing purpose -->
+			<p:menuitem value="Drag Drop" icon="ui-icon-arrow-4-diag"
+				url="/pages/dragDropProject.xhtml" />
+
+
+			<f:facet name="options">
+				<p:commandButton type="button" value="Raporlama"
+					icon="ui-icon-extlink" url="/pages/rooms.jsf" />
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
+
+</ui:composition>

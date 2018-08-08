@@ -1,0 +1,18 @@
+INSERT INTO ORGANISATIONS(NAME, REGISTRATION_NUMBER,INDUSTRY,NUMBER_OF_EMPLOYEES) VALUES ('Shoal Demo Org', '12345678','telecom','1000');
+
+INSERT INTO USERS(USER_NAME, PASSWORD, FORENAME, SURNAME, ORGANISATION_ID)
+VALUES ('demo@the-shoal.com', '$2a$10$d5fTz.bSZ.qWSNGOxB2hferRyv8vyERrrRUo/mcy1M36sPNqGpGji', 'Demo', 'User', currval('organisations_id_seq'));
+
+INSERT INTO USER_ROLES(USER_ID, ROLE_ID) VALUES (currval('users_id_seq'), 'BUYER');
+
+INSERT INTO CONTACTS(TITLE, FIRSTNAME, SURNAME, EMAIL_ADDRESS, PHONE_NUMBER)
+VALUES ('Mr', 'Shoal', 'Demo', 'demo@the-shoal.com', '0113 9876543');
+
+INSERT INTO ADDRESSES(DEPARTMENT_NAME, BUILDING_NAME, STREET_ADDRESS, LOCALITY, POST_TOWN, POSTCODE)
+VALUES ('Sales', 'Shoal Demo Ltd', 'High Street', 'Bramham', 'Wetherby', 'LS23 6QR');
+
+INSERT INTO BANK_ACCOUNTS(ACCOUNT_NAME, SORTCODE, ACCOUNT_NUMBER, BANK_NAME, BUILDING_NAME, STREET_ADDRESS, LOCALITY, POST_TOWN, POST_CODE)
+VALUES ('Shoal Demo Ltd', '11-22-33', '12345678', 'HSBC', 'Bank House', 'High Street', 'Bramham', 'Wetherby', 'LS23 6QR');
+
+INSERT INTO BUYER_PROFILES (USER_ID, ORGANISATION_ID, CONTACT_ID, DELIVERY_ADDRESS_ID, BANK_ACCOUNT_ID, COMPLETED, VERSION)
+VALUES (currval('users_id_seq'), currval('organisations_id_seq'), currval('contacts_id_seq'), currval('addresses_id_seq'), currval('bank_accounts_id_seq'), TRUE, 1);

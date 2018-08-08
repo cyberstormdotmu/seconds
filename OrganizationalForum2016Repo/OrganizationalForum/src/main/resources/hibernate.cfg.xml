@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://192.168.20.152:3306/orgnizational_forum</property>
+		<property name="hibernate.connection.username">dhaval</property>
+		<property name="hibernate.connection.password">dhaval</property>
+		<!-- Hibernate Database connection dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<!-- Display SQL in console -->
+		<property name="show_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">validate</property>
+		
+		<!-- Mapping Entity here -->
+		<mapping class="com.tatvasoft.entity.UserEntity" />
+		<mapping class="com.tatvasoft.entity.RoleEntity" />
+		<mapping class="com.tatvasoft.entity.CategoryEntity" />
+		<mapping class="com.tatvasoft.entity.AnswerEntity" />
+		<mapping class="com.tatvasoft.entity.PostEntity" />
+		<mapping class="com.tatvasoft.entity.VoteEntity" />
+		
+		
+	</session-factory>
+</hibernate-configuration>

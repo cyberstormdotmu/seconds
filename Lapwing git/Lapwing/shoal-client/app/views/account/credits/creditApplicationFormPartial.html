@@ -1,0 +1,914 @@
+<div id="credit-application-form-partial" ng-hide="true">
+	<div class="row">
+		<div class="col-xs-12">
+			<h3 data-ng-show="vm.creditApplication.isSaved">Thank you for
+				filling credit application form.Your credit application form is
+				submitted Successfully.</h3>
+			<h3
+				data-ng-show="vm.creditApplication.isCompleted && vm.creditApplication.isError">Error
+				saving credit information.Please try after sometime.</h3>
+			<h1 data-ng-hide="vm.creditApplication.isCompleted">Credit
+				Application Form</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Account Application for Limited Companies and Limited
+				Liability Parternership</h3>
+		</div>
+	</div>
+	<div class="row"
+		data-ng-show="!vm.creditApplication.isCompleted || isCreditApplicationFormCookied">
+		<div class="col-xs-12">
+			<form id="creditApplicationForm" class="form-horizontal"
+				data-sho-mark-required-fields role="form"
+				name="creditApplicationForm">
+				<p class="info">
+					<i class="sho-required-field-icon">*</i> Denotes a required field
+				</p>
+				<p data-ng-hide="vm.creditApplication.isCompleted">
+					Note: <label style="color: red">Please Save Your form as
+						Save as Draft before moving another pages, otherwise data will be
+						lost</label>
+				</p>
+				<fieldset>
+					<legend>Account Details</legend>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Company Name:</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm"
+								name="company_name" data-ng-maxlength="64"
+								data-ng-pattern="/^[a-zA-Z0-9-.\s]*$/"
+								data-ng-model="vm.creditApplication.form.companyName"
+								ng-init="vm.creditApplication.form.companyName = creditFormCompanyName"
+								autofocus required />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.company_name.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the name of your Company.</small>
+								</p>
+								<p data-ng-message="maxlength" class="text-danger">
+									<small>Maximun Company Name length required is 64
+										characters only.</small>
+								</p>
+								<p data-ng-message="pattern" class="text-danger">
+									<small>Enter Valid Company Name using A-Z,a-z,0-9,.,-
+										characters only.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Trading as:</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm"
+								name="trading_as" data-ng-maxlength="64"
+								data-ng-pattern="/^[a-zA-Z0-9-.\s]*$/"
+								data-ng-model="vm.creditApplication.form.tradingAs"
+								ng-init="vm.creditApplication.form.tradingAs = creditFormTradingAs"
+								autofocus required />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.trading_as.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the name of your Trading.</small>
+								</p>
+								<p data-ng-message="maxlength" class="text-danger">
+									<small>Maximun Trading Name length required is 64
+										characters only.</small>
+								</p>
+								<p data-ng-message="pattern" class="text-danger">
+									<small>Enter Valid Trading Name using A-Z,a-z,0-9,.,-
+										characters only.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Invoice Address:</label>
+						<div class="col-xs-8">
+							<select class="form-control"
+								data-ng-model="vm.creditApplication.form.invoiceAddress"
+								name="invoice_address"
+								ng-init="vm.creditApplication.form.invoiceAddress = creditFormInvoiceAddress"
+								required data-ng-change="vm.selectInvoiceAddress();">
+								<option selected="selected" value="">--Select--</option>
+								<option data-ng-repeat="(key, address) in vm.addresses"
+									value="{{key}}">{{ address.departmentName }}</option>
+							</select>
+							<div class="pull-right">
+								<button type="button" ng-click="vm.openNewAddAddressModal()">
+									<span class="fa fa-plus fa-2"> </span>
+								</button>
+							</div>
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.invoice_address.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please select Invoice address</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-8 col-xs-offset-4">
+							<div data-ng-if="vm.selectedInvoiceAddress.departmentName">
+								<b><span>Department</span></b> : <span
+									data-ng-bind="vm.selectedInvoiceAddress.departmentName"></span>
+							</div>
+							<div data-ng-if="vm.selectedInvoiceAddress.organisationName">
+								<b><span>Organisation</span></b> : <span
+									data-ng-bind="vm.selectedInvoiceAddress.organisationName"></span>
+							</div>
+							<div data-ng-if="vm.selectedInvoiceAddress.buildingName">
+								<b><span>Building Name</span></b> : <span
+									data-ng-bind="vm.selectedInvoiceAddress.buildingName"></span>
+							</div>
+							<div data-ng-if="vm.selectedInvoiceAddress.streetAddress">
+								<b><span>Street</span></b> : <span
+									data-ng-bind="vm.selectedInvoiceAddress.streetAddress"></span>
+							</div>
+							<div data-ng-if="vm.selectedInvoiceAddress.locality">
+								<b><span>Country</span></b> : <span
+									data-ng-bind="vm.selectedInvoiceAddress.locality"></span>
+							</div>
+							<div data-ng-if="vm.selectedInvoiceAddress.postTown">
+								<b><span>Post Town</span></b> : <span
+									data-ng-bind="vm.selectedInvoiceAddress.postTown"></span>
+							</div>
+							<div data-ng-if="vm.selectedInvoiceAddress.postcode">
+								<b><span>Post Code</span></b> : <span
+									data-ng-bind="vm.selectedInvoiceAddress.postcode"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Delivery Address:</label>
+						<div class="col-xs-8">
+							<select class="form-control"
+								data-ng-model="vm.creditApplication.form.deliveryAddress"
+								name="delivery_address"
+								ng-init="vm.creditApplication.form.deliveryAddress = creditFormDeliveryAddress"
+								required data-ng-change="vm.selectDeliveryAddress();">
+								<option selected="selected" value="">--Select--</option>
+								<option data-ng-repeat="(key, address) in vm.addresses"
+									value="{{key}}">{{ address.departmentName }}</option>
+							</select>
+							<div class="pull-right">
+								<button type="button" ng-click="vm.openNewAddAddressModal()">
+									<span class="fa fa-plus fa-2"> </span>
+								</button>
+							</div>
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.delivery_address.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please select Delivery address</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-xs-8 col-xs-offset-4">
+							<div data-ng-if="vm.selectedDeliveryAddress.departmentName">
+								<b><span>Department</span></b> : <span
+									data-ng-bind="vm.selectedDeliveryAddress.departmentName"></span>
+							</div>
+							<div data-ng-if="vm.selectedDeliveryAddress.organisationName">
+								<b><span>Organisation</span></b> : <span
+									data-ng-bind="vm.selectedDeliveryAddress.organisationName"></span>
+							</div>
+							<div data-ng-if="vm.selectedDeliveryAddress.buildingName">
+								<b><span>Building Name</span></b> : <span
+									data-ng-bind="vm.selectedDeliveryAddress.buildingName"></span>
+							</div>
+							<div data-ng-if="vm.selectedDeliveryAddress.streetAddress">
+								<b><span>Street</span></b> : <span
+									data-ng-bind="vm.selectedDeliveryAddress.streetAddress"></span>
+							</div>
+							<div data-ng-if="vm.selectedDeliveryAddress.locality">
+								<b><span>Country</span></b> : <span
+									data-ng-bind="vm.selectedDeliveryAddress.locality"></span>
+							</div>
+							<div data-ng-if="vm.selectedDeliveryAddress.postTown">
+								<b><span>Post Town</span></b> : <span
+									data-ng-bind="vm.selectedDeliveryAddress.postTown"></span>
+							</div>
+							<div data-ng-if="vm.selectedDeliveryAddress.postcode">
+								<b><span>Post Code</span></b> : <span
+									data-ng-bind="vm.selectedDeliveryAddress.postcode"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Registered Address:</label>
+						<div class="col-xs-8">
+							<select class="form-control"
+								data-ng-model="vm.creditApplication.form.registeredAddress"
+								name="registered_address"
+								ng-init="vm.creditApplication.form.registeredAddress = creditFormRegisteredAddress"
+								required data-ng-change="vm.selectRegisteredAddress();">
+								<option selected="selected" value="">--Select--</option>
+								<option data-ng-repeat="(key, address) in vm.addresses"
+									value="{{key}}">{{ address.departmentName }}</option>
+							</select>
+							<div class="pull-right">
+								<button type="button" ng-click="vm.openNewAddAddressModal()">
+									<span class="fa fa-plus fa-2"> </span>
+								</button>
+							</div>
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.registered_address.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please select Registered address</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-xs-8 col-xs-offset-4">
+							<div data-ng-if="vm.selectedRegisteredAddress.departmentName">
+								<b><span>Department</span></b> : <span
+									data-ng-bind="vm.selectedRegisteredAddress.departmentName"></span>
+							</div>
+							<div data-ng-if="vm.selectedRegisteredAddress.organisationName">
+								<b><span>Organisation</span></b> : <span
+									data-ng-bind="vm.selectedRegisteredAddress.organisationName"></span>
+							</div>
+							<div data-ng-if="vm.selectedRegisteredAddress.buildingName">
+								<b><span>Building Name</span></b> : <span
+									data-ng-bind="vm.selectedRegisteredAddress.buildingName"></span>
+							</div>
+							<div data-ng-if="vm.selectedRegisteredAddress.streetAddress">
+								<b><span>Street</span></b> : <span
+									data-ng-bind="vm.selectedRegisteredAddress.streetAddress"></span>
+							</div>
+							<div data-ng-if="vm.selectedRegisteredAddress.locality">
+								<b><span>Country</span></b> : <span
+									data-ng-bind="vm.selectedRegisteredAddress.locality"></span>
+							</div>
+							<div data-ng-if="vm.selectedRegisteredAddress.postTown">
+								<b><span>Post Town</span></b> : <span
+									data-ng-bind="vm.selectedRegisteredAddress.postTown"></span>
+							</div>
+							<div data-ng-if="vm.selectedRegisteredAddress.postcode">
+								<b><span>Post Code</span></b> : <span
+									data-ng-bind="vm.selectedRegisteredAddress.postcode"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Tel No(Landline
+							only):</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm"
+								name="landline_number"
+								data-ng-model="vm.creditApplication.form.landlineNumber"
+								ng-init="vm.creditApplication.form.landlineNumber = creditFormLandlineNumber"
+								required data-integer data-ng-minlength="10"
+								data-ng-maxlength="11" />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.landline_number.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the primary Telephone
+										number(Landline).</small>
+								</p>
+								<p data-ng-message="integer" class="text-danger">
+									<small>Please enter a valid Telephone number(Landline).</small>
+								</p>
+								<p data-ng-message="maxlength" class="text-danger">
+									<small>The Telephone number(Landline) entered is too
+										long. It should be between 10-11.</small>
+								</p>
+								<p data-ng-message="minlength" class="text-danger">
+									<small>The Telephone number(Landline) entered is too
+										short. It should be between 10-11.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Website:</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm" name="website"
+								data-ng-model="vm.creditApplication.form.website"
+								ng-init="vm.creditApplication.form.website = creditFormWebsite"
+								data-ng-minlength="0" data-ng-maxlength="255" autofocus required />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.website.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the name of your Website .</small>
+								</p>
+								<p data-ng-message="maxlength" class="text-danger">
+									<small>Maximun Website Name length required is 255
+										characters only.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">VAT Registration:</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm"
+								name="vat_registration"
+								ng-init="vm.creditApplication.form.vatRegistration = creditFormVatRegistration"
+								data-ng-pattern="/^[a-zA-Z0-9-.\s]*$/"
+								data-ng-model="vm.creditApplication.form.vatRegistration"
+								data-ng-minlength="0" data-ng-maxlength="255" autofocus required />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.vat_registration.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the name of your VAT Registration.</small>
+								</p>
+								<p data-ng-message="maxlength" class="text-danger">
+									<small>Maximun VAT Registration length required is 255
+										characters only.</small>
+								</p>
+								<p data-ng-message="pattern" class="text-danger">
+									<small>Enter Valid VAT Registration using
+										A-Z,a-z,0-9,.,- characters only.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Purchasing Manager:</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm"
+								name="purchasing_manager" data-ng-pattern="/^[a-zA-Z0-9-.\s]*$/"
+								ng-init="vm.creditApplication.form.purchasingManager = creditFormPurchasingManager"
+								data-ng-model="vm.creditApplication.form.purchasingManager"
+								data-ng-minlength="0" data-ng-maxlength="255" autofocus required />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.purchasing_manager.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the name of your Purchasing Manager
+										.</small>
+								</p>
+								<p data-ng-message="maxlength" class="text-danger">
+									<small>Maximun Purchasing Manager Name length required
+										is 255 characters only.</small>
+								</p>
+								<p data-ng-message="pattern" class="text-danger">
+									<small>Enter Valid Purchasing Manager Name using
+										A-Z,a-z,0-9,.,- characters only.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Accounts Payable Information</legend>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Contact Name:</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm"
+								data-ng-pattern="/^[a-zA-Z0-9-.\s]*$/"
+								ng-init="vm.creditApplication.form.contactName = creditFormContactName"
+								name="contact_name" data-ng-minlength="0"
+								data-ng-maxlength="255"
+								data-ng-model="vm.creditApplication.form.contactName" required />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.contact_name.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the name of your Contact Name .</small>
+								</p>
+								<p data-ng-message="maxlength" class="text-danger">
+									<small>Maximun Contact Name length required is 255
+										characters only.</small>
+								</p>
+								<p data-ng-message="pattern" class="text-danger">
+									<small>Enter Valid Contact Name using A-Z,a-z,0-9,.,-
+										characters only.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Telephone Number:</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm"
+								ng-init="vm.creditApplication.form.telephoneNumber = creditFormTelephoneNumber"
+								name="telephone_number"
+								data-ng-model="vm.creditApplication.form.telephoneNumber"
+								required integer ng-minlength="11" ng-maxlength="12" />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.telephone_number.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the primary Telephone number.</small>
+								</p>
+								<p data-ng-message="integer" class="text-danger">
+									<small>Please enter a valid Telephone number.</small>
+								</p>
+								<p data-ng-message="maxlength" class="text-danger">
+									<small>The Telephone number entered is too long. It
+										should be between 11-12 digits.</small>
+								</p>
+								<p data-ng-message="minlength" class="text-danger">
+									<small>The Telephone number entered is too short. It
+										should be between 11-12 digits.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4 sho-">Email address:</label>
+						<div class="col-xs-8">
+							<input type="email" class="form-control input-sm"
+								name="email_address"
+								ng-init="vm.creditApplication.form.emailAddress = creditFormEmailAddress"
+								data-ng-model="vm.creditApplication.form.emailAddress"
+								data-ng-minlength="0" data-ng-maxlength="255" autofocus required />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.email_address.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter the name of your Email address.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Please tick if you require a credit account</legend>
+					<div class="checkbox">
+						<label class="radio-inline"><input type="radio"
+							id="creditAccount" name="credit_options"
+							data-ng-model="isAccountType" value="true" data-ng-checked="true" />Credit</label>
+					</div>
+				</fieldset>
+				<fieldset>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4 sho-">How much credit
+							would you like to apply for ?:</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control input-sm"
+								name="expected_credit"
+								ng-init="vm.creditApplication.form.expectedCredit = creditFormExpectedCredit"
+								data-ng-model="vm.creditApplication.form.expectedCredit" min="0"
+								required integer />
+							<div class="help-block"
+								data-ng-messages="creditApplicationForm.expected_credit.$error">
+								<p data-ng-message="required" class="text-danger">
+									<small>Please enter credit would you like to apply for.</small>
+								</p>
+								<p data-ng-message="integer" class="text-danger">
+									<small>Please enter a valid credits.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<div class="col-xs-12 creditapplication-panel">
+						<h4>
+							Please accept that you agree to the terms and conditions below
+							(available at <a href="https://www.westcoast.co.uk"
+								target="_blank"> www.westcoast.co.uk </a>). You must be a
+							registered signatory and confirm that the details provided in the
+							application form are accurate and complete.
+						</h4>
+						<div class="form-group" data-sho-highlight-errors>
+							<label class="control-label col-xs-4">Print Name:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control input-sm"
+									name="print_name" data-ng-pattern="/^[a-zA-Z0-9-.\s]*$/"
+									ng-init="vm.creditApplication.form.printName = creditFormPrintName"
+									data-ng-model="vm.creditApplication.form.printName"
+									data-ng-minlength="0" data-ng-maxlength="255" autofocus
+									required />
+								<div class="help-block"
+									data-ng-messages="creditApplicationForm.print_name.$error">
+									<p data-ng-message="required" class="text-danger">
+										<small>Please enter the name of your Print name.</small>
+									</p>
+									<p data-ng-message="maxlength" class="text-danger">
+										<small>Maximun Print Name length required is 255
+											characters only.</small>
+									</p>
+									<p data-ng-message="pattern" class="text-danger">
+										<small>Enter Valid Print Name using A-Z,a-z,0-9,.,-
+											characters only.</small>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" data-sho-highlight-errors>
+							<label class="control-label col-xs-4">Date:</label>
+							<div class="col-xs-8">
+								<p class="input-group">
+									<input type="text" class="form-control"
+										ng-init="vm.creditApplication.form.registrationDate = creditFormRegistrationDate"
+										name="registrationDate" uib-datepicker-popup="yyyy-MM-dd"
+										ng-model="vm.creditApplication.form.registrationDate"
+										is-open="vm.datePicker.opened"
+										datepicker-options="vm.datePicker.options"
+										max-date="vm.datePicker.maxDate"
+										sho-max-date="vm.datePicker.maxDate" ng-required="true"
+										placeholder="yyyy-MM-dd" /> <span class="input-group-btn">
+										<button type="button" class="btn btn-default btn-xs"
+											data-ng-click="vm.openDatePicker($event)">
+											<i class="fa fa-calendar"></i>
+										</button>
+									</span>
+								</p>
+								<div class="help-block"
+									data-ng-messages="creditApplicationForm.registrationDate.$error">
+									<p data-ng-message="required" class="text-danger">
+										<small>Please enter proper Date.</small>
+									</p>
+									<p data-ng-message="maxDate" class="text-danger">
+										<small>Please enter today's date or before.</small>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" data-sho-highlight-errors>
+							<label class="control-label col-xs-4">Company Name(Full
+								company name):</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control input-sm"
+									name="full_company_name" data-ng-pattern="/^[a-zA-Z0-9-.\s]*$/"
+									ng-init="vm.creditApplication.form.fullCompanyName = creditFormFullCompanyName"
+									data-ng-model="vm.creditApplication.form.fullCompanyName"
+									data-ng-minlength="0" ng-maxlength="64" autofocus required />
+								<div class="help-block"
+									data-ng-messages="creditApplicationForm.full_company_name.$error">
+									<p data-ng-message="required" class="text-danger">
+										<small>Please enter the name of your Company(Full
+											company name).</small>
+									</p>
+									<p data-ng-message="maxlength" class="text-danger">
+										<small>Maximun Company Name(Full company name) length
+											required is 64 characters only.</small>
+									</p>
+									<p data-ng-message="pattern" class="text-danger">
+										<small>Enter Valid Company Name(Full company name)
+											using A-Z,a-z,0-9,.,- characters only.</small>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" data-sho-highlight-errors>
+							<label class="control-label col-xs-4">Trading Name(If
+								applicable):</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control input-sm"
+									name="trading_name" data-ng-pattern="/^[a-zA-Z0-9-.\s]*$/"
+									ng-init="vm.creditApplication.form.tradingName = creditFormTradingName"
+									ng-maxlength="255"
+									data-ng-model="vm.creditApplication.form.tradingName" autofocus />
+								<div class="help-block"
+									data-ng-messages="creditApplicationForm.full_company_name.$error">
+									<p data-ng-message="required" class="text-danger">
+										<small>Please enter the name of your Trading Name.</small>
+									</p>
+									<p data-ng-message="maxlength" class="text-danger">
+										<small>Maximun Trading Name length required is 255
+											characters only.</small>
+									</p>
+									<p data-ng-message="pattern" class="text-danger">
+										<small>Enter Valid Trading Name using A-Z,a-z,0-9,.,-
+											characters only.</small>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div>
+							<label><input type="checkbox" id="acceptTCs"
+								ng-init="vm.creditApplication.form.acceptedTCs = creditFormAcceptedTCs"
+								data-ng-model="vm.creditApplication.form.acceptedTCs" required />Accept
+								Terms and Conditions</label>
+						</div>
+					</div>
+				</fieldset>
+				<div class="alert alert-danger"
+					data-ng-show="vm.creditApplication.isError && vm.creditApplication.isCompleted">
+					There was a problem saving your details. Please try again. <br />
+				</div>
+				<div id="creditApplication-accepted" class="alert alert-success"
+					data-ng-show="vm.creditApplication.isCompleted && vm.creditApplication.isSaved">
+					Your Credit Application was submitted successfully. <br />
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary"
+						ng-click="vm.creditApplicationFormSetCookies()">Save
+						Draft</button>
+					<button type="submit" class="btn btn-success pull-right"
+						data-ng-show="!vm.creditApplication.isCompleted || isCreditApplicationFormCookied"
+						data-ng-disabled="!creditApplicationForm.$valid"
+						data-sho-validate-on-click
+						ng-click="creditApplicationForm.$valid && vm.saveCreditApplication()">Submit
+						Credit Application</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--<pre>{{ creditApplicationForm | json: 4}}</pre>-->
+	<div class="row"
+		data-ng-show="vm.creditApplication.isCompleted && !isCreditApplicationFormCookied">
+		<div class="col-xs-12">
+			<form id="editCreditApplicationForm" class="form-horizontal"
+				role="form" name="editCreditApplicationForm">
+				<fieldset>
+					<legend>Account Details</legend>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Company Name:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.companyName}}</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Trading as:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.tradingAs}}</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Invoice Address:</label>
+						<div class="col-xs-8 small-top-padding">
+							<div
+								data-ng-if="vm.creditApplication.form.invoiceAddress.departmentName">
+								<b><span>Department</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.invoiceAddress.departmentName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.invoiceAddress.organisationName">
+								<b><span>Organisation</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.invoiceAddress.organisationName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.invoiceAddress.buildingName">
+								<b><span>Building Name</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.invoiceAddress.buildingName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.invoiceAddress.streetAddress">
+								<b><span>Street</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.invoiceAddress.streetAddress"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.invoiceAddress.locality">
+								<b><span>Country</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.invoiceAddress.locality"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.invoiceAddress.postTown">
+								<b><span>Post Town</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.invoiceAddress.postTown"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.invoiceAddress.postcode">
+								<b><span>Post Code</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.invoiceAddress.postcode"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Delivery Address:</label>
+						<div class="col-xs-8 small-top-padding">
+							<div
+								data-ng-if="vm.creditApplication.form.deliveryAddress.departmentName">
+								<b><span>Department</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.deliveryAddress.departmentName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.deliveryAddress.organisationName">
+								<b><span>Organisation</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.deliveryAddress.organisationName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.deliveryAddress.buildingName">
+								<b><span>Building Name</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.deliveryAddress.buildingName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.deliveryAddress.streetAddress">
+								<b><span>Street</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.deliveryAddress.streetAddress"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.deliveryAddress.locality">
+								<b><span>Country</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.deliveryAddress.locality"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.deliveryAddress.postTown">
+								<b><span>Post Town</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.deliveryAddress.postTown"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.deliveryAddress.postcode">
+								<b><span>Post Code</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.deliveryAddress.postcode"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Registered Address:</label>
+						<div class="col-xs-8 small-top-padding">
+							<div
+								data-ng-if="vm.creditApplication.form.registeredAddress.departmentName">
+								<b><span>Department</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.registeredAddress.departmentName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.registeredAddress.organisationName">
+								<b><span>Organisation</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.registeredAddress.organisationName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.registeredAddress.buildingName">
+								<b><span>Building Name</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.registeredAddress.buildingName"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.registeredAddress.streetAddress">
+								<b><span>Street</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.registeredAddress.streetAddress"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.registeredAddress.locality">
+								<b><span>Country</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.registeredAddress.locality"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.registeredAddress.postTown">
+								<b><span>Post Town</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.registeredAddress.postTown"></span>
+							</div>
+							<div
+								data-ng-if="vm.creditApplication.form.registeredAddress.postcode">
+								<b><span>Post Code</span></b> : <span
+									data-ng-bind="vm.creditApplication.form.registeredAddress.postcode"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Tel No(Landline
+							only):</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.landlineNumber}}</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Website:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.website}}</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">VAT Registration:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.vatRegistration}}</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Purchasing Manager:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.purchasingManager}}</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Accounts Payable Information</legend>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Contact Name:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.contactName}}</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4">Telephone Number:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.telephoneNumber}}</div>
+					</div>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4 sho-">Email address:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.emailAddress}}</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Credit account Type</legend>
+					<div class="col-xs-8 small-top-padding">
+						<div data-ng-if="vm.creditApplication.form.isCashAccount">Cash</div>
+						<div data-ng-if="vm.creditApplication.form.isCreditAccount">Credit</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<div class="form-group" data-sho-highlight-errors>
+						<label class="control-label col-xs-4 sho-">How much credit
+							would you like to apply for ?:</label>
+						<div class="col-xs-8 small-top-padding">
+							{{vm.creditApplication.form.expectedCredit}}</div>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<div class="col-xs-12 creditapplication-panel">
+						<h4>
+							Please accept that you agree to the terms and conditions below
+							(available at <a href="https://www.westcoast.co.uk"
+								target="_blank"> www.westcoast.co.uk </a>). You must be a
+							registered signatory and confirm that the details provided in the
+							application form are accurate and complete.
+						</h4>
+						<div class="form-group" data-sho-highlight-errors>
+							<label class="control-label col-xs-4">Print Name:</label>
+							<div class="col-xs-8 small-top-padding">
+								{{vm.creditApplication.form.printName}}</div>
+						</div>
+						<div class="form-group" data-sho-highlight-errors>
+							<label class="control-label col-xs-4">Date:</label>
+							<div class="col-xs-8 small-top-padding">
+								{{vm.creditApplication.form.registrationDate | date:'yyyy-MM-dd'
+								}}</div>
+						</div>
+						<div class="form-group" data-sho-highlight-errors>
+							<label class="control-label col-xs-4">Company Name(Full
+								company name):</label>
+							<div class="col-xs-8 small-top-padding">
+								{{vm.creditApplication.form.fullCompanyName}}</div>
+						</div>
+						<div class="form-group" data-sho-highlight-errors
+							data-ng-if="vm.creditApplication.form.tradingName">
+							<label class="control-label col-xs-4">Trading Name(If
+								applicable):</label>
+							<div class="col-xs-8 small-top-padding">
+								{{vm.creditApplication.form.tradingName}}</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<!--<pre>{{ creditApplicationForm | json: 4}}</pre>-->
+</div>
+<div ng-show="disableSupplierCredits == 'CONFIRM'">
+	<div class="col-xs-12">
+		<div class="col-xs-12">
+			<h2>Supplier Credits</h2>
+			<div class="row" ng-show="vm.creditBalances.vendorCredits.length > 0">
+				<div class="col-sm-4">
+					<h3>Supplier Name</h3>
+				</div>
+				<div class="col-sm-4">
+					<h3>Total Credit</h3>
+				</div>
+				<div class="col-sm-4">
+					<h3>Available Credit</h3>
+				</div>
+			</div>
+			<div class="row" ng-show="vm.creditBalances.vendorCredits.length > 0"
+				ng-repeat="vendors in vm.creditBalances.vendorCredits">
+				<div class="col-sm-4">
+					<h3>{{ vendors.vendorName }}</h3>
+				</div>
+				<div class="col-sm-4">
+					<h3>{{ vendors.totalCredits | currency}}</h3>
+				</div>
+				<div class="col-sm-4">
+					<h3>{{ vendors.availableCredits | currency}}</h3>
+				</div>
+			</div>
+			<div ng-show="vm.creditBalances.vendorCredits.length == 0">
+				<div class="col-sm-12">
+					<h3>No credits assigned to you by supplier.</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-show="disableSupplierCredits !== 'CONFIRM'">
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Supplier Credit Facility</h3>
+		</div>
+		<p class="credit-form-para">In order to complete an order on
+			Silverwing you must first apply for a supplier credit account (which
+			can be found below). Even if you already have a Westcoast account, a
+			new Westcoast account will be created for purchases on Silverwing.
+			The application form should take less than 5 minutes to complete.</p>
+		<p class="credit-form-para">Once completed, this will then be
+			forwarded to Westcoast for their approval. You will then be notified
+			by them with your new credit terms. This supplier credit will be
+			automatically updated to your account and will be found in the
+			Supplier Credit Facility after any successful applications.</p>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Request Supplier Credit Application</h3>
+		</div>
+		<p class="credit-form-para">Upon request you will be emailed a
+			link to fill in the application online through Signable.</p>
+		<button class="btn btn-success pull-left credit-form-button"
+			ng-click="vm.submitSupplierCrefitFacility()">Request
+			Application</button>
+		<br />
+	</div>
+	<br />
+	<div ng-if="vm.errorMessage" class="bg-danger">
+		<p>{{ vm.errorMessage }}</p>
+	</div>
+	<div ng-if="vm.successMessage" class="bg-success">
+		<p>{{ vm.successMessage }}</p>
+	</div>
+</div>

@@ -1,0 +1,301 @@
+
+.layout
+{
+    background-image:url(../images/confirmation/body_bg.gif);
+    background-repeat:repeat-x;
+    background-color:#e1e1e1;
+    font-family:Arial;
+    font-size:12px;
+    color:#333333;
+    
+    }
+ .menuleft
+ {
+     background-image:url(../images/confirmation/bl_nav_left.gif);
+     background-repeat:no-repeat; 
+        margin:0px;
+     padding:0px;
+     }
+     
+ .menumiddle
+ {
+     background-image:url(../images/confirmation/bl_nav_mid.gif);
+     background-repeat:repeat-x;
+    margin:0px;
+     padding:0px;
+     }
+     
+ .menuright
+ {
+          background-image:url(../images/confirmation/bl_nav_right.gif);
+     background-repeat:no-repeat;
+     margin:0px;
+     padding:0px;
+     }
+     
+.content
+{
+    background-color:White;
+    padding:20px;
+    }
+    
+
+    
+.welcomepart
+{
+    border-bottom:1px solid #cad7e7;
+    padding:0px;
+    margin:0px;
+   vertical-align:text-top;
+    font-weight:bold;
+    }
+ .dynamictable
+ {
+     background-color:#cad7e7;
+     padding-left: 1000px;
+     
+}
+
+table.dynamictable tr td
+{
+    border-color:#cad7e7;     
+    }    
+.tableheader
+{
+    height:30px;
+    background-image:url(../images/confirmation/bl_grid-top-bg.gif);
+    background-repeat:repeat-x;
+    padding-left:5px;
+    text-align:left;
+    font-size:12px;
+    font-family:Arial;
+    font-weight:bold;
+    }
+    
+    .nd1{
+    padding-left: 1000px;
+    }
+    
+    
+.rowodd
+{
+    height:30px;
+    background-color:#FFFFFF;
+    text-align:left;
+    font-size:12px;
+    }
+    
+.roweven
+{
+        height:30px;
+        background-color:#f7faff;
+        text-align:left;
+    font-size:12px;
+    }
+    
+.edit
+{
+    padding:0px;
+    margin:0px;
+    background-image:url(../images/confirmation/edit.png);
+    background-repeat:no-repeat;
+    background-position:center;
+    }
+    
+.delete 
+{
+        padding:0px;
+        margin:0px;
+        background-image:url(../images/confirmation/delete.png);
+        background-repeat:no-repeat;
+        background-position:center;
+    }
+.content1
+{
+    background-image:url(../images/confirmation/con_bg.gif);
+    background-repeat:repeat-x;
+    }
+.contentfooterleft
+{
+ background-image:url(../images/confirmation/foot_left.gif);
+     background-repeat:repeat-x;
+     margin:0px;
+    padding:0px;
+    background-color:#333333;
+    width:5px;
+    background-position:bottom;
+    height:30px;
+    }
+    
+.contentfootermiddle
+{
+
+background-color:White;
+text-align:center;
+font-size:12px;
+    
+    }
+    
+.contentfooterright
+{
+ background-image:url(../images/confirmation/foot_right.gif);
+     background-repeat:repeat-x;
+margin:0px;
+    padding:0px;
+     background-color:#333333;
+     width:5px;
+     background-position:bottom;
+     height:30px;
+    }
+ 
+ .innerform
+ {
+   padding:20px;
+     } 
+     
+ .labels
+ {
+     text-align:right;
+     }
+     
+ .skilllabel
+ {
+     vertical-align:text-top;
+     }
+     
+ .buttons
+ {
+     background-image:url(../images/confirmation/bl_button.gif);
+     color:White;
+     border:none;
+     cursor:pointer;
+     }
+     
+ .tb
+ {
+     background-image:url(../images/confirmation/login-bg.gif);
+     background-repeat:repeat-x;
+     outline-color:#cccccc;
+     border:1px solid #cccccc
+     
+     }
+     
+.cb
+{
+     background-image:url(../images/confirmation/login-bg.gif);
+     background-repeat:repeat-x;
+     background-position:center;
+   
+    
+    }
+    
+.rb
+{
+     background-image:url(../images/confirmation/login-bg.gif);
+     background-repeat:repeat-x;
+    
+    }
+    
+  #menuitems
+  {
+      
+      }
+#menuitems ul
+ {
+     margin:0;
+     padding:0;
+    list-style-type: none;
+      }
+      
+#menuitems ul li  
+{
+ display: inline;
+ padding-right:2px;
+}
+
+#meunitems ul li a
+{
+    display: inline-block;
+ color:White;
+ text-decoration:none;
+ text-align:center;
+    }
+
+    
+.aa
+{
+    display: inline-block;
+ color:White;
+ text-decoration:none;
+ 
+ background-image:url(../images/confirmation/bl_nav_spac.gif);
+ background-position:right;
+ background-repeat:no-repeat;
+ padding:10px;
+    }
+
+.aa:hover
+{
+    display: inline-block;
+ color:Yellow;
+ text-decoration:none;
+ text-align:center;
+    }
+.comp
+{
+    font-family:Arial;
+    }
+    
+.logout
+{
+    font-size:12px;
+
+    
+    }
+    
+ td.logout a
+ {
+                text-decoration:none;     
+     }
+     
+    .style1
+        {
+            border-bottom: 1px solid #cad7e7;
+            padding: 0px;
+            margin: 0px;
+            vertical-align: text-top;
+            font-weight: bold;
+            height: 25px;
+        }
+        
+    .content2
+    {
+        padding:50px;
+        }
+        
+   .login
+   {
+       vertical-align:bottom;
+       text-align:left;
+       font-family:Arial;
+       font-size:30px;
+       color:#333333;
+       
+      
+       }
+       
+   .loginbg
+   {
+       background-image:url(../images/confirmation/login-bg.gif);
+       background-repeat:repeat-x;
+       
+       }
+       
+       .loginbg1
+       {
+           border-top:2px solid #d9d9d9;
+           border-bottom:2px solid #d9d9d9;
+           border-left:1px solid #d9d9d9;
+           border-right:1px solid #d9d9d9;
+           }
+           

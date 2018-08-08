@@ -1,0 +1,15 @@
+<project>
+
+	<property name="ant.dir" value="../ant" />
+
+	<target name="compile" depends="-test-extra-classpath, -set-extra-classpath">
+		<echo message="COMPILE" />
+
+		<exec executable="haxe">
+			<arg value="build.hxml" />
+		</exec>
+	</target>
+
+	<import file="${ant.dir}/target/defaults.xml" />
+
+</project>

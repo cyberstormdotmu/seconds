@@ -1,0 +1,13 @@
+[
+    {
+        "uid": "app-server",
+        "append": "false",
+        "script": "node_modules/http-server/bin/http-server",
+        "args": ["target/dist/dev", "-a", "localhost", "-p", "8000", "-c-1"]
+    },
+    {
+      "uid": "proxy-server",
+      "append": "false",
+      "script": "proxy-server.js"
+    }
+]

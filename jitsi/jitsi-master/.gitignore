@@ -1,0 +1,16 @@
+classes/
+.DS_Store
+.idea
+*.iws
+jitsi.iml
+jitsi.ipr
+jitsi-local.iml
+lib/accounts.properties
+nbproject/private
+release/
+sc-bundles/
+sip-communicator.utest.bin
+*.swp
+target/
+test-reports/
+web-start/WebStartBuild.properties

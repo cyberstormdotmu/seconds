@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>operator-wallet-client</artifactId>
+  <packaging>jar</packaging>
+  <name>User :: Wallet Client</name>
+  <url>http://www.cubeia.com</url>
+  
+	<parent>
+		<groupId>com.cubeia.network.operator.wallet</groupId>
+		<artifactId>operator-wallet-parent</artifactId>
+		<version>1.5.2-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+  
+  <dependencies>
+  
+  	<dependency>
+      <groupId>com.cubeia.network.operator.wallet</groupId>
+      <artifactId>operator-wallet-api</artifactId>
+      <version>1.5.2-SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+
+	<!-- Jersey HTTP Client & JSON -->
+    <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-client</artifactId>
+        <version>1.14</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-json</artifactId>
+        <version>1.14</version>
+    </dependency>
+    
+    <!-- 
+	<dependency>
+	    <groupId>org.glassfish.jersey.core</groupId>
+	    <artifactId>jersey-client</artifactId>
+	    <version>2.6</version>
+	</dependency>
+
+<dependency>
+    <groupId>org.glassfish.jersey.media</groupId>
+    <artifactId>jersey-media-json-jackson</artifactId>
+    <version>2.6</version>
+</dependency>
+ -->
+ 
+    <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+    </dependency>
+		
+  </dependencies>
+ 
+</project>

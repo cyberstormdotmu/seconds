@@ -1,0 +1,13 @@
+<project>
+
+	<property name="src.dir" value="src" />
+	<property name="bin.dir" value="bin" />
+	<condition property="lib.dir" value="war/WEB-INF/lib" else="lib">
+		<available file="war/WEB-INF/web.xml" />
+	</condition>
+	<property name="dist.dir" value="dist" />
+	<property name="war.dir" value="war" />
+	<property name="doc.dir" value="doc" />
+	<property name="test.dir" value="junit"/>
+
+</project>

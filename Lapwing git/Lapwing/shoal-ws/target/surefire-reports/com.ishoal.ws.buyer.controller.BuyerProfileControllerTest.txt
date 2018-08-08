@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ishoal.ws.buyer.controller.BuyerProfileControllerTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.485 sec - in com.ishoal.ws.buyer.controller.BuyerProfileControllerTest

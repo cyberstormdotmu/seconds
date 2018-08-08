@@ -1,0 +1,50 @@
+<div id="login-panel" ng-show="vm.currentUser.authenticated === false">
+    <div class="alert alert-success" ng-show="vm.logout">
+        You have been logged out successfully.
+        <br />
+    </div>
+
+
+<!--  <div class="modal fade" id="login" tabindex="-1">
+  <div class="modal-dialog" role="document">
+   <div class="modal-content"> -->
+   <div class="panel-body">
+    <div class="modal-header">
+     <h5 class="modal-title">Login to your Silverwing account</h5>
+     <a href="#" class="close" ng-click="vm.close()"><img src="../app/images/popup-close.png" alt=""></a> 
+    </div>
+    <div class="modal-body">
+     <form id="loginForm" name="loginForm" role="form" ng-submit="vm.login()" sho-mark-required-fields novalidate>
+      <div class="form-group">   
+      <label>E-mail</label> 
+       <input type="text" class="form-control" placeholder="Username" id="email" name="email" ng-model="vm.currentUser.email" ng-init="vm.currentUser.email = cookieemail"  required />
+      </div>
+      <div class="form-group">
+      <label>Password</label>        
+       <input type="password" class="form-control" placeholder="Password" id="password" name="password" ng-model="vm.currentUser.password" ng-init="vm.currentUser.password = cookiepassword" required />
+      </div>
+      <div class="form-group row">
+            <div class="col-sm-9">
+              <div class="form-check">
+                <label class="form-check-label"> 
+                  <input class="form-check-input" name="vm.rememberMe" type="checkbox" ng-click ="vm.SetCookies()">  Remember me
+                </label>
+              </div>
+          </div>
+        </div>
+      <div class="form-group"><a title="Forgot Password?" class="forgot-psw" ng-click="vm.forgottenPassword()">Forgot Password?</a></div>
+
+      <div> 
+       <button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-primary btn-lg">Log in</button> &nbsp;
+       <a title=?Close" ng-click="vm.close()" class="btn btn-primary btn-lg">Cancel</a>
+      </div>           
+     </form>
+    </div>
+   </div>
+   <div class="alert alert-danger" id="login-error-message" ng-show="vm.error">
+        {{ vm.error }}
+    </div>
+</div>
+<!--   </div>
+  </div>
+</div> -->

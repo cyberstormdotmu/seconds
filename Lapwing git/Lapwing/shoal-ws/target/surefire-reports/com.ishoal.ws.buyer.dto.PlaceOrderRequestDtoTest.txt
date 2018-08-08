@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ishoal.ws.buyer.dto.PlaceOrderRequestDtoTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.172 sec - in com.ishoal.ws.buyer.dto.PlaceOrderRequestDtoTest

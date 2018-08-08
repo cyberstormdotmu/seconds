@@ -1,0 +1,87 @@
+#chart_div table {
+	border-collapse: separate;
+}
+
+#chart_div table.google-visualization-orgchart-table {
+    border: 0 none;
+    text-align: center;
+}
+#chart_div table.google-visualization-orgchart-table * {
+    margin: 0;
+    padding: 2px;
+}
+#chart_div table > google-visualization-orgchart-space-small {
+    border: 0 none;
+    height: 1px;
+    width: 4px;
+}
+#chart_div table > .google-visualization-orgchart-space-medium {
+    border: 0 none;
+    height: 1px;
+    width: 10px;
+}
+#chart_div table > .google-visualization-orgchart-space-large {
+    border: 0 none;
+    height: 1px;
+    width: 16px;
+}
+#chart_div table > .google-visualization-orgchart-noderow-small {
+    border: 0 none;
+    height: 12px;
+}
+#chart_div table > .google-visualization-orgchart-noderow-medium {
+    border: 0 none;
+    height: 30px;
+}
+#chart_div table > .google-visualization-orgchart-noderow-large {
+    border: 0 none;
+    height: 46px;
+}
+#chart_div table > .google-visualization-orgchart-connrow-small {
+    font-size: 1px;
+    height: 2px;
+}
+#chart_div table > .google-visualization-orgchart-connrow-medium {
+    font-size: 4px;
+    height: 6px;
+}
+#chart_div table > .google-visualization-orgchart-connrow-large {
+    font-size: 8px;
+    height: 10px;
+}
+#chart_div table > .google-visualization-orgchart-node {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #edf7ff 0%, #cde7ee 100%) repeat scroll 0 0;
+    border: 2px solid #b5d9ea;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+    cursor: default;
+    font-family: arial,helvetica;
+    text-align: center;
+    vertical-align: middle;
+}
+#chart_div table > .google-visualization-orgchart-nodesel {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #fff7ae 0%, #eee79e 100%) repeat scroll 0 0;
+    border: 2px solid #e3ca4b;
+}
+#chart_div table > .google-visualization-orgchart-node-small {
+    font-size: 0.6em;
+}
+#chart_div table > .google-visualization-orgchart-node-medium {
+    font-size: 0.8em;
+}
+#chart_div table > .google-visualization-orgchart-node-large {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+#chart_div table > .google-visualization-orgchart-linenode {
+    border: 0 none;
+}
+#chart_div table > .google-visualization-orgchart-lineleft {
+    border-left: 1px solid #3388dd;
+}
+#chart_div table > .google-visualization-orgchart-lineright {
+    border-right: 1px solid #3388dd;
+}
+#chart_div table > .google-visualization-orgchart-linebottom {
+    border-bottom: 1px solid #3388dd;
+}

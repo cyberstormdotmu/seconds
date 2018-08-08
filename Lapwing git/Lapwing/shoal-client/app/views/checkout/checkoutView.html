@@ -1,0 +1,28 @@
+<div class="breadcrumb-wrapper">
+<div class="container checkout-steps" ng-if="pickBuyerByAdminForPlaceOrder" style="color : #17e60b ;padding-left: 25px !important;">
+    You are placing order on behalf of <b>{{pickBuyerByAdminForPlaceOrder}}</b> buyer.
+</div>
+<div class="container">
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="checkout-steps">
+            <li ng-class="{ 'current-step': ( 'checkout.profile' | includedByState )}">Complete Profile</li>
+            <li ng-class="{ 'current-step': ( 'checkout.basket' | includedByState )}">Edit Basket</li>
+            <li ng-class="{ 'current-step': ( 'checkout.addresses' | includedByState )}">Confirm Addresses</li>
+            <li ng-class="{ 'current-step': ( 'checkout.payment' | includedByState )}">Payment</li>
+            <li ng-class="{ 'current-step': ( 'checkout.orderverification' | includedByState )}">Order Verification</li>
+            <li ng-class="{ 'current-step': ( 'checkout.review' | includedByState )}">Review Order</li>
+            <li ng-class="{ 'current-step': ( 'checkout.finished' | includedByState )}">Order Placed</li>
+        </ol>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="content-wrap">
+<div class="container">
+<div class="row">
+    <div id="checkout-form" ui-view></div>
+</div>
+</div>
+</div>

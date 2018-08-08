@@ -1,0 +1,27 @@
+<table class="table table-striped table-responsive table-hover table-headings">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Order Reference</th>
+        <th>Buyer Organisation</th>
+        <th>Principal</th>
+        <th class="text-right">Net</th>
+        <th class="text-right">Gross</th>
+        <th>Payment Status</th>
+        <th>Due Date</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="order in vm.orders">
+        <td>{{ order.created | date:'short' }}</td>
+        <td>{{ order.reference }}</td>
+        <td>{{ order.buyerOrganisationName }}</td>
+        <td>{{ order.vendorName }}</td>
+        <td class="text-right">{{ order.orderTotal.net | currency }}</td>
+        <td class="text-right">{{ order.orderTotal.gross | currency }}</td>
+        <td>{{ order.paymentStatus }}</td>
+        <td>{{ order.dueDate | date:'dd/MM/yyyy' }}</td>
+    </tr>
+    </tbody>
+</table>

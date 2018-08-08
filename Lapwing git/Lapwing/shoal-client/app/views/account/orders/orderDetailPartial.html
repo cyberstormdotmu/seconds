@@ -1,0 +1,240 @@
+<div id="order-detail-partial">
+<div class="modal-footer">
+            <button  class="btn btn-primary" ng-click ="printToCart()";>Print</button>&nbsp;
+             <button  class="btn btn-success pull-right" ng-click ="export()">Download</button>    
+             </div>
+    <div class="row">
+        <div  id="idOneGraph">
+                <h1>Order {{ vm.order.summary.reference }}</h1>     
+                <div class="panel panel-primary">
+                <div class="panel-heading">Order Summary</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div style="width:25%;float: left;padding-left: 20px !important;" class=""><strong>Order Reference:</strong></div>
+                        <div style="width:25%;float: left;">{{ vm.order.summary.reference }}</div>
+                        <div style="width:25%;float: left;" class=""><strong>Order Date:</strong></div>
+                        <div style="width:25%;float: left;">{{ vm.order.summary.created | date:'short' }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div style="width:25%;float: left;padding-left: 20px !important;" class=""><strong>Status:</strong></div>
+                        <div style="width:25%;float: left;">{{ vm.order.summary.status }}</div>
+                        <div ng-if="vm.order.summary.status == 'Confirmed'">
+                        <div style="width:25%;float: left;" class=""><strong>Invoice Date:</strong></div>
+                        <div style="width:25%;float: left;">{{ vm.order.summary.invoiceDate | date:'shortDate' }}</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="width:25%;float: left;padding-left: 20px !important;" class=""><strong>Invoice Address:</strong></div>
+                        <div style="width:25%;float: left;"><div sho-address address="vm.order.invoiceAddress"></div></div>
+                        <div style="width:25%;float: left;" class=""><strong>Delivery Address:</strong></div>
+                        <div style="width:25%;float: left;"><div sho-address address="vm.order.deliveryAddress"></div></div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div ng-if="vm.order.summary.status == 'Confirmed'">
+                            <div style="width:25%;float: left;" class="">
+                                <strong>Payment Status:<br/>Due Date:<br/>Unpaid Amount:</strong>
+                            </div>
+                            <div style="width:25%;float: left;">
+                                {{ vm.order.summary.paymentStatus }}<br/>
+                                {{ vm.order.summary.dueDate | date:'shortDate' }}<br/>
+                                {{ vm.order.summary.unpaidAmount | currency }}
+                            </div>
+                        </div>
+                        <div ng-if="vm.order.summary.status != 'Confirmed'">
+                            <div class="col-sm-6">&nbsp;</div>
+                        </div>
+                        <div style="width:25%;float: left;" class=""><strong>Order Net Total:<br/>Order VAT Total:<br/>Order Gross Total:</strong></div>
+                        <div style="width:25%;float: left;" class=""><span class="light-underline">{{ vm.order.summary.orderTotal.net | currency }}</span><br/><span class="dark-underline">{{ vm.order.summary.orderTotal.vat |
+                            currency }}</span><br/><span class="double-underline">{{ vm.order.summary.orderTotal.gross | currency }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">&nbsp;</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Order Lines</div>
+                <div class="panel-body">
+
+                                                <div class="row">
+                                <div style="width : 4%; float:left;" class="">&nbsp;&nbsp;&nbsp;</div>
+                                <div style="width : 16%; float:left;" class=""><h4>Product</h4></div>
+                                <div style="width : 16%; float:left;" class=""><h4>Quantity</h4></div>
+                                <div style="width : 16%; float:left;" class=""><h4>Price</h4></div>
+                                <div style="width : 16%; float:left;" class=""><h4>Net</h4></div>
+                                <div style="width : 16%; float:left;" class=""><h4>VAT</h4></div>
+                                <div style="width : 16%; float:left;" class=""><h4>Gross</h4></div>
+                            </div>
+
+
+                    <div class="panel panel-primary" ng-repeat="line in vm.order.lines">
+                        <div class="panel-body">
+
+
+                            <div class="row">
+                                <div style="width : 4%; float:left;" class="">&nbsp;&nbsp;&nbsp;</div>
+                                <div style="width : 16%; float:left;" class="">{{ line.productCode }} ({{ line.productName }})</div>
+                                <div style="width : 16%; float:left;" class="">{{ line.quantity }}</div>
+                                <div style="width : 16%; float:left;" class="">{{ line.initialUnitPrice | currency }}</div>
+                                <div style="width : 16%; float:left;" class="">{{ line.amount.net | currency }}</div>
+                                <div style="width : 16%; float:left;" class="">{{ line.amount.vat | currency }}<br/>({{ line.vatRate }}%)</div>
+                                <div style="width : 16%; float:left;" class="">{{ line.amount.gross | currency }}</div>
+                            </div>
+
+                            <!--
+                            <div class="row">
+                                <div class="col-sm-3 text-right"><strong>Product:</strong></div>
+                                <div class="col-sm-9">{{ line.productCode }} ({{ line.productName }})</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">&nbsp;</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 text-right"><strong>Quantity:</strong></div>
+                                <div class="col-sm-3 text-right">{{ line.quantity }}</div>
+                                <div class="col-sm-3 text-right"><strong>Net Amount:<br/>VAT Rate:<br/>VAT Amount:<br/>Gross Amount:</strong></div>
+                                <div class="col-sm-3 text-right">{{ line.amount.net | currency }}<br/>{{ line.vatRate }}%<br/>{{ line.amount.vat | currency }}<br/>{{ line.amount.gross | currency }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 text-right"><strong>Initial Unit Price:<br/>Current Unit Price:</strong></div>
+                                <div class="col-sm-3 text-right">{{ line.initialUnitPrice | currency }}<br/>{{ line.currentUnitPrice | currency }}</div>
+                            </div>
+                            -->
+                            <div class="row">
+                                <div class="col-sm-12">&nbsp;</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="" ng-show="line.credits.length > 0">
+                                        <h4>Credits</h4> 
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Type</th>
+                                                <th>Reason</th>
+                                                <th class="text-right">Amount</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="credit in line.credits">
+                                                <td>{{ credit.effectiveDate | date:'short' }}</td>
+                                                <td>{{ credit.creditMovementType }}</td>
+                                                <td ng-if="credit.creditMovementType != 'Spend'">{{ credit.reason }}</td>
+                                                <td ng-if="credit.creditMovementType == 'Spend'">Spent on order {{ credit.orderSpentOnReference }}</td>
+                                                <td class="text-right">{{ credit.amount.gross | accounting }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-right"><strong>Total Earned:</strong></td>
+                                                <td class="text-right"><strong>{{ vm.sumCreditsEarned(line.credits, 'gross') | accounting }}</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-right"><strong>Total Spent/Redeemed:</strong></td>
+                                                <td class="text-right"><strong>{{ vm.sumCreditsSpent(line.credits, 'gross') | accounting }}</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-right"><strong>Total Available:</strong></td>
+                                                <td class="text-right"><strong>{{ vm.sumCreditsAvailable(line.credits, 'gross') | accounting }}</strong></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>        
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-primary" ng-if="vm.order.summary.status == 'Confirmed'">
+                <div class="panel-heading">Payments Done at Checkout</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Payment Type</th>
+                            <th class="text-right">Amount</th>
+                            <th class="text-right pg-width">Payment Gateway Charges</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="payment in vm.paymentsAtCheckout">
+                            <td>{{ payment.dateReceived | date:'shortDate' }}</td>
+
+                            <td ng-if="payment.paymentType != 'Shoal Credit'">{{ payment.paymentType }}</td>
+                            <td ng-if="payment.paymentType == 'Shoal Credit'"> Credits earned on order {{ payment.originalOrderReference }} / {{ payment.originalOrderLineProductCode }}</td>
+
+                            <td class="text-right">{{ payment.amount | currency }} </td>
+                            <td class="text-right">{{ payment.paymentGatewayCharges | currency}}</td>
+
+                        </tr>
+                        <tr ng-if="vm.paymentsAtCheckout.length > 0">
+                            <td colspan="2" class="text-right"><strong>Total:</strong></td>
+                            <td class="text-right"><strong>{{ vm.totalPaymentAtCheckout | currency }}</strong></td>
+                        </tr>
+                        <tr ng-if="vm.paymentsAtCheckout.length === 0">
+                            <td colspan="3">No payments recorded</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-primary" ng-if="vm.order.summary.status == 'Confirmed' && vm.availableSupplierCreditInPayment > 0 && vm.paidSupplierCreditInPayment > 0">
+                <div class="panel-heading">Recorded Payments</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Payment Type</th>
+                            <th class="text-right">Amount</th>
+                            <th class="text-right pg-width">Payment Gateway Charges</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="payment in vm.paymentsRecorded">
+                            <td>{{ payment.dateReceived | date:'shortDate' }}</td>
+
+                            <td ng-if="payment.paymentType != 'Shoal Credit' && payment.paymentType != 'Unpaid Supplier Credits'">{{ payment.paymentType }}</td>
+
+                            <td ng-if="payment.paymentType == 'Shoal Credit' && payment.paymentType != 'Unpaid Supplier Credits'"> Credits earned on order {{ payment.originalOrderReference }} / {{ payment.originalOrderLineProductCode }}</td>
+                            <td ng-if="payment.paymentType != 'Unpaid Supplier Credits'" class="text-right">{{ payment.amount | currency }} </td>
+
+                            <td ng-if="payment.paymentType === 'Unpaid Supplier Credits'" style="color: red;">{{ payment.paymentType }}</td>
+                            <td ng-if="payment.paymentType === 'Unpaid Supplier Credits'" style="color: red;" class="text-right">{{ payment.amount | currency }}</td>
+
+                            <td class="text-right">{{ payment.paymentGatewayCharges | currency}}</td>
+
+                        </tr>
+                        <tr ng-if="vm.paymentsRecorded.length > 0">
+                            <td colspan="2" class="text-right"><strong>Total used supplier credit while payment:</strong></td>
+                            <td class="text-right"><strong>{{ vm.totalPaymentAtRecorded | currency }}</strong></td>
+                        </tr>
+                        <tr ng-if="vm.paymentsRecorded.length === 0">
+                            <td colspan="3">No payments recorded</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>
+        <div class="row">
+            <div class="col-sm-6">
+                <a class="btn btn-default btn-xs" role="button" ui-sref="account.orders"><span
+                        class="fa fa-chevron-left" aria-hidden="true"></span> Return to Order List</a>
+            </div>
+        </div>
+        
+</div>

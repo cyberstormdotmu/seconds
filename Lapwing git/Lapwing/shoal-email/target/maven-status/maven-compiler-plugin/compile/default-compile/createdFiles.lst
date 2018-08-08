@@ -1,0 +1,11 @@
+com\ishoal\email\EmailMessage$1.class
+com\ishoal\email\config\ShoalEmailConfiguration.class
+com\ishoal\email\EmailMessage.class
+com\ishoal\email\TemplatePropertiesFactory.class
+com\ishoal\email\config\ShoalEmailBeanConfiguration$DisabledMailSender.class
+com\ishoal\email\spring\SpringEmailService.class
+com\ishoal\email\TemplateProperties.class
+com\ishoal\email\EmailService.class
+com\ishoal\email\EmailTemplates.class
+com\ishoal\email\config\ShoalEmailBeanConfiguration.class
+com\ishoal\email\EmailMessage$Builder.class

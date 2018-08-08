@@ -1,0 +1,111 @@
+{
+	"owner": "8329",
+	"lastUpdatedBy": "8329",
+	"lastRevision": 59512803,
+	"team": null,
+	"id": "d93a4bc8-7bb3-2dc3-1dd2-48d304dedf6d",
+	"name": "Shoal",
+	"description": "",
+	"remoteLink": "",
+	"order": [
+		"5e7b61dd-94f4-d3c4-bf32-0dbe103ef26c",
+		"4f2d82a7-e38a-a53d-eccf-88670768c437",
+		"653c29dc-4062-81a0-8476-525df66720ea",
+		"fb9cdede-bc9c-f058-89b3-5f0971c07aa5"
+	],
+	"requests": [
+		{
+			"id": "4f2d82a7-e38a-a53d-eccf-88670768c437",
+			"headers": "X-Requested-With: XMLHttpRequest\nReferer: http://localhost:8443/app/\nAuthorization: Basic b2xpdmVyLnNxdWlyZXNAaXNob2FsLmNvbTpwYXNzd29yZA==\n",
+			"url": "http://{{host}}:8443/ws/products/HPELITE840",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "basicAuth",
+			"helperAttributes": {
+				"username": "oliver.squires@ishoal.com",
+				"password": "password",
+				"saveToRequest": true,
+				"id": "basic",
+				"timestamp": 1442831006959
+			},
+			"time": 1443099553696,
+			"name": "get product",
+			"description": "",
+			"collectionId": "d93a4bc8-7bb3-2dc3-1dd2-48d304dedf6d"
+		},
+		{
+			"folder": null,
+			"id": "5e7b61dd-94f4-d3c4-bf32-0dbe103ef26c",
+			"name": "login",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "Authorization: Basic b2xpdmVyLnNxdWlyZXNAaXNob2FsLmNvbTpwYXNzd29yZA==\nX-Requested-With: XMLHttpRequest\nPragma: no-cache\nOrigin: http://localhost:8000\nReferer: http://localhost:8000/app/\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://localhost:8443/ws/login",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "d93a4bc8-7bb3-2dc3-1dd2-48d304dedf6d"
+		},
+		{
+			"folder": null,
+			"id": "653c29dc-4062-81a0-8476-525df66720ea",
+			"name": "create order",
+			"dataMode": "raw",
+			"data": [],
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "X-Requested-With: XMLHttpRequest\nReferer: http://localhost:8443/app/\nAuthorization: Basic b2xpdmVyLnNxdWlyZXNAaXNob2FsLmNvbTpwYXNzd29yZA==\nContent-Type: application/json\n",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "http://localhost:8443/ws/orders",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "basicAuth",
+			"helperAttributes": {
+				"username": "oliver.squires@ishoal.com",
+				"password": "password",
+				"saveToRequest": true,
+				"id": "basic",
+				"timestamp": 1442831006959
+			},
+			"collectionId": "d93a4bc8-7bb3-2dc3-1dd2-48d304dedf6d",
+			"rawModeData": "{\n    \"productCode\": \"HPELITE840\",\n    \"quantity\": 60\n}"
+		},
+		{
+			"folder": null,
+			"id": "fb9cdede-bc9c-f058-89b3-5f0971c07aa5",
+			"name": "get order",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": "{\n“productCode” : “HPELITE840”,\n“quantity” : 60\n}",
+			"descriptionFormat": null,
+			"description": "",
+			"headers": "X-Requested-With: XMLHttpRequest\nReferer: http://localhost:8443/app/\nAuthorization: Basic b2xpdmVyLnNxdWlyZXNAaXNob2FsLmNvbTpwYXNzd29yZA==\nContent-Type: application/json\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://localhost:8443/ws/orders/6312867002861404995",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "basicAuth",
+			"helperAttributes": {
+				"username": "oliver.squires@ishoal.com",
+				"password": "password",
+				"saveToRequest": true,
+				"id": "basic",
+				"timestamp": 1442831006959
+			},
+			"collectionId": "d93a4bc8-7bb3-2dc3-1dd2-48d304dedf6d"
+		}
+	]
+}

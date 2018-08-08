@@ -1,0 +1,48 @@
+/* contact form formatting */
+div#contact-panel .fa-check {
+    color: #19a032; }
+
+div#contact-panel .sho-required-field-icon {
+    color: #fff; }
+
+div#contact-panel .panel {
+    border-color: #1a656e;
+    /*background-color: rgba(26, 101, 110, .6);*/
+    background-color: #fff; }
+
+div#contact-panel .btn {
+    margin: 20px 0; }
+
+div#contact-panel .help-block, 
+div#contact-panel .text-danger,
+div#contact-panel div.has-error label.control-label {
+    color: #fff; }
+
+div#contact-panel .alert {
+    display: block; }
+
+div#wrapper.full-background {
+    background: #1a656e url('assets/images/full-background-1600.png') center top no-repeat;  } 
+
+.outer-header-text {
+  color: #000 !important;
+  margin-bottom: 0px !important;
+}
+
+.warn-text{
+    color: red;
+}
+
+.nomargin-text{
+    margin-bottom: 0px !important;
+}
+
+textarea { height: 170px !important; }
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+    div#contact-panel {
+        padding-top: 30px; }
+
+    textarea { height: 170px !important; }
+}

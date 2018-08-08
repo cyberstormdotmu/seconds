@@ -1,0 +1,79 @@
+
+		<!-- Start Sub Header -->
+		<section class="sub-header">
+			<div class="container" ng-if="pickBuyerByAdminForPlaceOrder" style="color : #17e60b ;">
+				You are placing order on behalf of <b>{{pickBuyerByAdminForPlaceOrder}}</b> buyer.
+			</div>
+			<div class="container">
+				<ul class="breadcrumb">
+					<li ng-repeat="category in vm.parentCategories"><a ui-sref="products.list({category: category})">{{ category }}</a></li>
+            		<li class="active">{{ vm.currentCategory }}</li>
+				</ul>
+			</div>
+		</section>
+		<!-- End Sub Header -->
+		<section class="products-content content-wrap">
+			<div class="container">
+				<h3 class="page-heading">{{ vm.currentCategory }}</h3>
+				<!-- for desktop -->
+				<div ng-if="vm.currentCategory == 'Desktops' && vm.products.length == 0" class="text-center" >
+				<div style="font-size: 78px; margin-top: 20%;margin-bottom: 10%;margin-left: 20%;margin-right: 20%; color: blue;font-style: italic; font-weight: bold;">
+				COMING SOON
+				</div>
+				<a href="#/products?category=Laptops" data-ui-sref="products.list({category:'Laptops'})" class="product" title="Laptops">
+                view <font style="font-weight: bold; font-size: 20px; color: blue;">Laptops</font>
+                </a>
+				</div>
+				<!-- for printers -->
+				<div ng-if="vm.currentCategory == 'Printers' && vm.products.length == 0" class="text-center" >
+				<div style="font-size: 78px; margin-top: 20%;margin-bottom: 10%;margin-left: 20%;margin-right: 20%; color: blue;font-style: italic; font-weight: bold;">
+				COMING SOON
+				</div>
+				<a href="#/products?category=Laptops" data-ui-sref="products.list({category:'Laptops'})" class="product" title="Laptops">
+                view <font style="font-weight: bold; font-size: 20px; color: blue;">Laptops</font>
+                </a>
+				</div>
+				<ul class="product-listing" id="product-listings" ng-repeat="product in vm.products">
+					<li>
+						<div class="media">
+							<div class="media-left">
+								<a title="View more details on the {{ product.name }}" href="#/products/{{ product.code }}"><img class="media-object" ng-src="{{ product.image.url }}" alt="{{ product.image.description }}" /></a>
+								<div class="text-center">
+									<a id="product-detail-link-{{ product.code }}" href="#/products/{{ product.code }}" class="btn btn-primary" alt="View more details on the {{ product.name }}">View offer</a>
+								</div>
+							</div>
+							<div class="media-body">
+								<h3 class="media-heading"><a title="View more details on the {{ product.name }}" href="#/products/{{ product.code }}">{{ product.name }}</a> <span style="font-size:15px">offer expires on {{ product.offerEndDate | date:'shortDate' }}</span></h3>
+								<ul class="price-diff clearfix">
+									<li>
+										<span>Original Price</span>
+										<h5>{{ product.initialPrice | currency }}</h5>
+										<em>ex-vat</em>
+									</li>
+									<li>
+										<span>Current Price</span>
+										<h5>{{ product.currentPrice | currency }}</h5>
+										<em>ex-vat</em>
+									</li>
+									<li>
+										<span>Target Price</span>
+										<h5>{{ product.targetPrice | currency }}</h5>
+										<em>ex-vat</em>
+									</li>
+									<li>
+										<span>Stock Available</span>
+										<h5>{{ product.stock | number }}</span> <span class="value" ng-show="!product.stock"> 0 </span></h5>
+									</li>
+									<li>
+										<span>Ordered Quantity</span>
+										<h5>{{ product.basket.quantity | number }} </span> <span class="value" ng-show="!product.basket.quantity"> 0 </span></h5>
+									</li>
+								</ul>
+								<sho-price-chart price-bands="product.priceBands" current-volume="product.currentVolume" order-quantity="product.basket.quantity" class="img-responsive" product-stock="product.stock" style="height:70%; width:70%"></sho-price-chart>
+							</div>
+						</div>
+						<hr style="color: black;">
+					</li>
+				</ul>
+			</div>
+		</section>

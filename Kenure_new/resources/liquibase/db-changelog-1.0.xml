@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="SAURABH" id="1475655108837-1">
+        <createTable tableName="billing_history">
+            <column autoIncrement="true" name="billing_history_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="consumer_meter_id" type="INT"/>
+            <column name="billing_start_date" type="datetime(6)"/>
+            <column name="billing_end_date" type="datetime(6)"/>
+            <column name="current_reading" type="INT"/>
+            <column name="last_reading" type="INT"/>
+            <column name="consumed_unit" type="INT"/>
+            <column name="total_amount" type="INT"/>
+            <column name="bill_date" type="datetime(6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-2">
+        <createTable tableName="boundry_datacollector">
+            <column autoIncrement="true" name="boundry_datacollector_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="site_id" type="INT"/>
+            <column name="datacollector_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-3">
+        <createTable tableName="consumer">
+            <column autoIncrement="true" name="consumer_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="consumer_acc_number" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tariff_plan_id" type="INT"/>
+            <column name="user_id" type="INT"/>
+            <column name="customer_id" type="INT"/>
+            <column name="created_by" type="INT"/>
+            <column name="created_ts" type="TIMESTAMP(6)"/>
+            <column name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-4">
+        <createTable tableName="consumer_meter">
+            <column autoIncrement="true" name="consumer_meter_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="consumer_id" type="INT"/>
+            <column name="tariff_plan_id" type="INT"/>
+            <column defaultValueNumeric="0" name="datacollector_id" type="INT"/>
+            <column defaultValueNumeric="0" name="utility_meter_id" type="INT"/>
+            <column defaultValueNumeric="0" name="site_id" type="INT"/>
+            <column name="endpoint_serial_number" type="VARCHAR(10)"/>
+            <column name="register_id" type="INT"/>
+            <column name="customer_id" type="INT"/>
+            <column defaultValueNumeric="0" name="repeater" type="BIT(1)"/>
+            <column defaultValueNumeric="0" name="total_endpoint_attached" type="INT"/>
+            <column name="endpoint_level" type="BIT(1)"/>
+            <column name="unit_of_measure" type="VARCHAR(5)"/>
+            <column name="endpoint_installed_date" type="datetime(6)"/>
+            <column name="endpoint_battery_replaced_date" type="datetime(6)"/>
+            <column name="asset_inspection_date" type="datetime(6)"/>
+            <column name="notes" type="VARCHAR(255)"/>
+            <column defaultValueNumeric="0.0" name="latitude" type="DOUBLE"/>
+            <column defaultValueNumeric="0.0" name="longitude" type="DOUBLE"/>
+            <column defaultValueNumeric="0" name="no_of_occupants" type="INT"/>
+            <column defaultValueNumeric="0" name="hosepipe" type="BIT(1)"/>
+            <column defaultValueNumeric="0" name="irrigation_system" type="BIT(1)"/>
+            <column defaultValueNumeric="0" name="swimming_pool" type="BIT(1)"/>
+            <column defaultValueNumeric="0" name="hot_tub" type="BIT(1)"/>
+            <column name="pond" type="BIT(1)"/>
+            <column defaultValueNumeric="0" name="created_by" type="INT"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="0" name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="0" name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meter_installer_id" type="INT"/>
+            <column name="installer_id" type="INT"/>
+            <column defaultValueNumeric="0" name="billing_frequency_in_days" type="INT"/>
+            <column name="billing_start_date" type="datetime(6)"/>
+            <column name="last_billing_date" type="datetime(6)"/>
+            <column defaultValueNumeric="0" name="current_reading" type="INT"/>
+            <column defaultValueNumeric="0" name="last_reading" type="INT"/>
+            <column name="bill_date" type="datetime(6)"/>
+            <column name="district_utility_meter_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-5">
+        <createTable tableName="consumer_meter_transaction">
+            <column autoIncrement="true" name="consumer_meter_transaction_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="register_id" type="INT"/>
+            <column name="current_meter_reading" type="INT"/>
+            <column name="current_battery_voltage" type="INT"/>
+            <column name="current_status" type="INT"/>
+            <column name="current_reading_timestamp" type="datetime(6)"/>
+            <column name="historical_meter_reading" type="INT"/>
+            <column name="historical_battery_voltage" type="INT"/>
+            <column name="historical_status" type="INT"/>
+            <column name="historical_reading_timestamp" type="datetime(6)"/>
+            <column name="alerts" type="VARCHAR(500)"/>
+            <column defaultValueNumeric="0" name="alerts_ack" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-6">
+        <createTable tableName="contact_details">
+            <column autoIncrement="true" name="contact_details_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="firstname" type="VARCHAR(45)"/>
+            <column name="lastname" type="VARCHAR(45)"/>
+            <column name="address1" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address2" type="VARCHAR(255)"/>
+            <column name="address3" type="VARCHAR(255)"/>
+            <column name="streetname" type="VARCHAR(255)"/>
+            <column name="zipcode" type="VARCHAR(10)"/>
+            <column name="cell_number1" type="VARCHAR(15)"/>
+            <column name="cell_number2" type="VARCHAR(15)"/>
+            <column name="cell_number3" type="VARCHAR(15)"/>
+            <column name="email1" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email2" type="VARCHAR(30)"/>
+            <column name="email3" type="VARCHAR(30)"/>
+            <column name="created_by" type="INT"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_ts" type="TIMESTAMP(6)"/>
+            <column name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-7">
+        <createTable tableName="country">
+            <column autoIncrement="true" name="country_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="countryName" type="VARCHAR(100)"/>
+            <column name="countryCode" type="VARCHAR(3)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-8">
+        <createTable tableName="currency">
+            <column autoIncrement="true" name="currency_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="currencyName" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currencySymbol" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-9">
+        <createTable tableName="customer">
+            <column autoIncrement="true" name="customer_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="customer_code" type="VARCHAR(4)"/>
+            <column name="customername" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_plan_id" type="INT"/>
+            <column name="dataplan_activated_date" type="datetime(6)"/>
+            <column name="dataplan_expiry_date" type="datetime(6)"/>
+            <column name="currency" type="INT"/>
+            <column defaultValue="+00:00" name="time_zone" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tariff_costs" type="INT"/>
+            <column name="tariff_threshold" type="INT"/>
+            <column name="tcp_byte_count" type="INT"/>
+            <column defaultValueNumeric="123" name="created_by" type="INT"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="12345" name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="0" name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="endpoint_across_all_sites" type="INT"/>
+            <column name="contract_start_date" type="datetime(6)"/>
+            <column name="contract_end_date" type="datetime(6)"/>
+            <column name="default_tariff_plan_id" type="INT"/>
+            <column name="user_id" type="INT"/>
+            <column defaultValue="INACTIVE" name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency_id" type="INT"/>
+            <column name="country_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-10">
+        <createTable tableName="data_plan">
+            <column autoIncrement="true" name="data_plan_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="mb_per_month" type="INT"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_date" type="datetime(6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-11">
+        <createTable tableName="datacollector">
+            <column autoIncrement="true" name="datacollector_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="site_id" type="INT"/>
+            <column name="dc_serial_number" type="VARCHAR(45)"/>
+            <column name="dc_ip" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dc_simcard_no" type="VARCHAR(40)"/>
+            <column name="dc_user_id" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dc_user_password" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dc_port" type="INT"/>
+            <column name="boundry_datacollector" type="VARCHAR(45)"/>
+            <column name="network_id" type="INT"/>
+            <column name="network_backup_data" type="VARCHAR(45)"/>
+            <column name="latitude" type="DOUBLE"/>
+            <column name="longitude" type="DOUBLE"/>
+            <column name="total_endpoints" type="INT"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="meter_reading_interval" type="INT"/>
+            <column defaultValueNumeric="0" name="network_reading_interval" type="INT"/>
+            <column defaultValueNumeric="0" name="network_status_interval" type="INT"/>
+            <column name="type" type="VARCHAR(10)"/>
+            <column name="created_by" type="INT"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_ts" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="0" name="installer_id" type="INT"/>
+            <column name="customer_id" type="INT"/>
+            <column defaultValueNumeric="1" name="iscommissioned" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="alerts" type="VARCHAR(500)"/>
+            <column defaultValueNumeric="0" name="alerts_ack" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-12">
+        <createTable tableName="district_utility_meter">
+            <column autoIncrement="true" name="district_utility_meter_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="district_utility_meter_serial_number" type="INT"/>
+            <column name="current_reading" type="INT"/>
+            <column name="reading_date" type="datetime(6)"/>
+            <column name="customer_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-13">
+        <createTable tableName="installer">
+            <column autoIncrement="true" name="installer_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="customer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_ts" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="0" name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NoName" name="installer_name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-14">
+        <createTable tableName="maintenance_technician">
+            <column autoIncrement="true" name="maintenance_technician_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="customer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_ts" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_detail_id" type="INT"/>
+            <column name="region_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-15">
+        <createTable tableName="region">
+            <column autoIncrement="true" name="region_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="region_name" type="VARCHAR(45)"/>
+            <column name="customer_id" type="INT"/>
+            <column name="country_id" type="INT"/>
+            <column name="currency_id" type="INT"/>
+            <column name="time_zone" type="VARCHAR(6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-16">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="role_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="role_name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-17">
+        <createTable tableName="site">
+            <column autoIncrement="true" name="site_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="site_name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_ts" type="TIMESTAMP(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="region_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-18">
+        <createTable tableName="site_district_util_meter">
+            <column autoIncrement="true" name="site_district_util_meter_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-19">
+        <createTable tableName="system_config">
+            <column autoIncrement="true" name="system_config_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="VPN_server_name" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VPN_domain_name" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VPN_username" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VPN_password" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="no_of_bytes_per_endpoint_read" type="VARCHAR(45)"/>
+            <column name="no_of_bytes_per_packet" type="VARCHAR(45)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-20">
+        <createTable tableName="tariff_plan">
+            <column autoIncrement="true" name="tariff_plan_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="tariff_plan_name" type="VARCHAR(45)"/>
+            <column name="customer_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-21">
+        <createTable tableName="tariff_transaction">
+            <column autoIncrement="true" name="tariff_transaction_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="tariff_plan_id" type="INT"/>
+            <column name="start_band" type="INT"/>
+            <column name="end_band" type="INT"/>
+            <column name="rate" type="VARCHAR(45)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-22">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="user_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="role_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="first_time_login" type="BIT(1)"/>
+            <column defaultValueNumeric="123" name="created_by" type="INT"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="0" name="updated_by" type="INT"/>
+            <column name="updated_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="0" name="deleted_by" type="INT"/>
+            <column name="deleted_ts" type="TIMESTAMP(6)"/>
+            <column defaultValueNumeric="1" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_details_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-23">
+        <addUniqueConstraint columnNames="countryCode" constraintName="countryCode_UNIQUE" tableName="country"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-24">
+        <addUniqueConstraint columnNames="countryName" constraintName="countryName_UNIQUE" tableName="country"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-25">
+        <addUniqueConstraint columnNames="customer_code" constraintName="customer_code_UNIQUE" tableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-26">
+        <addUniqueConstraint columnNames="endpoint_serial_number" constraintName="endpoint_serial_number_UNIQUE" tableName="consumer_meter"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-27">
+        <addUniqueConstraint columnNames="register_id" constraintName="register_id_UNIQUE" tableName="consumer_meter"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-28">
+        <addUniqueConstraint columnNames="username" constraintName="username_UNIQUE" tableName="user"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-29">
+        <createIndex indexName="boundy_datacollector_site_id_idx" tableName="boundry_datacollector">
+            <column name="site_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-30">
+        <createIndex indexName="consumer_meter_consumer_id_FK_idx" tableName="consumer_meter">
+            <column name="consumer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-31">
+        <createIndex indexName="consumer_meter_dc_id_FK_idx" tableName="consumer_meter">
+            <column name="datacollector_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-32">
+        <createIndex indexName="consumer_meter_id_FK_idx" tableName="billing_history">
+            <column name="consumer_meter_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-33">
+        <createIndex indexName="contact_details_id_FK_idx" tableName="user">
+            <column name="contact_details_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-34">
+        <createIndex indexName="contactdetai_id_FKl_idx" tableName="maintenance_technician">
+            <column name="contact_detail_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-35">
+        <createIndex indexName="country_id_FK_idx" tableName="customer">
+            <column name="country_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-36">
+        <createIndex indexName="customer_currency_FK_idx" tableName="customer">
+            <column name="currency_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-37">
+        <createIndex indexName="customer_datacollector_FK_idx" tableName="datacollector">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-38">
+        <createIndex indexName="customer_dataplan_FK_idx" tableName="customer">
+            <column name="data_plan_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-39">
+        <createIndex indexName="customer_id_FK_idx" tableName="consumer_meter">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-40">
+        <createIndex indexName="customer_id_FK_idx" tableName="region">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-41">
+        <createIndex indexName="customer_id_foreign_key_idx" tableName="consumer">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-42">
+        <createIndex indexName="customer_user_FK_idx" tableName="customer">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-43">
+        <createIndex indexName="datacollector_id_FK_idx" tableName="boundry_datacollector">
+            <column name="datacollector_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-44">
+        <createIndex indexName="datacollector_site_id_FK_idx" tableName="datacollector">
+            <column name="site_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-45">
+        <createIndex indexName="default_tariff_plan_id_FK_idx" tableName="customer">
+            <column name="default_tariff_plan_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-46">
+        <createIndex indexName="district_utility _meter_id_FK_idx" tableName="consumer_meter">
+            <column name="district_utility_meter_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-47">
+        <createIndex indexName="district_utility_meter_customer_id_FK_idx" tableName="district_utility_meter">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-48">
+        <createIndex indexName="installer_customer_FK_idx" tableName="installer">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-49">
+        <createIndex indexName="installer_id_FK_idx" tableName="consumer_meter">
+            <column name="installer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-50">
+        <createIndex indexName="installer_id_FK_idx" tableName="datacollector">
+            <column name="installer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-51">
+        <createIndex indexName="installer_user_FK_idx" tableName="installer">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-52">
+        <createIndex indexName="maintenance_technician_customer_FK_idx" tableName="maintenance_technician">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-53">
+        <createIndex indexName="maintenance_technician_region_id_FK_idx" tableName="maintenance_technician">
+            <column name="region_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-54">
+        <createIndex indexName="meter_installer_id_FK_idx" tableName="consumer_meter">
+            <column name="meter_installer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-55">
+        <createIndex indexName="region_country_id_FK_idx" tableName="region">
+            <column name="country_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-56">
+        <createIndex indexName="region_currency_id_FK_idx" tableName="region">
+            <column name="currency_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-57">
+        <createIndex indexName="region_id_FK_idx" tableName="site">
+            <column name="region_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-58">
+        <createIndex indexName="register_id_FK_idx" tableName="consumer_meter_transaction">
+            <column name="register_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-59">
+        <createIndex indexName="role_id_idx" tableName="user">
+            <column name="role_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-60">
+        <createIndex indexName="site_id_FK_idx" tableName="consumer_meter">
+            <column name="site_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-61">
+        <createIndex indexName="tariff_customer_id_idx" tableName="tariff_plan">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-62">
+        <createIndex indexName="tariff_plan_id_FK_idx" tableName="consumer">
+            <column name="tariff_plan_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-63">
+        <createIndex indexName="tariff_plan_id_FK_idx" tableName="consumer_meter">
+            <column name="tariff_plan_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-64">
+        <createIndex indexName="tariff_plan_transaction_id_idx" tableName="tariff_transaction">
+            <column name="tariff_plan_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-65">
+        <createIndex indexName="user_id_FK_idx" tableName="consumer">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-66">
+        <addForeignKeyConstraint baseColumnNames="site_id" baseTableName="boundry_datacollector" constraintName="boundy_datacollector_site_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="site_id" referencedTableName="site"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-67">
+        <addForeignKeyConstraint baseColumnNames="consumer_id" baseTableName="consumer_meter" constraintName="consumer_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="consumer_id" referencedTableName="consumer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-68">
+        <addForeignKeyConstraint baseColumnNames="datacollector_id" baseTableName="consumer_meter" constraintName="consumer_meter_dc_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="datacollector_id" referencedTableName="datacollector"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-69">
+        <addForeignKeyConstraint baseColumnNames="consumer_meter_id" baseTableName="billing_history" constraintName="consumer_meter_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="consumer_meter_id" referencedTableName="consumer_meter"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-70">
+        <addForeignKeyConstraint baseColumnNames="register_id" baseTableName="consumer_meter_transaction" constraintName="consumer_meter_register_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="register_id" referencedTableName="consumer_meter"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-71">
+        <addForeignKeyConstraint baseColumnNames="contact_details_id" baseTableName="user" constraintName="contact_details_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="contact_details_id" referencedTableName="contact_details"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-72">
+        <addForeignKeyConstraint baseColumnNames="contact_detail_id" baseTableName="maintenance_technician" constraintName="contactdetai_id_FKl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="contact_details_id" referencedTableName="contact_details"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-73">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="customer" constraintName="country_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="country_id" referencedTableName="country"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-74">
+        <addForeignKeyConstraint baseColumnNames="currency_id" baseTableName="customer" constraintName="customer_currency_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="currency_id" referencedTableName="currency"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-75">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="datacollector" constraintName="customer_datacollector_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="customer_id" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-76">
+        <addForeignKeyConstraint baseColumnNames="data_plan_id" baseTableName="customer" constraintName="customer_dataplan_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="data_plan_id" referencedTableName="data_plan"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-77">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="consumer_meter" constraintName="customer_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="customer_id" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-78">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="consumer" constraintName="customer_id_foreign_key" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="customer_id" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-79">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="customer" constraintName="customer_user_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-80">
+        <addForeignKeyConstraint baseColumnNames="datacollector_id" baseTableName="boundry_datacollector" constraintName="datacollector_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="datacollector_id" referencedTableName="datacollector"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-81">
+        <addForeignKeyConstraint baseColumnNames="site_id" baseTableName="datacollector" constraintName="datacollector_site_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="site_id" referencedTableName="site"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-82">
+        <addForeignKeyConstraint baseColumnNames="default_tariff_plan_id" baseTableName="customer" constraintName="default_tariff_plan_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="tariff_plan_id" referencedTableName="tariff_plan"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-83">
+        <addForeignKeyConstraint baseColumnNames="district_utility_meter_id" baseTableName="consumer_meter" constraintName="district_utility _meter_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="district_utility_meter_id" referencedTableName="district_utility_meter"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-84">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="district_utility_meter" constraintName="district_utility_meter_customer_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="customer_id" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-85">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="installer" constraintName="installer_customer_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="customer_id" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-86">
+        <addForeignKeyConstraint baseColumnNames="installer_id" baseTableName="datacollector" constraintName="installer_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="installer_id" referencedTableName="installer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-87">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="installer" constraintName="installer_user_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-88">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="maintenance_technician" constraintName="maintenance_technician_customer_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="customer_id" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-89">
+        <addForeignKeyConstraint baseColumnNames="region_id" baseTableName="maintenance_technician" constraintName="maintenance_technician_region_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="region_id" referencedTableName="region"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-90">
+        <addForeignKeyConstraint baseColumnNames="meter_installer_id" baseTableName="consumer_meter" constraintName="meter_installer_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="installer_id" referencedTableName="installer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-91">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="region" constraintName="region_country_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="country_id" referencedTableName="country"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-92">
+        <addForeignKeyConstraint baseColumnNames="currency_id" baseTableName="region" constraintName="region_currency_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="currency_id" referencedTableName="currency"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-93">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="region" constraintName="region_customer_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="customer_id" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-94">
+        <addForeignKeyConstraint baseColumnNames="region_id" baseTableName="site" constraintName="region_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="region_id" referencedTableName="region"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-95">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user" constraintName="role_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role_id" referencedTableName="role"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-96">
+        <addForeignKeyConstraint baseColumnNames="site_id" baseTableName="consumer_meter" constraintName="site_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="site_id" referencedTableName="site"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-97">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="tariff_plan" constraintName="tariff_customer_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="customer_id" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-98">
+        <addForeignKeyConstraint baseColumnNames="tariff_plan_id" baseTableName="consumer_meter" constraintName="tariff_plan_id_FK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="tariff_plan_id" referencedTableName="tariff_plan"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-99">
+        <addForeignKeyConstraint baseColumnNames="tariff_plan_id" baseTableName="consumer" constraintName="tariff_plan_id_foreign_key" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="tariff_plan_id" referencedTableName="tariff_plan"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-100">
+        <addForeignKeyConstraint baseColumnNames="tariff_plan_id" baseTableName="tariff_transaction" constraintName="tariff_plan_transaction_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="tariff_plan_id" referencedTableName="tariff_plan"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475655108837-101">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="consumer" constraintName="user_id_foreign_key" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="SAURABH" id="1475236191503-102">
+    	<tagDatabase tag="1.0" />
+  	</changeSet>
+</databaseChangeLog>

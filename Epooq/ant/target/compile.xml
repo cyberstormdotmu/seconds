@@ -1,0 +1,42 @@
+<project>
+	<import file="../common.xml" />
+
+	<path id="class.path">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<path refid="extra.class.path"/>
+	</path>
+
+	<target name="-test-extra-classpath">
+		<condition property="extra.class.path.defined">
+		    <isreference refid="extra.class.path"/>
+		</condition>
+	</target>
+
+	<target name="-set-extra-classpath" unless="extra.class.path.defined">
+		<path id="extra.class.path" />
+	</target>
+
+	<target name="compile" depends="-test-extra-classpath, -set-extra-classpath">
+		<echo message="COMPILE" />
+
+		<mkdir dir="${bin.dir}" />
+		<!-- Make sure the lib directory exists -->
+		<mkdir dir="${lib.dir}" />
+
+		<javac srcdir="${src.dir}" destdir="${bin.dir}"
+			includeantruntime="false" target="1.6" source="1.6" encoding="utf-8">
+			<compilerarg value="-Xlint:all" />
+			<!-- Disable fucked up manifest class paths -->
+			<compilerarg value="-Xlint:-path" />
+			<classpath refid="class.path"/>
+		</javac>
+
+		<!-- Copy all files from src to bin excluding source files -->
+		<copy todir="${bin.dir}">
+			<fileset dir="${src.dir}" includes="**/*" excludes="**/*.java" />
+		</copy>
+	</target>
+
+</project>

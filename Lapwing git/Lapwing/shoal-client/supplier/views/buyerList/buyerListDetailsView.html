@@ -1,0 +1,115 @@
+<div class="content-wrap"><div id="main-content" class="container">
+    <div id="left-column" class="col-sm-12">
+        <div class="row">
+            <h3>Buyer Details</h3>
+        </div>
+      <div ng-show="vm.buyerDelails">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Profile</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-2 text-right"><strong>User Name:</strong></div>
+                            <div class="col-sm-4">{{ vm.buyerDelails.buyerListing.userName }}</div>
+                            <div class="col-sm-2 text-right"><strong>First Name:</strong></div>
+                            <div class="col-sm-4">{{ vm.buyerDelails.buyerListing.firstName }}</div>
+                            <div class="col-sm-2 text-right"><strong>Surname:</strong></div>
+                            <div class="col-sm-4">{{ vm.buyerDelails.buyerListing.surname }}</div>
+                            <div class="col-sm-2 text-right"><strong>Mobile number:</strong></div>
+                            <div class="col-sm-4">{{ vm.buyerDelails.buyerListing.mobileNumber }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right"><strong>Email address:</strong></div>
+                            <div class="col-sm-4">{{ vm.buyerDelails.buyerListing.emailAddress }}</div>
+                            <div class="col-sm-2 text-right"><strong>Organisation Name:</strong></div>
+                            <div class="col-sm-4">{{vm.buyerDelails.buyerListing.organisation }}</div>
+                            <div class="col-sm-2 text-right"><strong>Company No:</strong></div>
+                            <div class="col-sm-4">{{ vm.buyerDelails.buyerListing.companyNo }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Supplier Credits</div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-responsive table-hover table-headings">
+                            <thead>
+                                <tr>
+                                <th>Supplier Name</th>
+                                <th>Total Credits</th>
+                                <th>Available Credits</th>
+                                <th>Edit Vendor Credit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="vendorCredit in vm.buyerDelails.buyerAllCredits.vendorCredits">
+                                <td>{{ vendorCredit.vendorName }}</td>
+                                <td>{{ vendorCredit.totalCredits | accounting }}</td>
+                                <td>{{ vendorCredit.availableCredits | accounting }}</td>
+                                <td class="text-left">
+                                    <a class="btn btn-success btn-xs">
+                                        <span class="fa fa-pencil-square-o" aria-hidden="true" ng-click="vm.editVendorCredit(vendorCredit)"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                 <div class="panel-heading">Silverwing Credits</div>
+                     <div class="panel-body">
+                        <div class="col-sm-6"><strong>Pending Credits:</strong></div>
+                        <div class="col-sm-6">{{ vm.buyerDelails.buyerAllCredits.lapwingCredits.pendingCreditBalance | accounting }}</div>
+                        <div class="col-sm-6"><strong>Credits Available:</strong></div>
+                        <div class="col-sm-6">{{ vm.buyerDelails.buyerAllCredits.lapwingCredits.availableCreditBalance | accounting }}</div>
+                        <div class="col-sm-6"><strong>Redeemable Credits:</strong></div>
+                        <div class="col-sm-6">{{ vm.buyerDelails.buyerAllCredits.lapwingCredits.redeemableCreditBalance | accounting }}</div>
+                     </div>
+                </div>  
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Payments</div>
+                    <div class="panel-body">
+                        <div class="col-sm-6"><strong>Money Owed:</strong></div>
+                        <div class="col-sm-6">{{ vm.buyerDelails.orderBalances.moneyOwnedBalance | accounting }}</div>
+                        <div class="col-sm-6"><strong>Late Payments:</strong></div>
+                        <div class="col-sm-6">{{ vm.buyerDelails.orderBalances.latePaymentBalance | accounting }}</div>
+                        <div class="col-sm-6"><strong>See Accounts Payable:</strong></div>
+                        <div class="col-sm-6">{{ vm.buyerDelails.orderBalances.accountPaybleBalance | accounting }}</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+           <uib-tabset>
+               <uib-tab heading="Unconfirmed Orders">
+                   <sho-buyer-order-list orders="vm.unconfirmedOrders"/>
+               </uib-tab>
+               <uib-tab heading="Confirmed Orders">
+                   <sho-buyer-order-list orders="vm.confirmedOrders"/>
+               </uib-tab>
+               <uib-tab heading="Cancelled Orders">
+                   <sho-buyer-order-list orders="vm.cancelledOrders"/>
+               </uib-tab>
+           </uib-tabset>
+           </div>
+            
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <a class="btn btn-default btn-xs" role="button" data-ui-sref="loggedIn.buyerList.list"><span
+                        class="fa fa-chevron-left" aria-hidden="true"></span> Return to Buyer List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

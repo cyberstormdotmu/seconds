@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head></h:head>
+
+<h:body onload="onpageLoadTableUpdate()">
+
+	<ui:composition template="commonLayout.xhtml">
+		<!-- 	<ui:composition template="gga.xhtml"> -->
+		<ui:define name="head">
+		</ui:define>
+
+		<ui:define name="content">
+
+			<h:form id="form">
+				<p:remoteCommand name="onpageLoadTableUpdate"
+					actionListener="#{distributionLineBean.updateDataTable()}"
+					update="distributionLinesTable" />
+				<f:metadata>
+					<f:viewParam name="projectbean"
+						value="#{distributionLineBean.passparam}" />
+
+				</f:metadata>
+
+				<p:growl id="saveGrowl" showDetail="true" sticky="false" life="2000" />
+				<h:outputText value="&#160;" />
+
+				<p:panel header="Dağıtım Hatları" style="max-width: 1280px">
+					<!-- projelerin dökümü burada yapılıyor -->
+					<h:panelGrid columns="2" width="101%" rowClasses="valignTop">
+						<p:row>
+							<h:outputLabel value="Bir Proje Seçiniz:"
+								for="dropDownAutoComplete" />
+							<p:autoComplete id="dropDownAutoComplete" dropdown="true"
+								value="#{distributionLineBean.autocompleteString}"
+								completeMethod="#{distributionLineBean.autoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect"
+									listener="#{distributionLineBean.onSelect}"
+									update="distributionLinesTable" />
+
+							</p:autoComplete>
+							<p:commandButton id="distributionLineSave"
+								value="Dağıtım Hattı Ekle"
+								onclick="PF('distributionLineConsole').show();" type="button" />
+						</p:row>
+					</h:panelGrid>
+					<p:row>
+						<p:dataTable id="distributionLinesTable"
+							var="distributionLine" widgetVar="distributionLinesTableWidget"
+							value="#{distributionLineBean.distributionLines}"
+							rowKey="#{distributionLine.id}" rows="15"
+							emptyMessage="Aradığınız kriterlere uygun dağıtım hattı bulunmamaktadır"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="15,30,45" lazy="false"
+							selection="#{distributionLineBean.selectedDistributionLine}"
+							selectionMode="single"
+							>
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText
+										value="Tüm alanlarda ara:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('distributionLinesTableWidget').filter()"
+										style="width:150px" placeholder="Ara" />
+								</p:outputPanel>
+							</f:facet>
+							<p:column headerText="Adı"
+								sortBy="#{distributionLine.name}"
+								filterBy="#{distributionLine.name}">
+								<h:outputText
+									value="#{distributionLine.name}" /> 
+							</p:column>
+							<p:column headerText="Sayaç Tipi">
+								<h:outputText
+									value="#{distributionLineBean.getLinesMeters(distributionLine)}" />
+							</p:column>
+							<p:column style="width:35px"
+								exportable="false">
+								<p:commandButton id="deleteButton"
+									onclick="PF('deleteDistributionLineDialog').show();"
+									icon="ui-icon-close" title="Sil">
+								</p:commandButton>
+							</p:column>
+							<p:column style="width:75px"
+								exportable="false">
+								<p:remoteCommand name="onclickpassparam"
+									actionListener="#{buildingBean.updateSelectedDistributionLine(distributionLineBean.selectedDistributionLine)}" />
+								<p:button outcome="buildings"
+									value="Binalar" onclick="onclickpassparam()">
+								</p:button>
+							</p:column>
+						</p:dataTable>
+					</p:row>
+
+					<p:dialog widgetVar="deleteDistributionLineDialog" header="Dikkat!"
+						align="center" global="true" style="text-align:center;"
+						width="230px" resizable="false">
+						<p:column width="230px" style="text-align:center;">
+							<h:outputText width="230px" style="text-align:center;"
+								value="Dağıtım Hattını Sildiğinizde xx........ silmiş olursunuz" />
+							<br></br>
+							<h:outputText width="230px"
+								value="Dağıtım hattını Silmek istediğinize emin misiniz" />
+
+						</p:column>
+						<br></br>
+						<br></br>
+						<p:commandButton value="Evet" styleClass="ui-confirmdialog-yes"
+							action="#{distributionLineBean.deleteWithRelations()}"
+							immediate="true"
+							oncomplete="PF('deleteDistributionLineDialog').hide();"
+							icon="ui-icon-check"
+							update=":form:distributionLinesTable, :form:saveGrowl" />
+						<p:commandButton value="Hayır" styleClass="ui-confirmdialog-no"
+							onclick="PF('deleteDistributionLineDialog').hide();"
+							icon="ui-icon-close" />
+					</p:dialog>
+
+					<p:dialog id="distributionLineDialog" width="700px"
+						header="Dağıtım Hattı Konsolu" widgetVar="distributionLineConsole"
+						modal="true">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText id="projectText"
+								value="Dağıtım Hattı Eklenecek Proje: " />
+							<p:autoComplete id="projecttoAdd" dropdown="true"
+								value="#{distributionLineBean.projectToBindDistLine}"
+								completeMethod="#{distributionLineBean.autoComplete}">
+
+							</p:autoComplete>
+							<h:outputText id="distributionLineNameText"
+								value="Dağıtım Hattı Adı:" />
+							<p:inputText id="distributionLineNameInput"
+								value="#{distributionLineBean.nameDistLine}" />
+
+							<h:outputText id="distributionLineOperationText"
+								value="Operasyon" />
+							<p:inputText id="distributionLineOperationInput"
+								value="#{distributionLineBean.operationDistLine}" />
+
+							<h:outputText id="distributionLineReadOutText"
+								value="Okuma Yöntemi" />
+							<p:selectOneMenu converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{distributionLineBean.readOutMethods}"
+									var="readOutMethod" itemValue="#{readOutMethod}"
+									itemLabel="#{readOutMethod.type}" />
+							</p:selectOneMenu>
+
+							<h:outputText id="distributionLineMeterTypeText"
+								value="Sayaç Tipleri" />
+							<p:selectManyCheckbox id="meterTypes"
+								value="#{distributionLineBean.selectedMeterTypes}" layout="grid"
+								columns="3" converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{distributionLineBean.meterTypes}"
+									var="meterType" itemValue="#{meterType}"
+									itemLabel="#{meterType.name}" />
+							</p:selectManyCheckbox>
+							<p:commandButton id="savebuildingButton"
+								value="Dağıtım Hattı Ekle"
+								actionListener="#{distributionLineBean.bindDistributionLine()}"
+								oncomplete="PF('distributionLineConsole').hide();"
+								update=":form:saveGrowl,distributionLinesTable" />
+						</h:panelGrid>
+					</p:dialog>
+
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

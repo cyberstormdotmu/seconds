@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head></h:head>
+<h:body onload="onpageLoadTableUpdate()">
+	<!-- 	<p:remoteCommand name="onpageLoadTableUpdate" -->
+	<!-- 		action="#{buildingBean.updateDataTable()}" -->
+	<!-- 		update="distributionLinesTable" /> -->
+	<ui:composition template="commonLayout.xhtml">
+		<!-- 	<ui:composition template="gga.xhtml"> -->
+		<ui:define name="head">
+		</ui:define>
+
+		<ui:define name="content">
+			<h:form id="form">
+
+				<p:growl id="saveGrowl" showDetail="true" sticky="false" life="2000" />
+				<h:outputText value="&#160;" />
+
+				<p:panel header="Binalar" style="max-width: 1280px">
+					<!-- projelerin dökümü burada yapılıyor -->
+					<h:panelGrid columns="2" width="101%" rowClasses="valignTop">
+
+
+						<p:row>
+							<h:outputLabel value="Bir Dağıtım Hattı Seçiniz:"
+								for="dropDownAutoComplete" />
+							<p:autoComplete id="dropDownAutoComplete" dropdown="true"
+								value="#{buildingBean.autocompleteString}"
+								completeMethod="#{buildingBean.autoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect" listener="#{buildingBean.onSelect}"
+									update="buildingsTable" />
+
+							</p:autoComplete>
+							<p:commandButton id="buildingSave" value="Bina Ekle"
+								onclick="PF('buildingConsole').show();" type="button" />
+						</p:row>
+					</h:panelGrid>
+					<p:row>
+						<p:dataTable id="buildingsTable" var="building"
+							widgetVar="buildingsTableWidget" 
+							value="#{buildingBean.buildings}" rowKey="#{building.id}"
+							rows="20"
+							emptyMessage="Aradığınız kriterlere uygun bina bulunmamaktadır"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="15,30,45" lazy="false"
+							selection="#{buildingBean.selectedBuilding}"
+							selectionMode="single">
+
+
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Tüm alanlarda ara:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('buildingsTableWidget').filter()"
+										style="width:150px" placeholder="Ara" />
+								</p:outputPanel>
+							</f:facet>
+							<p:column style="width:16px">
+								<p:rowToggler />
+							</p:column>
+							<p:column headerText="Adı" sortBy="#{building.name}"
+								filterBy="#{building.name}">
+								<h:outputText value="#{building.name}" />
+							</p:column>
+							<p:column headerText="Kat Sayısı" sortBy="#{building.flatCount}"
+								filterBy="#{building.flatCount}">
+								<h:outputText value="#{building.flatCount}" />
+							</p:column>
+							<p:column headerText="Kat Sayısı" sortBy="#{building.flatCount}"
+								filterBy="#{building.flatCount}">
+								<h:outputText value="#{building.flatCount}" />
+							</p:column>
+
+							<p:column style="width:4%" exportable="false">
+								<p:commandButton id="selectButton"
+									onclick="PF('deleteBuildingDialog').show();"
+									icon="ui-icon-close" title="Sil">
+								</p:commandButton>
+							</p:column>
+							<p:column style="width:10%" exportable="false">
+								<p:button outcome="flats" value="Daireler"
+									onclick="onclickpassparam()">
+								</p:button>
+							</p:column>
+							<p:rowExpansion>
+
+								<p:dataTable id="flatsTable" var="flat"
+									widgetVar="flatsTableWidget"
+									value="#{flatBean.flatsByBuilding(buildingBean.selectedBuilding)}"
+									rowKey="#{flat.id}" rows="15">
+									<f:facet name="header">
+                                      Daireler
+                                   </f:facet>
+									<p:column style="width:16px">
+										<p:rowToggler />
+									</p:column>
+									<p:column headerText="Daire No">
+										<h:outputText value="#{flat.no}" />
+									</p:column>
+									<p:column headerText="Kat">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="Alan">
+										<h:outputText value="#{flat.floor}" />
+									</p:column>
+									<p:column style="width:4%" exportable="false">
+										<p:commandButton id="selectButton"
+											onclick="PF('deleteFlatDialog').show();" icon="ui-icon-close"
+											title="Sil">
+										</p:commandButton>
+									</p:column>
+									<p:column style="width:10%" exportable="false">
+										<p:button outcome="flats" value="Odalar"
+											onclick="onclickpassparam()">
+										</p:button>
+									</p:column>
+									<p:rowExpansion>
+										<p:dataTable id="roomsTable" var="room"
+											widgetVar="roomsTableWidget" value="#{roomBean.rooms}"
+											rowKey="#{room.id}" rows="15"
+											selection="#{roomBean.selectedRoom}" selectionMode="single">
+											<f:facet name="header">
+                                    			  Odalar
+                                   			</f:facet>
+											<p:column headerText="Sıra no">
+												<h:outputText value="#{room.orderNo}" />
+											</p:column>
+											<p:column headerText="Taban Alanı">
+												<h:outputText value="#{room.baseArea}" />
+											</p:column>
+											<p:column headerText="Pencere Alanı">
+												<h:outputText value="#{room.windowArea}" />
+											</p:column>
+
+											<p:column style="width:4%" exportable="false">
+												<p:commandButton id="selectButton"
+													onclick="PF('deleteRoomDialog').show();"
+													icon="ui-icon-close" title="Sil">
+												</p:commandButton>
+											</p:column>
+
+										</p:dataTable>
+									</p:rowExpansion>
+								</p:dataTable>
+
+							</p:rowExpansion>
+						</p:dataTable>
+					</p:row>
+
+					<p:dialog widgetVar="deleteBuildingDialog" header="Dikkat!"
+						align="center" global="true" style="text-align:center;"
+						width="230px" resizable="false">
+						<p:column width="230px" style="text-align:center;">
+							<h:outputText width="230px" style="text-align:center;"
+								value="Binayı Sildiğinizde xx........ silmiş olursunuz" />
+							<br></br>
+							<h:outputText width="230px"
+								value="Binayı Silmek istediğinize emin misiniz" />
+
+						</p:column>
+						<br></br>
+						<br></br>
+						<p:commandButton value="Evet" styleClass="ui-confirmdialog-yes"
+							action="#{buildingBean.deleteWithRelations()}" immediate="true"
+							oncomplete="PF('deleteBuildingDialog').hide();"
+							icon="ui-icon-check"
+							update=":form:buildingsTable, :form:saveGrowl" />
+						<p:commandButton value="Hayır" styleClass="ui-confirmdialog-no"
+							onclick="PF('deleteBuildingDialog').hide();" icon="ui-icon-close" />
+					</p:dialog>
+
+					<p:dialog id="buildingDialog" width="700px" header="Bina Ekleme "
+						widgetVar="buildingConsole" modal="true">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText id="projectText" value="Bina Eklenecek Proje: " />
+							<p:autoComplete id="projecttoAdd" dropdown="true"
+								value="#{buildingBean.projectToBindBuilding}"
+								completeMethod="#{buildingBean.autoCompleteProject}">
+								<p:ajax event="itemSelect"
+									listener="#{buildingBean.onProjectSelect}"
+									update="distLinetoAdd" />
+							</p:autoComplete>
+
+
+							<h:outputText id="distributionLineText"
+								value="Bina Eklenecek Dağıtım Hattı: " />
+							<p:selectManyCheckbox id="distLinetoAdd"
+								value="#{buildingBean.selectedDistributionLinesToChoose}" layout="grid"
+								columns="3" converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{buildingBean.distributionLinesByProject}"
+									var="distributionLine" itemValue="#{distributionLine}"
+									itemLabel="#{distributionLine.name}" />
+							</p:selectManyCheckbox>
+							<h:outputText id="buildingNameText" value="Bina Adı:" />
+							<p:inputText id="buildingNameInput" value="#{buildingBean.name}" />
+
+							<h:outputText id="buildingFlatCountText" value="Kat Sayısı" />
+							<p:inputText id="buildingFlatCountInput"
+								value="#{buildingBean.flatCount}" />
+
+
+							<p:commandButton id="saveBuildingButton" value="Binayı Ekle"
+								actionListener="#{buildingBean.bindBuilding()}"
+								oncomplete="PF('buildingConsole').hide();"
+								update=":form:saveGrowl,buildingsTable" />
+						</h:panelGrid>
+					</p:dialog>
+
+
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,46 @@
+<div class="container">
+	<div class="row container" style="margin-top: 100px !important;">
+		<p>We will send a verification code to the mobile phone number registered on your account. Upon completion your account will be submitted for authorisation by the Silverwing Team.</p>
+	</div>
+	<div class="row">
+	<form id="twoFactorAuthenticationVerification"
+			name="vm.twoFactorAuthenticationVerificationForm"
+			sho-mark-required-fields role="form" class="form-horizontal"
+			ng-submit="vm.Otpsubmit()">
+			<div class="form-group" sho-highlight-errors>
+				<label class="control-label col-xs-4">Verification Code:</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-lg"
+						name="verificationCode" ng-model="vm.verificationCode"  ng-maxlength="6" required />
+					<div class="help-block"
+						ng-messages="vm.twoFactorAuthenticationVerificationForm.verificationCode.$error">
+						<p ng-message="required" class="text-danger">
+							<small>A verification code is required.</small>
+						</p>
+						 <p ng-message="maxlength" class="text-danger">
+	                        <small>OTP length is too long</small>
+	                    </p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-7 col-xs-offset-4">
+				<div class="pull-right">
+					<button type="submit" sho-validate-on-click class="btn btn-success">Submit</button>
+				</div>
+			</div>
+	</div>
+	</form>
+	<div class="row">
+	    <div class="col-xs-12">&nbsp;</div>
+	</div>
+	<div class="row">
+	<div class="alert alert-danger" ng-show="vm.errorMessage">
+	{{ vm.errorMessage }}
+	</div>
+	</div>
+	<div class="row">
+	<div class="alert alert-success" ng-show="vm.successMessage">
+	{{ vm.successMessage }}
+	</div>
+	</div>
+</div>

@@ -1,0 +1,83 @@
+    <div class="modal-header">
+    <button type="button" class="close" ng-click="vm.close()">&times;</button>
+    <h3 class="modal-title">Your basket</h3>
+</div>
+<div class="modal-body">
+<div class="basket-view" ng-switch="vm.basket.isEmpty" ng-form name="basketForm">
+    <div ng-switch-when="true" >
+        <span>Your basket is empty</span>
+    </div>
+   <div ng-switch-when="false">
+        <div class="container" ng-if="pickBuyerByAdminForPlaceOrder" style="color : #2b04f5 ;">
+            You are placing order on behalf of <b>{{pickBuyerByAdminForPlaceOrder}}</b> buyer.
+        </div>
+        <div class="row basket-view-wrapper" ng-repeat="(productCode, item) in vm.basket.items">
+            <div class="col-xs-2">
+                <img class="img-responsive img-thumbnail" ng-src="{{ item.image.url }}" name="{{ item.image.description }}" alt="{{ item.image.description }}" />
+            </div>
+            <div class="col-xs-4">
+                <span>{{ item.productName }}</span>
+                <div>
+                    <label>Quantity</label>
+                    <input id="order-quantity" ng-model="item.bindQuantity" name="item_quantity_{{$index}}"
+                           class="inline" type="number" title="Item Quantity"
+                           autofocus required integer min="1" max="{{item.stock}}"
+                    />
+                    <div class="help-block" ng-messages="basketForm['item_quantity_' + $index].$error">
+                        <div>
+                            <p ng-message="required" class="text-danger">
+                                <small>Please enter quantity</small>
+                            </p>
+                            <p ng-message="integer" class="text-danger">
+                                <small>The quantity must be a whole number</small>
+                            </p>
+                            <p ng-message="min" class="text-danger">
+                                <small>Value cannot be less than 1</small>
+                            </p>
+                            <p ng-message="max" class="text-danger">
+                                <small ng-show="item.stock">Value cannot be greater available stock</small>
+                                <small ng-show="!item.stock">Stock Not Available</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label>Stock Available</label> <span class="value" ng-show="item.stock">{{ item.stock - item.bindQuantity | number}}</span>
+                        <span class="value" ng-show="!item.stock"> 0 </span>
+                    </div>
+                    <div class="col-xs-6" ng-hide="true">
+                        <label>Original Price</label> <span class="value">{{ item.initialUnitPrice | currency }}</span><i> ex vat</i>
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Unit Price</label> <span class="value">{{ item.unitPrice | currency }}</span><i> ex vat</i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <button class="btn btn-danger btn-xs" type="button" ng-click="vm.basket.removeItem(item)" uib-tooltip="Remove {{ item.productName }} from your basket"><span class="fa fa-remove"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="sho-float-right basket-summary well">
+                    <p>
+                        <label>Total discount so far:</label>
+                        <span>{{ vm.basket.discountTotal | currency }}</span><i> ex vat</i>
+                    </p>
+                    <p>
+                        <label>Subtotal ({{ vm.basket.itemCount }} items):</label>
+                        <span>{{ vm.basket.subTotal | currency }}</span><i> ex vat</i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button id="basket-continue-shopping-button" class="btn btn-default pull-left" type="button" ng-click="vm.close()" >Continue Shopping</button>
+    <button id="basket-proceed-checkout-button" class="btn btn-success" type="button" ng-click="vm.proceed()" ng-disabled="basketForm.$invalid" ng-hide="vm.basket.isEmpty">Proceed to Checkout&nbsp;<span class="fa fa-chevron-right"></span></button>
+</div>

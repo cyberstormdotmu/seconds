@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+ 
+<h:head></h:head>
+<h:body onload="onpageLoadTableUpdate()">
+	<!-- 	<p:remoteCommand name="onpageLoadTableUpdate" -->
+	<!-- 		action="#{distributionLineBean.updateDataTable()}" -->
+	<!-- 		update="distributionLinesTable" /> -->
+	<ui:composition template="commonLayout.xhtml">
+		<!-- 	<ui:composition template="gga.xhtml"> -->
+		<ui:define name="head">
+		</ui:define>
+
+		<ui:define name="content">
+			<h:form id="form">
+
+				<p:growl id="saveGrowl" showDetail="true" sticky="false" life="2000" />
+				<h:outputText value="&#160;" />
+
+				<p:panel header="Odalar" style="max-width: 1280px">
+					<!-- projelerin dökümü burada yapılıyor -->
+					<h:panelGrid columns="2" width="101%" rowClasses="valignTop">
+
+
+						<p:row>
+							<h:outputLabel value="Bir Daire Seçiniz:"
+								for="dropDownAutoComplete" />
+							<p:autoComplete id="dropDownAutoComplete" dropdown="true"
+								value="#{roomBean.autocompleteString}"
+								completeMethod="#{roomBean.autoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect" listener="#{roomBean.onSelect}"
+									update="roomsTable" />
+
+							</p:autoComplete>
+							<p:commandButton id="roomSave" value="Oda Ekle"
+								onclick="PF('roomConsole').show();" type="button" />
+						</p:row>
+					</h:panelGrid>
+					<p:row>
+						<p:dataTable id="roomsTable" var="room"
+							widgetVar="roomsTableWidget" value="#{roomBean.rooms}"
+							rowKey="#{room.id}" rows="15"
+							emptyMessage="Aradığınız kriterlere uygun oda bulunmamaktadır"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="15,30,45" lazy="false"
+							selection="#{roomBean.selectedRoom}" selectionMode="single">
+
+
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Tüm alanlarda ara:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('roomsTableWidget').filter()" style="width:150px"
+										placeholder="Ara" />
+								</p:outputPanel>
+							</f:facet>
+							<p:column headerText="Sıra no" sortBy="#{room.orderNo}"
+								filterBy="#{room.orderNo}">
+								<h:outputText value="#{room.orderNo}" />
+							</p:column>
+							<p:column headerText="Taban Alanı" sortBy="#{room.baseArea}"
+								filterBy="#{room.baseArea}">
+								<h:outputText value="#{room.baseArea}" />
+							</p:column>
+							<p:column headerText="Pencere Alanı" sortBy="#{room.windowArea}"
+								filterBy="#{room.windowArea}">
+								<h:outputText value="#{room.windowArea}" />
+							</p:column>
+							<p:column style="width:4%" exportable="false">
+								<p:commandButton id="selectButton"
+									onclick="PF('deleteRoomDialog').show();" icon="ui-icon-close"
+									title="Sil">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</p:row>
+
+					<p:dialog widgetVar="deleteRoomDialog" header="Dikkat!"
+						align="center" global="true" style="text-align:center;"
+						width="230px" resizable="false">
+						<p:column width="230px" style="text-align:center;">
+							<h:outputText width="230px" style="text-align:center;"
+								value="Odayı Sildiğinizde xx........ silmiş olursunuz" />
+							<br></br>
+							<h:outputText width="230px"
+								value="Odayı Silmek istediğinize emin misiniz" />
+
+						</p:column>
+						<br></br>
+						<br></br>
+						<p:commandButton value="Evet" styleClass="ui-confirmdialog-yes"
+							action="#{roomBean.deleteWithRelations()}" immediate="true"
+							oncomplete="PF('deleteRoomDialog').hide();" icon="ui-icon-check"
+							update=":form:roomsTable, :form:saveGrowl" />
+						<p:commandButton value="Hayır" styleClass="ui-confirmdialog-no"
+							onclick="PF('deleteRoomDialog').hide();" icon="ui-icon-close" />
+					</p:dialog>
+
+					<p:dialog id="roomDialog" width="700px" header="Oda Ekleme "
+						widgetVar="roomConsole" modal="true">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText id="flatText" value="Oda Eklenecek Daire: " />
+							<p:autoComplete id="flatToAdd" dropdown="true"
+								value="#{roomBean.flatToBindRoom}"
+								completeMethod="#{roomBean.autoComplete}">
+
+							</p:autoComplete>
+							<h:outputText id="roomOrderText" value="Oda Sırası:" />
+							<p:inputText id="roomOrderInput" value="#{roomBean.orderNo}" />
+
+							<h:outputText id="roomBaseAreaText" value="Taban Alanı" />
+							<p:inputText id="roomBaseAreaInput" value="#{roomBean.baseArea}" />
+
+							<h:outputText id="roomWindowAreaText" value="Pencere Alanı" />
+							<p:inputText id="roomWindowAreaInput"
+								value="#{roomBean.windowArea}" />
+
+<!-- 							<h:outputText id="roomWindowAreaText" value="Taban Alanı" /> -->
+<!-- 							<p:inputText id="roomWindowAreaInput" -->
+<!-- 								value="#{roomBean.windowArea}" /> -->
+
+							<p:commandButton id="saveRoomButton" value="Daireyi Ekle"
+								actionListener="#{roomBean.bindRoom()}"
+								oncomplete="PF('roomConsole').hide();"
+								update=":form:saveGrowl,roomsTable" />
+						</h:panelGrid>
+					</p:dialog>
+
+
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

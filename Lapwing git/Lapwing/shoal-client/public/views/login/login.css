@@ -1,0 +1,32 @@
+/* login form formatting */
+.modal-content {
+    background-color: transparent; }
+
+.font-black {
+  color: #001435 !important;
+}
+
+div#login-panel {
+    /*background-color: rgba(26, 101, 110, .8);*/
+        background-color: #fff; }
+    div#login-panel img {
+        display: block;
+        margin: 0 auto; }
+    div#login-panel h2 {
+        margin-bottom: 20px; }
+    div#login-panel input.form-control {
+        font-weight: 300; }
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 767px) {
+    div#login-panel h2 {
+        font-size: 20px;  }
+    div#login-panel .btn {
+        margin-bottom: 10px; }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+    div#login-panel h2 {
+        margin-bottom: 40px; }
+}

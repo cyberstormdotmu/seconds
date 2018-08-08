@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>deployment</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Shoal Deployment</name>
+
+    <parent>
+        <groupId>com.ishoal</groupId>
+        <artifactId>shoal-platform</artifactId>
+        <version>0.0.19-SNAPSHOT</version>
+    </parent>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>shoal-app</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>shoal-config</artifactId>
+            <type>zip</type>
+            <classifier>dev</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>shoal-config</artifactId>
+            <type>zip</type>
+            <classifier>demo</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>shoal-config</artifactId>
+            <type>zip</type>
+            <classifier>ci</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>shoal-client</artifactId>
+            <type>zip</type>
+            <classifier>dev</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>shoal-client</artifactId>
+            <type>zip</type>
+            <classifier>demo</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>shoal-client</artifactId>
+            <type>zip</type>
+            <classifier>ci</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>db-scripts</artifactId>
+            <type>zip</type>
+            <classifier>main</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>db-scripts</artifactId>
+            <type>zip</type>
+            <classifier>test</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.ishoal</groupId>
+            <artifactId>db-scripts</artifactId>
+            <type>zip</type>
+            <classifier>demo</classifier>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>dev</id>
+                        <configuration>
+                            <descriptor>src/assembly/dev.xml</descriptor>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>demo</id>
+                        <configuration>
+                            <descriptor>src/assembly/demo.xml</descriptor>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>ci</id>
+                        <configuration>
+                            <descriptor>src/assembly/ci.xml</descriptor>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+

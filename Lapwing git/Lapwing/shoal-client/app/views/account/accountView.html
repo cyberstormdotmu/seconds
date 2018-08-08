@@ -1,0 +1,23 @@
+<div class="content-wrap">
+    <div id="main-content" class="container">
+
+        <div id="left-column" class="col-sm-3">
+            <ul class="nav nav-stacked">
+                    <ul class="nav nav-stacked">
+                        <li><a ui-sref="account.profile" title="Account Profile">Account Profile</a></li>
+                        <li><a ui-sref="account.orders" title="Orders">Orders</a></li>
+                        <li><a ui-sref="account.credits" title="Credits">Silverwing Credits</a></li>
+                        <li ng-hide="true"><a ui-sref="account.creditapplicationform" title="Credit Application Form">Supplier Credit Application Form</a></li>
+                        <li><a ui-sref="account.suppliercreditfacility" title="Supplier Credit Facility">Supplier Credit Facility</a></li>
+                        <li><a ui-sref="account.addresses" title="Addresses">Addresses</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div id="right-column" class="col-sm-9">
+            <div ui-view></div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="content-wrap"><div id="main-content" class="container">
+    <div id="left-column" class="col-sm-12">
+      <div ng-show="vm.supplierDetails">
+        <div class="row">
+            
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Money Owed To Supplier List</div>
+                   	<div class="panel-body">
+                    	<table class="table table-striped table-responsive table-hover table-headings">
+	             		   	<thead>
+			                	<tr>
+			                	<th>Supplier Name</th>
+			                    <th>Buyer Name</th>
+			                    <th>Money Owned</th>
+			                	</tr>
+			                </thead>
+			                <tbody>
+			                <tr ng-if ="vendorCredit.totalCredits-vendorCredit.availableCredits>0" ng-repeat="vendorCredit in vm.supplierDetails">
+			                    <td>{{ vendorCredit.vendorName }}</td>
+			                    <td>{{ vendorCredit.buyerName }}</td>
+			                    <td>{{ vendorCredit.totalCredits-vendorCredit.availableCredits | currency }}</td>
+			                </tr>
+			                </tbody>
+                      </table>
+              		</div>
+               	</div>
+            </div>
+        </div>
+    	</div>
+    </div>
+</div>

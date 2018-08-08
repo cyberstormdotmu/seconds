@@ -1,0 +1,22 @@
+<archetype-descriptor name="firebase-game-archetype">
+  <fileSets>
+    <fileSet filtered="true" packaged="true">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="false">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.html</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+    <requiredProperties>
+    <requiredProperty key="gameId"></requiredProperty>
+    <requiredProperty key="version">
+      <defaultValue>1.0-SNAPSHOT</defaultValue>
+    </requiredProperty>
+  </requiredProperties>
+</archetype-descriptor>

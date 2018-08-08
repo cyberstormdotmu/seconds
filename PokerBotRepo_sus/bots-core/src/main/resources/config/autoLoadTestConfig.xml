@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+
+	<batch id="1" name="TestGame 1 Hour">
+		<!-- Bot ai class name, not currently used -->
+		<param name="ai" value="com.cubeia.firebase.bot.ai.impl.testgame.TestGameBot" />
+		<!-- Bot ai numeric value -->		
+		<param name="aiclass" value="2" />
+		<!-- Game server address -->
+		<param name="url" value="localhost" />
+		<!-- Game server port number -->
+		<param name="port" value="4123" />	    	
+		<!-- Number of bots in batch -->
+		<param name="requested" value="30" />	    	
+		<!-- Number of load iterations -->		
+		<param name="loadIterations" value="2" />
+		<param name="mode" value="0" />
+	</batch>	
+
+	<batch id="2" name="TestGame2">
+		<!-- Bot ai class name, not currently used -->
+		<param name="ai" value="com.cubeia.firebase.bot.ai.impl.testgame.TestGameBot" />
+		<!-- Bot ai numeric value -->		
+		<param name="aiclass" value="2" />
+		<!-- Game server address -->
+		<param name="url" value="localhost" />
+		<!-- Game server port number -->
+		<param name="port" value="4123" />	    	
+		<!-- Number of bots in batch -->
+		<param name="requested" value="10" />	    	
+		<!-- Number of load iterations -->		
+		<param name="loadIterations" value="10" />
+		<param name="mode" value="0" />
+	</batch>	
+
+	<batch id="3" name="TestGame3">
+		<!-- Bot ai class name, not currently used -->
+		<param name="ai" value="com.cubeia.firebase.bot.ai.impl.testgame.TestGameBot" />
+		<!-- Bot ai numeric value -->		
+		<param name="aiclass" value="2" />
+		<!-- Game server address -->
+		<param name="url" value="localhost" />
+		<!-- Game server port number -->
+		<param name="port" value="4123" />	    	
+		<!-- Number of bots in batch -->
+		<param name="requested" value="20" />	    	
+		<!-- Number of load iterations -->		
+		<param name="loadIterations" value="10" />
+		<param name="mode" value="0" />
+	</batch>	
+
+	<!-- Load test scenarios -->		
+	<scenario name = "AutoLoadTest_1" runtime="60">
+		<!-- Name of batch to execute, batches will be executed in the order they appear -->		
+		<batch id="1"/>
+		<batch id="2"/>
+		<batch id="3"/>
+	</scenario>
+	
+</configuration>

@@ -1,0 +1,46 @@
+<div id="loginFrame">
+    <div class="container">
+        <div id="loginHeader" class="row">
+            <div class="col-xs-12 text-center">
+                    <img src="images/admin-logo.png" alt="Admin logo" />
+            </div>
+        </div>
+
+        <div id="loginBody" class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <div class="center-block">
+                    <div class="row" ng-hide="true">
+                        <div class="col-sm-12">
+                            <div class="alert alert-danger" ng-show="currentUser.error">
+                                There was a problem logging in. Please try again.
+                            </div>
+                            <div id="authorisedUser" ng-show="currentUser.authenticated === true">
+                                <strong>Logged in as {{ currentUser.name }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="login-panel" ng-show="currentUser.authenticated === false">
+                        <form id="loginForm" class="form-horizontal" role="form" ng-submit="login()">
+                            <div class="form-group">
+                                    <input type="text" class="form-control input-lg" id="email" name="email" ng-model="currentUser.email"
+                                           placeholder="Email address"/>
+                            </div>
+                            <div class="form-group">
+                                    <input type="password" class="form-control input-lg" id="password" name="password"
+                                           ng-model="currentUser.password" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                    <button type="submit" class="btn btn-lg btn-success pull-right">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+    <div class="alert alert-danger" id="login-error-message" ng-show="vm.error">
+        {{ vm.error }}
+    </div>
+    </div>
+    </div>
+    
+</div>

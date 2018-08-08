@@ -1,0 +1,26 @@
+{
+  "name": "shoal-client",
+  "description": "shoal web front end",
+  "version": "0.0.1",
+  "homepage": "http://dev-shoal.cloudapp.net:7990/projects/SHOAL/shoal-client",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.4.5",
+    "angular-bootstrap": "~0.14.3",
+    "angular-i18n": "~1.4.6",
+    "angular-loader": "~1.4.5",
+    "angular-messages": "~1.4.5",
+    "angular-mocks": "~1.4.5",
+    "angular-resource": "~1.4.7",
+    "angular-ui-notification": "~0.0.14",
+    "angular-ui-router": "~0.2.15",
+    "ngSmoothScroll": "~2.0.0",
+    "chartist": "~0.9.0",
+    "chartist-plugin-axistitle": "~0.0.1",
+    "bootstrap": "~3.3.5",
+    "fontawesome": "~4.4.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.5"
+  }
+}

@@ -1,0 +1,46 @@
+<ng-form class="form-horizontal" name="vm.contactForm">
+    <div class="form-group">
+        <input type="text" id="companyName" name="companyName" class="form-control input-sm" ng-model="vm.companyName" placeholder="Company name" required/>
+        <div class="help-block" ng-if="vm.submitAttempted" ng-messages="vm.contactForm.companyName.$error">
+            <p ng-message="required" class="text-danger">
+                <small>A company name is required</small>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="text" id="name" name="name" class="form-control input-sm" ng-model="vm.name" placeholder="Your name" required/>
+        <div class="help-block" ng-if="vm.submitAttempted" ng-messages="vm.contactForm.name.$error">
+            <p ng-message="required" class="text-danger">
+                <small>A name is required</small>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control input-sm" ng-model="vm.phoneNumber" placeholder="Phone number"/>
+    </div>
+    <div class="form-group">
+        <input type="text" id="emailAddress" name="emailAddress" class="form-control input-sm" ng-model="vm.emailAddress" placeholder="Your email address" required/>
+        <div class="help-block" ng-if="vm.submitAttempted" ng-messages="vm.contactForm.emailAddress.$error">
+            <p ng-message="required" class="text-danger">
+                <small>An email address is required</small>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <textarea rows="3" id="message" name="message" class="form-control input-sm" ng-model="vm.message" placeholder="Message" required></textarea>
+        <div class="help-block" ng-if="vm.submitAttempted" ng-messages="vm.contactForm.message.$error">
+            <p ng-message="required" class="text-danger">
+                <small>A message is required</small>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" id="submit" class="btn btn-blue btn-lg btn-block" ng-click="vm.submitContactForm()">Send an email</button>
+    </div>
+    <div ng-if="vm.errorMessage" class="bg-danger">
+        <p>{{ vm.errorMessage }}</p>
+    </div>
+    <div ng-if="vm.successMessage" class="bg-success">
+        <p>{{ vm.successMessage }}</p>
+    </div>
+</ng-form>

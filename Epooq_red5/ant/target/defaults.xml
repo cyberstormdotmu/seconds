@@ -1,0 +1,13 @@
+<project>
+	<target name="-test-extra-classpath"></target>
+	<target name="-set-extra-classpath"></target>
+	<target name="clean"></target>
+	<target name="retrieve"></target>
+	<target name="compile"></target>
+	<target name="package"></target>	
+	<target name="integration"></target>
+	<target name="milestone"></target>
+	<target name="release"></target>
+	<target name="test"></target>
+	<target name="javadoc"></target>
+</project>

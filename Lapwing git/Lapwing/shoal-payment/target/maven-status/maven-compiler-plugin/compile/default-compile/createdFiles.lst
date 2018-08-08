@@ -1,0 +1,9 @@
+com\ishoal\payment\buyer\BuyerChargeResponse.class
+com\ishoal\payment\buyer\stripe\StripeBuyerPaymentService.class
+com\ishoal\payment\buyer\BuyerChargeResponse$1.class
+com\ishoal\payment\buyer\BuyerChargeResponse$Builder.class
+com\ishoal\payment\buyer\ChargeReference.class
+com\ishoal\payment\buyer\config\ShoalPaymentBeanConfiguration.class
+com\ishoal\payment\buyer\config\ShoalPaymentConfiguration.class
+com\ishoal\payment\buyer\BuyerPaymentService.class
+com\ishoal\payment\buyer\PaymentCardToken.class

@@ -1,0 +1,254 @@
+<div class="content-wrap">
+    <div id="main-content" class="container">
+    <div id="left-column" class="col-sm-12">
+
+        <div class="row">
+            <h3>View/Edit Order</h3>
+        </div>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Order Summary</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3"><p class="text-right"><strong>Order Reference:</strong></p></div>
+                        <div class="col-sm-2"><p class="text-right">{{ vm.order.summary.reference }}</p></div>
+                        <div class="col-sm-2 col-sm-offset-2"><p class="text-right"><strong>Order Date:</strong></p></div>
+                        <div class="col-sm-2"><p class="text-right">{{ vm.order.summary.created | date:'short' }}</p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><p class="text-right"><strong>Status:</strong></p></div>
+                        <div class="col-sm-2"><p class="text-right">{{ vm.order.summary.status }}</p></div>
+                        <div class="col-sm-2 col-sm-offset-2"><p class="text-right"><strong>Invoice Date:</strong></p></div>
+                        <div class="col-sm-2"><p class="text-right">{{ vm.order.summary.invoiceDate | date:'shortDate' }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><p class="text-right"><strong>Order Net Total:<br/>Order VAT Total:<br/>Order
+                            Gross Total:</strong></p></div>
+                        <div class="col-sm-2"><p class="text-right">{{ vm.order.summary.orderTotal.net | currency }}<br/>{{ vm.order.summary.orderTotal.vat |
+                            currency }}<br/>{{ vm.order.summary.orderTotal.gross | currency }}</p>
+                        </div>
+                        <div class="col-sm-2 col-sm-offset-2"><p class="text-right"><strong>Payment Status:<br/>Due Date:<br/>Unpaid
+                            Amount:</strong></p></div>
+                        <div class="col-sm-2"><p class="text-right">{{ vm.order.summary.paymentStatus }}<br/>{{ vm.order.summary.dueDate | date:'shortDate' }}<br/>
+                            {{ vm.order.summary.unpaidAmount | currency }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><p class="text-right"><strong>Credits Net Total:<br/>Credit VAT Total:<br/>Credits Gross Total:</strong></p></div>
+                        <div class="col-sm-2"><p class="text-right">{{ vm.order.summary.creditTotal.net | currency }}<br/>
+                            {{ vm.order.summary.creditTotal.vat | currency }}<br/>{{ vm.order.summary.creditTotal.gross | currency }}</p></div>
+                        <div class="col-sm-2 col-sm-offset-2"><p class="text-right"><strong></strong></p></div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+            </div>
+            <uib-accordion close-others="false">
+                <uib-accordion-group class="panel panel-primary" is-open="vm.panels.buyerPanelOpen">
+                    <uib-accordion-heading>
+                        Buyer <i class="pull-right fa"
+                                 ng-class="{'fa-caret-up': vm.panels.buyerPanelOpen, 'fa-caret-down': !vm.panels.buyerPanelOpen}"></i>
+                    </uib-accordion-heading>
+                    <div class="row">
+                        <div class="col-sm-3"><p class="text-right"><strong>Name:</strong></p></div>
+                        <div class="col-sm-2">{{ vm.order.buyer.buyerForename }} {{ vm.order.buyer.buyerSurname }}</div>
+                        <div class="col-sm-3 col-sm-offset-1"><p class="text-right"><strong>Email Address:</strong></p></div>
+                        <div class="col-sm-2">{{ vm.order.buyer.buyerUserName }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><p class="text-right"><strong>Invoice Address:</strong></p></div>
+                        <div class="col-sm-2"><div sho-address address="vm.order.invoiceAddress"></div></div>
+                        <div class="col-sm-3 col-sm-offset-1"><p class="text-right"><strong>Delivery Address:</strong></p></div>
+                        <div class="col-sm-2"><div sho-address address="vm.order.deliveryAddress"></div></div>
+                    </div>
+                </uib-accordion-group>
+                <uib-accordion-group class="panel panel-primary" is-open="vm.panels.linesPanelOpen">
+                    <uib-accordion-heading>
+                        Order Lines <i class="pull-right fa"
+                                       ng-class="{'fa-caret-up': vm.panels.linesPanelOpen, 'fa-caret-down': !vm.panels.linesPanelOpen}"></i>
+                    </uib-accordion-heading>
+                    <div class="panel panel-primary" ng-repeat="line in vm.order.lines">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3"><p class="text-right"><strong>Product Code:<br/>Quantity:</strong>
+                                </p></div>
+                                <div class="col-sm-2"><p class="text-right">{{ line.productCode }}<br/>{{ line.quantity }}</p></div>
+                                <div class="col-sm-3 col-sm-offset-1"><p class="text-right"><strong>Initial Unit Price:<br/>Current Unit
+                                    Price:</strong></p>
+                                </div>
+                                <div class="col-sm-2"><p class="text-right">{{ line.initialUnitPrice | currency }}<br/>{{
+                                    line.currentUnitPrice | currency }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"><p class="text-right"><strong>Net Amount:<br/>VAT Rate:<br/>VAT
+                                    Amount:<br/>Gross Amount:</strong></p></div>
+                                <div class="col-sm-2"><p class="text-right">{{ line.amount.net | currency }}<br/>{{ line.vatRate }}%<br/>{{
+                                    line.amount.vat | currency }}<br/>{{ line.amount.gross | currency }}</p>
+                                </div>
+                                <div class="col-sm-3 col-sm-offset-1"><p class="text-right"><strong>
+                                    Credits Earned:<br/>
+                                    Credits Spent/Redeemed:<br/>
+                                    Credits Available:</strong></p></div>
+                                <div class="col-sm-2"><p class="text-right">
+                                    {{ vm.sumCreditsEarned(line.credits, 'gross') | accounting }}<br/>
+                                    {{ vm.sumCreditsSpent(line.credits, 'gross') | accounting }}<br/>
+                                    {{ vm.sumCreditsAvailable(line.credits, 'gross') | accounting }}
+                                </p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">&nbsp;</div>
+                            </div>
+                            <div class="panel panel-default" ng-show="line.credits.length > 0">
+                                <div class="panel-heading">Credits</div>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Reason</th>
+                                        <th class="text-right">Net</th>
+                                        <th class="text-right">VAT</th>
+                                        <th class="text-right">Gross</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="credit in line.credits">
+                                        <td>{{ credit.effectiveDate | date:'short' }}</td>
+                                        <td>{{ credit.creditMovementType }}</td>
+                                        <td ng-if="credit.creditMovementType != 'Spend'">{{ credit.reason }}</td>
+                                        <td ng-if="credit.creditMovementType == 'Spend'">Spent on order <a ui-sref="loggedIn.orders.detail({ reference: credit.orderSpentOnReference })">{{ credit.orderSpentOnReference }}</a></td>
+                                        <td class="text-right">{{ credit.amount.net | accounting }}</td>
+                                        <td class="text-right">{{ credit.amount.vat | accounting }}</td>
+                                        <td class="text-right">{{ credit.amount.gross | accounting }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-right"><strong>Total Earned:</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsEarned(line.credits, 'net') | accounting }}</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsEarned(line.credits, 'vat') | accounting }}</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsEarned(line.credits, 'gross') | accounting }}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-right"><strong>Total Spent/Redeemed:</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsSpent(line.credits, 'net') | accounting }}</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsSpent(line.credits, 'vat') | accounting }}</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsSpent(line.credits, 'gross') | accounting }}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-right"><strong>Total Available:</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsAvailable(line.credits, 'net') | accounting }}</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsAvailable(line.credits, 'vat') | accounting }}</strong></td>
+                                        <td class="text-right"><strong>{{ vm.sumCreditsAvailable(line.credits, 'gross') | accounting }}</strong></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </uib-accordion-group>
+                <uib-accordion-group class="panel panel-primary" is-open="vm.panels.paymentsPanelOpen">
+                    <uib-accordion-heading>
+                        Payments <i class="pull-right fa" ng-class="{'fa-caret-up': vm.panels.paymentsPanelOpen, 'fa-caret-down': !vm.panels.paymentsPanelOpen}"></i>
+                    </uib-accordion-heading>
+                    <h3 ng-if="vm.order.paymentsAtCheckout.length > 0"><div>Payments Done at Checkout</div></h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Payment Type</th>
+                            <th>Reference</th>
+                            <th class="text-right">Amount</th>
+                            <th class="text-right pg-width-admin">Payment Gateway Charges</th>
+                            <!-- <th class="text-center">Delete</th> -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="payment in vm.order.paymentsAtCheckout">
+                            <td>{{ payment.date | date:'shortDate' }}</td>
+                            <td>{{ payment.type }}</td>
+
+                            <td ng-if="payment.type != 'Shoal Credits'">{{ payment.userReference }}</td>
+                            <td ng-if="payment.type == 'Shoal Credits'"><a ui-sref="loggedIn.orders.detail({ reference: payment.originalOrderReference })">{{ payment.originalOrderReference }}</a> / {{ payment.originalOrderLineProductCode }}</td>
+
+                            <td class="text-right">{{ payment.amount | currency }}</td>
+                            <td class="text-right">{{ payment.paymentGatewayCharge | currency }}</td>
+
+                            <!-- <td ng-if="payment.type != 'Shoal Credits'" class="text-center"><a ng-click="vm.deletePayment(payment.internalReference)"><span
+                                    class="fa fa-remove" aria-hidden="true"></span></a></td>
+                            <td ng-if="payment.type == 'Shoal Credits'"></td> -->
+
+                        </tr>
+                        <tr ng-if="vm.order.paymentsAtCheckout.length > 0">
+                            <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                            <td class="text-right"><strong>{{ vm.order.totalPaymentAtCheckout | currency }}</strong></td>
+                            <td/>
+                        </tr>
+                        <tr ng-if="vm.order.paymentsAtCheckout.length === 0">
+                            <td colspan="5">No payments recorded</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3 ng-if="vm.order.paymentsRecorded.length > 0"><div>Recorded Payments</div></h3>
+                    <table class="table table-striped" ng-if="vm.order.availableSupplierCreditInPayment > 0">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Payment Type</th>
+                            <th>Reference</th>
+                            <th class="text-right">Amount</th>
+                            <th class="text-right pg-width-admin">Payment Gateway Charges</th>
+                            <th class="text-center" ng-if="payment.type != 'Shoal Credits' && payment.type != 'Unpaid Supplier Credits' && vm.order.summary.paymentStatus != 'Paid'">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="payment in vm.order.paymentsRecorded">
+                            <td>{{ payment.date | date:'shortDate' }}</td>
+                            <td ng-if="payment.type != 'Unpaid Supplier Credits'">{{ payment.type }}</td>
+                            <td ng-if="payment.type == 'Unpaid Supplier Credits'" style="color: red;">{{ payment.type }}</td>
+
+                            <td ng-if="payment.type != 'Shoal Credits'">{{ payment.userReference }}</td>
+                            <td ng-if="payment.type == 'Shoal Credits'"><a ui-sref="loggedIn.orders.detail({ reference: payment.originalOrderReference })">{{ payment.originalOrderReference }}</a> {{ payment.originalOrderLineProductCode }}</td>
+
+                            <td ng-if="payment.type != 'Unpaid Supplier Credits'" class="text-right">{{ payment.amount | currency }}</td>
+                            <td ng-if="payment.type == 'Unpaid Supplier Credits'" style="color: red;" class="text-right">{{ payment.amount | currency }}</td>
+
+                            <td class="text-right">{{ payment.paymentGatewayCharge | currency }}</td>
+
+                            <td ng-if="payment.type != 'Shoal Credits' && payment.type != 'Unpaid Supplier Credits' && vm.order.summary.paymentStatus != 'Paid'" class="text-center"><a ng-click="vm.deletePayment(payment.internalReference)"><span class="fa fa-remove" aria-hidden="true"></span></a></td>
+                            <td ng-if="payment.type == 'Shoal Credits'"></td>
+                        </tr>
+                        <tr ng-if="vm.order.paymentsRecorded.length > 0">
+                            <td colspan="3" class="text-right"><strong>Total used supplier credit while payment:</strong></td>
+                            <td class="text-right"><strong>{{ vm.order.availableSupplierCreditInPayment | currency }}</strong></td>
+                            <td/>
+                        </tr>
+                        <tr ng-if="vm.order.paymentsRecorded.length === 0">
+                            <td colspan="5">No payments recorded</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <a class="btn btn-default btn-xs" role="button" ui-sref="loggedIn.orders.list"><span
+                        class="fa fa-chevron-left" aria-hidden="true"></span> Return to Order List</a>
+            </div>
+            <div class="col-sm-6" ng-hide="vm.order.summary.status === 'Cancelled' || (vm.order.summary.status === 'Confirmed' && vm.order.summary.unpaidAmount == 0)">
+                <div class="pull-right">
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-success btn-xs" uib-dropdown-toggle><span
+                                class="fa fa-flash" aria-hidden="true"></span> Actions <span
+                                class="caret"></span></button>
+                        <ul class="uib-dropdown-menu" role="menu">
+                            <li role="menuitem" ng-show="vm.order.summary.status !== 'Confirmed'"><a ng-click="vm.confirmOrder()">Confirm Order</a></li>
+                            <li role="menuitem" ng-show="vm.order.summary.status !== 'Confirmed' && vm.order.summary.paymentStatus == 'Unpaid'"><a ng-click="vm.cancelOrder()">Cancel Order</a></li>
+                            <li role="menuitem" ng-show="vm.order.summary.unpaidAmount > 0"><a ng-click="vm.recordPayment()">Record Payment</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

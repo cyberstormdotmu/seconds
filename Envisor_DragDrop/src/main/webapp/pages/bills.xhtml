@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head></h:head>
+<h:body onload="onpageLoadTableUpdate()">
+	<!-- 	<p:remoteCommand name="onpageLoadTableUpdate" -->
+	<!-- 		action="#{distributionLineBean.updateDataTable()}" -->
+	<!-- 		update="distributionLinesTable" /> -->
+	<ui:composition template="commonLayout.xhtml">
+		<!-- 	<ui:composition template="gga.xhtml"> -->
+		<ui:define name="head">
+		</ui:define>
+
+		<ui:define name="content">
+			<h:form id="form">
+				<p:growl id="saveGrowl" showDetail="true" sticky="false" life="2000" />
+				<p:panel header="Tüketim Faturaları" style="max-width: 1280px">
+					<h:panelGrid columns="2" width="101%" rowClasses="valignTop">
+						<p:row>
+							<!-- 							<h:outputLabel value="Bir Dağıtım Hattı Seçiniz:" -->
+							<!-- 								for="dropDownAutoComplete" /> -->
+							<!-- 							<p:autoComplete id="dropDownAutoComplete" dropdown="true" -->
+							<!-- 								value="#{billBean.autocompleteString}" -->
+							<!-- 								completeMethod="#{billBean.autoComplete}" -->
+							<!-- 								style="margin-right:50px;"> -->
+							<!-- 								<p:ajax event="itemSelect" listener="#{billBean.onSelect}" -->
+							<!-- 									update="billsTable" /> -->
+							<!-- 							</p:autoComplete> -->
+
+							<p:commandButton id="billSave" value="Fatura Ekle"
+								onclick="PF('billConsole').show();" type="button" />
+						</p:row>
+					</h:panelGrid>
+					<p:row>
+						<p:dataTable id="billsTable" var="bill"
+							widgetVar="billsTableWidget" value="#{billBean.bills}"
+							rowKey="#{bill.id}" rows="15"
+							emptyMessage="Aradığınız kriterlere uygun tüketim faturası bulunmamaktadır"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="15,30,45" lazy="false"
+							selection="#{billBean.selectedBill}" selectionMode="single">
+
+
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Tüm alanlarda ara:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('buildingsTableWidget').filter()"
+										style="width:150px" placeholder="Ara" />
+								</p:outputPanel>
+							</f:facet>
+							<p:column headerText="Fatura Tarihi" sortBy="#{bill.date}"
+								filterBy="#{bill.date}">
+								<h:outputText value="#{bill.date}" />
+							</p:column>
+							<p:column headerText="Bedel" sortBy="#{bill.charge}"
+								filterBy="#{bill.charge}">
+								<h:outputText value="#{bill.charge}" />
+							</p:column>
+							<p:column headerText="Dosya Adı" sortBy="#{bill.fileName}"
+								filterBy="#{bill.fileName}">
+								<h:outputText value="#{bill.fileName}" />
+							</p:column>
+
+							<p:column headerText="Tüketim" sortBy="#{bill.usage}">
+								<h:outputText value="#{bill.usage}" />
+							</p:column>
+							<p:column headerText="Birim" sortBy="#{bill.unit}"
+								filterBy="#{bill.unit}">
+								<h:outputText value="#{bill.unit}" />
+							</p:column>
+
+							<p:column style="width:4%" exportable="false">
+								<p:commandButton id="selectButton"
+									onclick="PF('deleteBillDialog').show();" icon="ui-icon-close"
+									title="Sil">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</p:row>
+					<p:dialog widgetVar="deleteBillDialog" header="Dikkat!"
+						align="center" global="true" style="text-align:center;"
+						width="230px" resizable="false">
+						<p:column width="230px" style="text-align:center;">
+							<h:outputText width="230px" style="text-align:center;"
+								value="Faturayı Sildiğinizde xx........ silmiş olursunuz" />
+							<br></br>
+							<h:outputText width="230px"
+								value="Faturayı Silmek istediğinize emin misiniz" />
+
+						</p:column>
+						<br></br>
+						<br></br>
+						<p:commandButton value="Evet" styleClass="ui-confirmdialog-yes"
+							action="#{billBean.deleteWithRelations()}" immediate="true"
+							oncomplete="PF('deleteBillDialog').hide();" icon="ui-icon-check"
+							update=":form:billsTable, :form:saveGrowl" />
+						<p:commandButton value="Hayır" styleClass="ui-confirmdialog-no"
+							onclick="PF('deleteBillDialog').hide();" icon="ui-icon-close" />
+					</p:dialog>
+					<p:dialog id="billDialog" width="700px" header="Fatura Ekleme "
+						widgetVar="billConsole" modal="true">
+						<h:panelGrid columns="2" cellpadding="5">
+							<!-- 							<h:outputText id="distributionLineText" -->
+							<!-- 								value="Fatura Eklenecek Dağıtım Hattı: " /> -->
+							<!-- 							<p:autoComplete id="distLinetoAdd" dropdown="true" -->
+							<!-- 								value="#{billBean.distriburtionLineToBindBill}" -->
+							<!-- 								completeMethod="#{billBean.autoComplete}"> -->
+
+							<!-- 							</p:autoComplete> -->
+							<h:outputLabel value="Bir Proje Seçiniz:"
+								for="dropDownAutoComplete" />
+							<p:autoComplete id="dropDownAutoComplete" dropdown="true"
+								value="#{billBean.projectAutoCompleteString}"
+								completeMethod="#{billBean.projectAutoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect"
+									listener="#{billBean.onProjectSelect}" 
+									update="distributionLinesCheckBox"/>
+							</p:autoComplete>
+							<h:outputLabel value="Faturanın Bağlanacağı Dağıtım Hatlarını Seçiniz"
+								for="distributionLinesCheckBox" />
+							<p:selectManyCheckbox id="distributionLinesCheckBox"
+								value="#{billBean.selectedDistributionLines}" layout="grid"
+								columns="3" converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{billBean.distributionLines}"
+									var="distributionLine" itemValue="#{distributionLine}" itemLabel="#{distributionLine.name}" />
+							</p:selectManyCheckbox>
+							
+							<h:outputText id="billDateText" value="Fatura Tarihi:" />
+							<p:calendar id="billDateCalendar" mask="true"
+								value="#{billBean.billDate}" />
+							<h:outputText id="billTypeText" value="Fatura Tipi:" />
+							<p:selectOneButton id="billType"
+								value="#{billBean.selectedBillType}" layout="grid" columns="3"
+								converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{billBean.billTypes}" var="billTypes"
+									itemValue="#{billTypes}" itemLabel="#{billTypes.type}" />
+							</p:selectOneButton>
+
+							<h:outputText id="chargeText" value="Bedel" />
+							<p:inputText id="chargeInput" value="#{billBean.charge}" />
+							<h:outputText id="fileNameText" value="Dosya Adı" />
+							<p:inputText id="fileNameInput" value="#{billBean.fileName}" />
+							<h:outputText id="usageText" value="Tüketim" />
+							<p:inputText id="usageInput" value="#{billBean.usage}" />
+							<h:outputText id="unitText" value="Birim" />
+							<p:inputText id="unitInput" value="#{billBean.unit}" />
+
+							<p:commandButton id="saveBuildingButton" value="Faturayı Ekle"
+								actionListener="#{billBean.bindBill()}"
+								oncomplete="PF('billConsole').hide();"
+								update=":form:saveGrowl,billsTable" />
+						</h:panelGrid>
+					</p:dialog>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

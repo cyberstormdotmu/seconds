@@ -1,0 +1,1037 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+<h:outputStylesheet id="layoutCSS">  
+
+body {  
+    margin: 4px !important;  
+}  
+
+.vr {
+    width:1px;
+    background-color:#000;
+    position:absolute;
+    top:0;
+    bottom:0;
+}
+
+.safe{
+	<!-- padding:0; 
+	margin:0; 
+	position:relative; --> 
+	top:0px; 
+	left:0px; 
+	z-index:99; 
+	display:none;	
+}
+
+.rowColor{
+	background-color:#FFFFFF;
+}
+
+.roomImage{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+}
+
+</h:outputStylesheet>
+</h:head>
+
+<h:body>
+
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{dragDropRoomBean.onLoadRoom}" />
+	</f:metadata>
+
+	<p:growl id="msgs" showDetail="true" showSummary="true" />
+	<h:form id="mainForm">
+
+		<p:layout style="width:100%; height:100%;">
+
+		    <p:layoutUnit position="north" resizable="false" size="100" minSize="100" maxSize="100">
+				<ui:insert name="header">
+					<ui:include src="commonHeader.xhtml" />
+				</ui:insert>
+				<p:breadCrumb model="#{breadCrumbBean.menuModel}">
+				</p:breadCrumb>
+		    </p:layoutUnit>
+
+		    <p:layoutUnit position="west" resizable="false" size="60%">
+		    	
+		    	<table style="width:100%; height:100%;">
+		    		<tr>
+		    			<td valign="top" width="35%">
+        					<table>
+        						
+        						<thead>
+        							<tr>
+        								<td align="center"><p:outputLabel value="Types"/></td>	
+        								<td align="center"><p:outputLabel value="Doors"/></td>
+        								<td align="center"><p:outputLabel value="Windows"/></td>
+        							</tr>        							
+        						</thead>
+        						
+        						<tbody>
+        							<tr><td></td></tr>	
+
+	        						<tr>
+	        							<td><p:outputLabel value="Wooden Single Glaze"/></td>
+	        							<td>
+											<p:outputPanel id="dragWSGDoor" style="width:80px; height:20px;">
+												<p:graphicImage id="wsgDoor"  value="#{dragDropRoomBean.wsgdoorurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragWSGDoor" revert="true" helper="clone"/>        							
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragWSGWindow" style="width:80px; height:20px;">
+												<p:graphicImage id="wsgWindow"  value="#{dragDropRoomBean.wsgwindowurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragWSGWindow" revert="true" helper="clone"/>
+	        							</td>
+	        						</tr>
+	        						
+	        						<tr>
+	        							<td><p:outputLabel value="Wooden Double Glaze"/></td>
+	        							<td>
+											<p:outputPanel id="dragWDGDoor" style="width:80px; height:20px;">
+												<p:graphicImage id="wdgDoor"  value="#{dragDropRoomBean.wdgdoorurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragWDGDoor" revert="true" helper="clone"/>        							
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragWDGWindow" style="width:80px; height:20px;">
+												<p:graphicImage id="wdgWindow"  value="#{dragDropRoomBean.wdgwindowurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragWDGWindow" revert="true" helper="clone"/>
+	        							</td>
+	        						</tr>
+	        						
+	        						<tr>
+	        							<td><p:outputLabel value="Wooden Two"/></td>
+	        							<td>
+											<p:outputPanel id="dragWTDoor" style="width:80px; height:20px;">
+												<p:graphicImage id="wtDoor"  value="#{dragDropRoomBean.wtdoorurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragWTDoor" revert="true" helper="clone"/>        							
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragWTWindow" style="width:80px; height:20px;">
+												<p:graphicImage id="wtWindow"  value="#{dragDropRoomBean.wtwindowurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragWTWindow" revert="true" helper="clone"/>
+	        							</td>
+	        						</tr>
+
+	        						<tr>
+	        							<td><p:outputLabel value="PVC Single Glaze"/></td>
+	        							<td>
+											<p:outputPanel id="dragPSGDoor" style="width:80px; height:20px;">
+												<p:graphicImage id="psgDoor"  value="#{dragDropRoomBean.psgdoorurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragPSGDoor" revert="true" helper="clone"/>        							
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragPSGWindow" style="width:80px; height:20px;">
+												<p:graphicImage id="psgWindow"  value="#{dragDropRoomBean.psgwindowurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragPSGWindow" revert="true" helper="clone"/>
+	        							</td>
+	        						</tr>
+
+	        						<tr>
+	        							<td><p:outputLabel value="PVC Double Glaze"/></td>
+	        							<td>
+											<p:outputPanel id="dragPDGDoor" style="width:80px; height:20px;">
+												<p:graphicImage id="pdgDoor"  value="#{dragDropRoomBean.pdgdoorurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragPDGDoor" revert="true" helper="clone"/>        							
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragPDGWindow" style="width:80px; height:20px;">
+												<p:graphicImage id="pdgWindow"  value="#{dragDropRoomBean.pdgwindowurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragPDGWindow" revert="true" helper="clone"/>
+	        							</td>
+	        						</tr>
+
+	        						<tr>
+	        							<td><p:outputLabel value="PVC Two"/></td>
+	        							<td>
+											<p:outputPanel id="dragPTDoor" style="width:80px; height:20px;">
+												<p:graphicImage id="ptDoor"  value="#{dragDropRoomBean.ptdoorurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragPTDoor" revert="true" helper="clone"/>        							
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragPTWindow" style="width:80px; height:20px;">
+												<p:graphicImage id="ptWindow"  value="#{dragDropRoomBean.ptwindowurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragPTWindow" revert="true" helper="clone"/>
+	        							</td>
+	        						</tr>
+
+	        						<tr>
+	        							<td><p:outputLabel value="Metal Double"/></td>
+	        							<td>
+											<p:outputPanel id="dragMDDoor" style="width:80px; height:20px;">
+												<p:graphicImage id="mdDoor"  value="#{dragDropRoomBean.mddoorurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragMDDoor" revert="true" helper="clone"/>        							
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragMDWindow" style="width:80px; height:20px;">
+												<p:graphicImage id="mdWindow"  value="#{dragDropRoomBean.mdwindowurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragMDWindow" revert="true" helper="clone"/>
+	        							</td>
+	        						</tr>
+
+	        						<tr>
+	        							<td><p:outputLabel value="Metal Two"/></td>
+	        							<td>
+											<p:outputPanel id="dragMTDoor" style="width:80px; height:20px;">
+												<p:graphicImage id="mtDoor"  value="#{dragDropRoomBean.mtdoorurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragMTDoor" revert="true" helper="clone"/>        							
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragMTWindow" style="width:80px; height:20px;">
+												<p:graphicImage id="mtWindow"  value="#{dragDropRoomBean.mtwindowurl}" style="width:80px; height:20px;" >
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragMTWindow" revert="true" helper="clone"/>
+	        							</td>
+	        						</tr>
+
+	        					</tbody>	
+        					</table>
+        					<br></br>
+        					<hr></hr>
+        					<br></br>
+        					<table>
+        						<tr>
+        							<td><p:outputLabel value="Project:"/></td>
+        							<td><p:inputText id="selectedProjectName" value="#{dragDropRoomBean.dragDropFlatBean.dragDropFloorBean.dragDropBuildingBean.selectedProject.projectName}" disabled="true"/></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel value="Building:"/></td>
+        							<td><p:inputText id="selectedBuildingName" value="#{dragDropRoomBean.dragDropFlatBean.dragDropFloorBean.selectedBuilding.name}" disabled="true"/></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel value="Floor:"/></td>
+        							<td><p:inputText id="selectedFloorName" value="#{dragDropRoomBean.dragDropFlatBean.dragDropFloorBean.selectedFloor.name}" disabled="true"/></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel value="Flat:"/></td>
+        							<td><p:inputText id="selectedFlatName" value="#{dragDropRoomBean.dragDropFlatBean.selectedFlat.name}" disabled="true"/></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel value="Room:"/></td>
+        							<td><p:inputText id="selectedRoomName" value="#{dragDropRoomBean.selectedRoom.name}" disabled="true"/></td>
+        						</tr>
+        					</table>
+        					<br></br>
+        					<hr></hr>
+        					<br></br>
+        					<table>
+        						<tr>
+        							<td><p:commandButton value="Create Table " id="create" onclick="createTable()" update="msgs" icon="ui-icon-disk" /></td>
+        							<td><p:commandButton value="Save " id="save" actionListener="#{dragDropRoomBean.saveRoom}" onclick="validateIsCreateTable()" oncomplete="updateDoorWindow()" icon="ui-icon-disk" /></td>
+        						</tr>
+        						<tr>
+        							<td><p:commandButton value="Copy to... " id="saveAs" actionListener="#{dragDropRoomBean.saveAsRoom}" onclick="validateIsCreateTable()" oncomplete="updateDoorWindow()" icon="ui-icon-disk" /></td>
+        							<td>
+										<p:selectManyMenu id="roomForSaveAs" value="#{dragDropRoomBean.selectedRoomsForSaveAs}" style="width:125px">
+								            <f:selectItems value="#{dragDropRoomBean.rooms}" var="room" itemLabel="#{room.name}" itemValue="#{room.id}"/>
+			        					</p:selectManyMenu>
+									</td>
+        						</tr>
+        					</table>        					        					
+		    			</td>
+		    			<td  width="2%">
+		    				<div class="vr"></div> <!-- this div is use to create vertical line between draggable and droppable section -->
+		    			</td>
+		    			<td valign="top" width="63%">
+		    				<p:outputPanel  layout="block" style="width: 700px; height: 700px; border: 1px solid black;background-image: url('../resources/images/Matrix.jpg');">
+								<p:outputPanel  id="droppablePanel" layout="block" styleClass="roomImage" style="width: #{dragDropRoomBean.roomImageUrlWidth}; height: #{dragDropRoomBean.roomImageUrlHeight};background-image:#{dragDropRoomBean.roomImageUrl};">
+								</p:outputPanel>
+								<p:droppable for="droppablePanel" onDrop="createClone" ></p:droppable>
+							</p:outputPanel>
+		    			</td>
+		    		</tr>
+		    	</table>
+		    </p:layoutUnit>
+
+		    <p:layoutUnit position="center" resizable="false" size="40%">
+		        <p:dataTable id="selectedRoomDoors" var="door" value="#{dragDropRoomBean.doorsFromDb}"  rowStyleClass="rowColor" style="overflow-x: hidden; overflow-y: auto;">
+				    <p:column>
+				    	<f:facet name="header">ID</f:facet>
+				        <h:outputText value="#{door.id}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Door Name</f:facet>
+				        <h:outputText value="#{door.name}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Door Type</f:facet>
+				        <h:outputText value="#{door.doorType.type}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Wall Name</f:facet>
+				        <h:outputText value="#{door.wall.name}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">X-Axis (top)</f:facet>
+				        <h:outputText value="#{door.imageTop}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Y-Axis (left)</f:facet>
+				        <h:outputText value="#{door.imageLeft}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Width</f:facet>
+				        <h:outputText value="#{door.imageWidth}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Height</f:facet>
+				        <h:outputText value="#{door.imageHeight}" />
+				    </p:column>	
+				    <p:column>
+				        <f:facet name="header">Status</f:facet>
+				        <h:outputText value="#{door.status}" />
+				    </p:column>
+				    <p:column style="display:none">
+				        <f:facet name="header">Wall ID</f:facet>
+				        <h:outputText value="#{door.wall.id}" />
+				    </p:column>				    					    			
+				    <p:column style="display:none">
+				        <f:facet name="header">Image Type</f:facet>
+				        <h:outputText value="#{door.imageType}" />
+				    </p:column>				    					    			
+				</p:dataTable>
+				<br></br>
+				<br></br>
+		        <p:dataTable id="selectedRoomWindows" var="window" value="#{dragDropRoomBean.windowsFromDb}"  rowStyleClass="rowColor" style="overflow-x: hidden; overflow-y: auto;">
+				    <p:column>
+				    	<f:facet name="header">ID</f:facet>
+				        <h:outputText value="#{window.id}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Window Name</f:facet>
+				        <h:outputText value="#{window.name}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Window Type</f:facet>
+				        <h:outputText value="#{window.windowType.type}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Wall Name</f:facet>
+				        <h:outputText value="#{window.wall.name}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">X-Axis (top)</f:facet>
+				        <h:outputText value="#{window.imageTop}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Y-Axis (left)</f:facet>
+				        <h:outputText value="#{window.imageLeft}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Width</f:facet>
+				        <h:outputText value="#{window.imageWidth}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Height</f:facet>
+				        <h:outputText value="#{window.imageHeight}" />
+				    </p:column>	
+				    <p:column>
+				        <f:facet name="header">Status</f:facet>
+				        <h:outputText value="#{window.status}" />
+				    </p:column>	
+				    <p:column style="display:none">
+				        <f:facet name="header">Wall ID</f:facet>
+				        <h:outputText value="#{window.wall.id}" />
+				    </p:column>				    
+				    <p:column style="display:none">
+				        <f:facet name="header">Image Type</f:facet>
+				        <h:outputText value="#{window.imageType}" />
+				    </p:column>				    					    			
+				</p:dataTable>
+				
+		    </p:layoutUnit>
+		</p:layout>		
+
+		<h:inputHidden id="hiddenCreateTable" value="#{dragDropRoomBean.isCreateTable}" />
+		<h:inputHidden id="hiddenWallsString" value="#{dragDropRoomBean.hiddenWallsString}" />
+
+		<p:remoteCommand name="command" action="#{dragDropRoomBean.setWallsList}" />		
+		<p:remoteCommand name="setIsCreateTableVar"  action="#{dragDropRoomBean.setIsCreateTableVar}" />
+		<p:remoteCommand name="deleteTmpDoorFromRoom" action="#{dragDropRoomBean.deleteTmpDoorFromRoom}" />									
+		<p:remoteCommand name="deleteTmpWindowFromRoom" action="#{dragDropRoomBean.deleteTmpWindowFromRoom}" />
+		
+	</h:form>
+
+</h:body>
+
+<h:outputScript>
+	var isDragDropEventOccured = true;	//variable is use to check whether any drag drop event is occured or not.
+		
+	//Following function is used to delete selected Image while press 'Delete' key.
+	$(document).ready(function() {
+
+		$('html').click(function(e){
+			e = e|| event;
+			$.lastClicked = e.target || e.srcElement;
+		});	
+
+		$('html').keyup(function(e){
+			if(e.keyCode == 46) {
+				if($.lastClicked != undefined &amp;&amp; !($($.lastClicked).hasClass('safe'))){
+					if($($.lastClicked).parent().parent().hasClass('ui-outputpanel')){
+	                    var hiddenTag = $($.lastClicked).parent().parent().find('input:hidden');
+	                    var deletedwindowDatabaseId = "";
+	                    var deleteddoorDatabaseId = "";	                    
+	           			if(hiddenTag != null){
+	           				var deletedEntityElementId = $(hiddenTag).attr('id');
+	           				var deletedEntityDatabaseId = $(hiddenTag).attr('value');
+	           				
+	           				if(deletedEntityElementId=='doorHiddenId'){
+	           					deleteddoorDatabaseId = deletedEntityDatabaseId; 
+	           				}	else if(deletedEntityElementId=='windowHiddenId'){
+	           					deletedwindowDatabaseId = deletedEntityDatabaseId; 
+	           				}	           				
+	           			}
+	           			
+           				if(deletedEntityElementId=='doorHiddenId'){
+							var dltTmpDoorDivId = $($.lastClicked).parent().parent().attr('id'); 	           			
+		           			deleteTmpDoorFromRoom( [ { name: 'dltTmpDoorDivId', value: dltTmpDoorDivId } , { name: 'deleteddoorDatabaseId', value: deleteddoorDatabaseId } ] ); <!-- This will send command to bean to remove deleted element from list -->
+           				}	else if(deletedEntityElementId=='windowHiddenId'){
+							var dltTmpWindowDivId = $($.lastClicked).parent().parent().attr('id'); 	           			
+		           			deleteTmpWindowFromRoom( [ { name: 'dltTmpWindowDivId', value: dltTmpWindowDivId } , { name: 'deletedwindowDatabaseId', value: deletedwindowDatabaseId } ] ); <!-- This will send command to bean to remove deleted element from list -->
+           				}	           				
+	           			
+	           			
+						$($.lastClicked).parent().parent().remove();
+						isDragDropEventOccured = true;
+						$("#mainForm\\:hiddenCreateTable").attr('value',false);
+					}
+				}
+			}
+		});	
+		
+		getDoorWindow();	
+	});
+	
+	//Following function is used to creat clone of dragged image. 
+	var wsgDoorCount = 1, wdgDoorCount = 1, wtDoorCount = 1, psgDoorCount = 1, pdgDoorCount = 1, ptDoorCount = 1, mdDoorCount = 1, mtDoorCount = 1;
+	var wsgWindowCount = 1, wdgWindowCount = 1, wtWindowCount = 1, psgWindowCount = 1, pdgWindowCount = 1, ptWindowCount = 1, mdWindowCount = 1, mtWindowCount = 1;
+
+	function createClone(event,ui){
+	
+		ui.helper.remove();	
+		var cloned = $(ui.helper).clone();
+		var imageId =  $(ui.draggable)[0].id;
+		
+		var counter;
+		var selectTypeId;
+		var optionList = "";
+		if(cloned.attr('id') == undefined){
+			
+			if(imageId.indexOf("WSGDoor") > -1){
+				counter = wsgDoorCount;
+				selectTypeId = "WSGDoor"+counter; 
+				wsgDoorCount+=1;
+			}else if(imageId.indexOf("WDGDoor") > -1){
+				counter = wdgDoorCount;
+				selectTypeId = "WDGDoor"+counter;
+				wdgDoorCount+=1;
+			}else if(imageId.indexOf("WTDoor") > -1){
+				counter = wtDoorCount;
+				selectTypeId = "WTDoor"+counter;
+				wtDoorCount+=1;
+			}else if(imageId.indexOf("PSGDoor") > -1){
+				counter = psgDoorCount;
+				selectTypeId = "PSGDoor"+counter;
+				psgDoorCount+=1;
+			}else if(imageId.indexOf("PDGDoor") > -1){
+				counter = pdgDoorCount;
+				selectTypeId = "PDGDoor"+counter;
+				pdgDoorCount+=1;
+			}else if(imageId.indexOf("PTDoor") > -1){
+				counter = ptDoorCount;
+				selectTypeId = "PTDoor"+counter;
+				ptDoorCount+=1;
+			}else if(imageId.indexOf("MDDoor") > -1){
+				counter = mdDoorCount;
+				selectTypeId = "MDDoor"+counter;
+				mdDoorCount+=1;
+			}else if(imageId.indexOf("MTDoor") > -1){
+				counter = mtDoorCount;
+				selectTypeId = "MTDoor"+counter;
+				mtDoorCount+=1;
+			}else if(imageId.indexOf("WSGWindow") > -1){
+				counter = wsgWindowCount;
+				selectTypeId = "WSGWindow"+counter; 
+				wsgWindowCount+=1;
+			}else if(imageId.indexOf("WDGWindow") > -1){
+				counter = wdgWindowCount;
+				selectTypeId = "WDGWindow"+counter;
+				wdgWindowCount+=1;
+			}else if(imageId.indexOf("WTWindow") > -1){
+				counter = wtWindowCount;
+				selectTypeId = "WTWindow"+counter;
+				wtWindowCount+=1;
+			}else if(imageId.indexOf("PSGWindow") > -1){
+				counter = psgWindowCount;
+				selectTypeId = "PSGWindow"+counter;
+				psgWindowCount+=1;
+			}else if(imageId.indexOf("PDGWindow") > -1){
+				counter = pdgWindowCount;
+				selectTypeId = "PDGWindow"+counter;
+				pdgWindowCount+=1;
+			}else if(imageId.indexOf("PTWindow") > -1){
+				counter = ptWindowCount;
+				selectTypeId = "PTWindow"+counter;
+				ptWindowCount+=1;
+			}else if(imageId.indexOf("MDWindow") > -1){
+				counter = mdWindowCount;
+				selectTypeId = "MDWindow"+counter;
+				mdWindowCount+=1;
+			}else if(imageId.indexOf("MTWindow") > -1){
+				counter = mtWindowCount;
+				selectTypeId = "MTWindow"+counter;
+				mtWindowCount+=1;
+			}
+			
+			var listOfWall =  $("#mainForm\\:hiddenWallsString").val().split(",");
+			for (var i = 0; i &lt; listOfWall.length; i++) {
+				var wallData = listOfWall[i].split("_");
+				optionList = optionList + '<option value="' + wallData[0] + '">' + wallData[1] + '</option>';
+			}
+			cloned.attr('id',imageId+counter);
+		}
+		
+		cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+		var temp = cloned.first();
+		
+		if(optionList!=''){		
+			$('<select style="width:80px;">'+optionList+'</select>').attr('id',selectTypeId).prependTo(temp);
+			<!-- $('<select>'+optionList+'</select>').attr('id','walls'+counter).on("change",function(){alert($(this).val());}).prependTo(temp); -->
+		}
+		
+		$("#mainForm\\:droppablePanel").append(temp);
+		cloned.find('.letter').remove();
+		
+		$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+			$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+		})
+		
+		cloned.find("img").resizable({
+			containment:'#mainForm\\:droppablePanel'
+		});	
+		
+		$.lastClicked = temp.find( "img" );		
+		$("#mainForm\\:hiddenCreateTable").attr('value',false);
+		isDragDropEventOccured = true;
+	}
+	
+
+	//Following function is set table data with backend bean using remote command to set Rooms data. 
+	function createTable(){
+		var childNodes = $("#mainForm\\:droppablePanel").children();
+		var count = childNodes.length;
+		var i=0;
+		var doorWindowList=''; 
+		if(count==0){
+			alert('No structure created!');			
+		} else {		
+			$("#mainForm\\:selectedRoomDoors_data > tr").remove();
+			$("#mainForm\\:selectedRoomWindows_data > tr").remove();
+							
+			 for (var i = 0; i &lt; count; i++) {
+	               var e = childNodes[i].nodeName;
+               	   var subParent = childNodes[i].childNodes;
+                   var selectType = subParent[0];
+                   var childDiv =  subParent[1];
+                   
+                   var imgName = $(selectType).attr('id');
+                   var imgType = '';
+                   if(imgName.indexOf("Door") > -1){
+                   		imgName = imgName.substring(0,imgName.indexOf("Door")) + imgName.substring(imgName.indexOf("Door")+4);
+                   		imgType = "Door";  
+                   } else if(imgName.indexOf("Window") > -1){
+                   		imgName = imgName.substring(0,imgName.indexOf("Window")) + imgName.substring(imgName.indexOf("Window")+6);
+                   		imgType = "Window";
+                   }
+
+                   var imgWidth = $(childDiv).css('width'); 
+                   var imgHeight = $(childDiv).css('height');
+                   var imgTop = $(childNodes[i]).css('top');
+                   var imgLeft = $(childNodes[i]).css('left');
+                   var imgId = $(childNodes[i]).attr('id');
+                   
+			       imgWidth = parseInt(imgWidth.substring(0,imgWidth.indexOf("px")));
+			       imgHeight = parseInt(imgHeight.substring(0,imgHeight.indexOf("px")));
+			       imgTop = parseInt(imgTop.substring(0,imgTop.indexOf("px")));
+			       imgLeft = parseInt(imgLeft.substring(0,imgLeft.indexOf("px")));                   
+                   
+                   var hiddenParent = document.getElementById(imgId);
+                   var hiddenTag = $(hiddenParent).find('input:hidden');
+                   var hiddenId = "";
+          			if(hiddenTag != null){          			
+           				hiddenId = $(hiddenTag).val();
+           			 	if(hiddenId == undefined){
+           			 		hiddenId = "";
+           			 	}          				
+          			}
+					
+					var doorOrWindowType = "";
+					if(imgId.indexOf("WSGDoor") > -1){
+						doorOrWindowType = "Wooden Single Glaze";
+					}else if(imgId.indexOf("WDGDoor") > -1){
+						doorOrWindowType = "Wooden Double Glaze";
+					}else if(imgId.indexOf("WTDoor") > -1){
+						doorOrWindowType = "Wooden Two";
+					}else if(imgId.indexOf("PSGDoor") > -1){
+						doorOrWindowType = "PVC Single Glaze";
+					}else if(imgId.indexOf("PDGDoor") > -1){
+						doorOrWindowType = "PVC Double Glaze";
+					}else if(imgId.indexOf("PTDoor") > -1){
+						doorOrWindowType = "PVC Two";
+					}else if(imgId.indexOf("MDDoor") > -1){
+						doorOrWindowType = "Metal Double";
+					}else if(imgId.indexOf("MTDoor") > -1){
+						doorOrWindowType = "Metal Two";
+					}else if(imgId.indexOf("WSGWindow") > -1){
+						doorOrWindowType = "Wooden Single Glaze";
+					}else if(imgId.indexOf("WDGWindow") > -1){
+						doorOrWindowType = "Wooden Double Glaze";
+					}else if(imgId.indexOf("WTWindow") > -1){
+						doorOrWindowType = "Wooden Two";
+					}else if(imgId.indexOf("PSGWindow") > -1){
+						doorOrWindowType = "PVC Single Glaze";
+					}else if(imgId.indexOf("PDGWindow") > -1){
+						doorOrWindowType = "PVC Double Glaze";
+					}else if(imgId.indexOf("PTWindow") > -1){
+						doorOrWindowType = "PVC Two";
+					}else if(imgId.indexOf("MDWindow") > -1){
+						doorOrWindowType = "Metal Double";
+					}else if(imgId.indexOf("MTWindow") > -1){
+						doorOrWindowType = "Metal Two";
+					}
+				   
+				   var assignedWallId = $(selectType).val();                   
+                   var wallName = $(selectType).find('option:selected').text();
+                   
+                   createRow(hiddenId,imgName,doorOrWindowType,wallName,imgTop,imgLeft,imgWidth,imgHeight,assignedWallId,imgType);
+                   <!-- alert("hiddenId:"+hiddenId+", imgName:"+imgName+", imgType:"+imgType+", wallName:"+wallName+", imgTop:"+imgTop+", imgLeft:"+imgLeft+", imgWidth:"+imgWidth+", imgHeight:"+imgHeight+", assignedWallId:"+assignedWallId); -->
+
+                   if(isDragDropEventOccured == true){
+						var rowData =    '{ \"imageDivId\": \"' + imgId 
+								  + '\" , \"width\": \"' + imgWidth
+								  + '\" , \"height\": \"' + imgHeight
+								  + '\" , \"top\": \"' + imgTop
+								  + '\" , \"left\": \"' + imgLeft
+								  + '\" , \"imageType\": \"' + imgType
+								  + '\" , \"hiddenId\": \"' + hiddenId
+								  + '\" , \"imgName\": \"' + imgName
+								  + '\" , \"assignedWallId\": \"' + assignedWallId
+								  + '\" , \"doorOrWindowType\": \"' + doorOrWindowType
+								  + '\" } '; 			
+						if(doorWindowList == ""){
+							doorWindowList = rowData;
+						} else {
+							doorWindowList = doorWindowList + ', ' + rowData;
+						}  
+                   }
+	           }
+	           doorWindowList = "[ " + doorWindowList + "]";
+	           command( [ { name: 'doorWindowList', value: doorWindowList } ] );	           
+           }
+		   $("#mainForm\\:hiddenCreateTable").attr('value',true);
+           isDragDropEventOccured = false;	
+
+	       $("#mainForm\\:doorName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:windowName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	}	
+
+	//Following function is set table-row data with to set Room data : called from createTable().
+	function createRow(objId,name,doorOrWindowType,wallName,imgTop,imgLeft,imgWidth,imgHeight,assignedWallId,imgType){
+
+		var currentdate = new Date(); 
+		var datetime =  currentdate.getFullYear() + "-"
+               + (currentdate.getMonth()+1)  + "-" 
+               + currentdate.getDate() + " "  
+               + currentdate.getHours() + ":"  
+               + currentdate.getMinutes() + ":" 
+               + currentdate.getSeconds();	
+		
+		var newRow = $("<tr>");
+		var cols = "";
+        cols += '<td>'+objId+'</td>';
+        cols += '<td>'+name+'</td>';
+        cols += '<td>'+doorOrWindowType+'</td>';
+        cols += '<td>'+wallName+'</td>';
+        cols += '<td>'+imgTop+'px</td>';
+        cols += '<td>'+imgLeft+'px</td>';
+        cols += '<td>'+imgWidth+'px</td>';
+        cols += '<td>'+imgHeight+'px</td>';
+        cols += '<td>0</td>';
+        cols += '<td style="display:none">'+assignedWallId+'</td>';
+        cols += '<td style="display:none">'+imgType+'</td>';
+        cols += '</tr>';
+        newRow.append(cols);
+        
+        if(imgType.indexOf("Door") > -1){
+        	$("#mainForm\\:selectedRoomDoors_data").append(newRow);        
+        } else if(imgType.indexOf("Window") > -1){
+			$("#mainForm\\:selectedRoomWindows_data").append(newRow);
+        }
+        
+	}
+
+
+	//Following function is used to set Rooms data having status=0 while loading the page.
+	function getDoorWindow(){	
+	
+		$("#mainForm\\:droppablePanel").empty();		
+
+		var hiddenId = 0
+		var imgName = '';
+		var dataType = '';
+		var wallName = '';
+        var imgWidth = 0; 
+        var imgHeight = 0;
+        var imgTop = 0;
+        var imgLeft = 0;
+        var imgId = 0;		 
+        var status = 0;
+		var wallId= '';
+		var imgType = '';
+
+		var selectTypeId;
+		var optionList = "";
+
+		wsgDoorCount = 1, wdgDoorCount = 1, wtDoorCount = 1, psgDoorCount = 1, pdgDoorCount = 1, ptDoorCount = 1, mdDoorCount = 1, mtDoorCount = 1;
+		wsgWindowCount = 1, wdgWindowCount = 1, wtWindowCount = 1, psgWindowCount = 1, pdgWindowCount = 1, ptWindowCount = 1, mdWindowCount = 1, mtWindowCount = 1;
+		
+		/***********************************************	Door related data start ***********************************************/
+		
+		var childNodes = $("#mainForm\\:selectedRoomDoors_data").children();
+		var noOfRows = childNodes.length;
+		
+		for (var i = 0; i &lt; noOfRows; i++) {
+               var row = childNodes[i].childNodes;
+               hiddenId  = row[0].innerHTML; 
+               if(hiddenId == 'No records found.'){               	
+               	
+               	break;
+               	               	
+               } else {
+               
+                imgName  	=  row[1].innerHTML; 
+                dataType 	=  row[2].innerHTML;
+                wallName 	=  row[3].innerHTML; 
+                imgTop 		=  row[4].innerHTML.indexOf('px') > 0 ? row[4].innerHTML : row[4].innerHTML+'px'; 
+                imgLeft 	=  row[5].innerHTML.indexOf('px') > 0 ? row[5].innerHTML : row[5].innerHTML+'px';
+                imgWidth 	=  row[6].innerHTML.indexOf('px') > 0 ? row[6].innerHTML : row[6].innerHTML+'px';
+                imgHeight 	=  row[7].innerHTML.indexOf('px') > 0 ? row[7].innerHTML : row[7].innerHTML+'px';
+                status 		=  row[8].innerHTML;
+                wallId	 	=  row[9].innerHTML;
+                imgType 	=  row[10].innerHTML;
+                if(status=='0'){
+                
+	               	var cloned;	               	
+					if(dataType == 'Wooden Single Glaze'){
+						cloned = $("#mainForm\\:dragWSGDoor").clone();
+						cloned.attr('id','mainForm:dragWSGDoor'+wsgDoorCount);
+						selectTypeId = "WSGDoor"+wsgDoorCount;
+						wsgDoorCount = wsgDoorCount + 1;						
+					}else if(dataType == 'Wooden Double Glaze'){
+						cloned = $("#mainForm\\:dragWDGDoor").clone();
+						cloned.attr('id','mainForm:dragWDGDoor'+wdgDoorCount);
+						selectTypeId = "WDGDoor"+wdgDoorCount;
+						wdgDoorCount = wdgDoorCount + 1;						
+					}else if(dataType == 'Wooden Two'){
+						cloned = $("#mainForm\\:dragWTDoor").clone();
+						cloned.attr('id','mainForm:dragWTDoor'+wtDoorCount);
+						selectTypeId = "WTDoor"+wtDoorCount;
+						wtDoorCount = wtDoorCount + 1;						
+					}else if(dataType == 'PVC Single Glaze'){
+						cloned = $("#mainForm\\:dragPSGDoor").clone();
+						cloned.attr('id','mainForm:dragPSGDoor'+psgDoorCount);
+						selectTypeId = "PSGDoor"+psgDoorCount;
+						psgDoorCount = psgDoorCount + 1;						
+					}else if(dataType == 'PVC Double Glaze'){
+						cloned = $("#mainForm\\:dragPDGDoor").clone();
+						cloned.attr('id','mainForm:dragPDGDoor'+pdgDoorCount);
+						selectTypeId = "PDGDoor"+pdgDoorCount;
+						pdgDoorCount = pdgDoorCount + 1;						
+					}else if(dataType == 'PVC Two'){
+						cloned = $("#mainForm\\:dragPTDoor").clone();
+						cloned.attr('id','mainForm:dragPTDoor'+ptDoorCount);
+						selectTypeId = "PTDoor"+ptDoorCount;
+						ptDoorCount = ptDoorCount + 1;						
+					}else if(dataType == 'Metal Double'){
+						cloned = $("#mainForm\\:dragMDDoor").clone();
+						cloned.attr('id','mainForm:dragMDDoor'+mdDoorCount);
+						selectTypeId = "MDDoor"+mdDoorCount;
+						mdDoorCount = mdDoorCount + 1;						
+					}else if(dataType == 'Metal Two'){
+						cloned = $("#mainForm\\:dragMTDoor").clone();
+						cloned.attr('id','mainForm:dragMTDoor'+mtDoorCount);
+						selectTypeId = "MTDoor"+mtDoorCount;
+						mtDoorCount = mtDoorCount + 1;						
+					}
+					
+					var listOfWall =  $("#mainForm\\:hiddenWallsString").val().split(",");
+					optionList = "";
+					for (var j = 0; j &lt; listOfWall.length; j++) {
+						var wallData = listOfWall[j].split("_");
+						if(wallData[0]==wallId){
+							optionList = optionList + '<option value="' + wallData[0] + '" selected="true">' + wallData[1] + '</option>';
+						} else {
+							optionList = optionList + '<option value="' + wallData[0] + '">' + wallData[1] + '</option>';
+						}						
+					}
+			
+					cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+					var temp = cloned.first();
+	
+					if(optionList!=''){		
+						$('<select style="width:80px;">'+optionList+'</select>').attr('id',selectTypeId).prependTo(temp);
+					}
+							
+					if(imgType.indexOf("Door") > -1){
+						$('<input></input>').attr('type','hidden').attr('id','doorHiddenId').attr('value',hiddenId).appendTo(temp);
+					}else if(imgType.indexOf("Window") > -1){
+						$('<input></input>').attr('type','hidden').attr('id','windowHiddenId').attr('value',hiddenId).appendTo(temp);
+					}	
+					
+					$("#mainForm\\:droppablePanel").append(temp);
+					cloned.find('.letter').remove();
+	
+					$(cloned).resize(function () {
+				      isDragDropEventOccured = true;
+				     });
+
+					$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+						$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+					})
+					
+	               	cloned.css('position','absolute');
+					cloned.css('top',imgTop).css('left',imgLeft);
+					
+					cloned.find("img").resizable({
+						containment:'#mainForm\\:droppablePanel'
+					}).css('width',imgWidth).css('height',imgHeight);		
+					
+					cloned.find("img").parent().css('width',imgWidth).css('height',imgHeight);		
+					$.lastClicked = temp.find( "img" );		
+               	}                                
+            }
+		}
+		
+		for (var i = 0; i &lt; noOfRows; i++) {
+            var row = childNodes[i].childNodes;
+         	hiddenId = row[0].innerHTML;					
+			if(hiddenId == 'No records found.') {
+				break;
+			} else {
+                status 	= row[7].innerHTML;
+                if(status=='1'){
+                	childNodes[i].remove();
+                }				
+			}                	
+         }
+
+		/***********************************************	Door related data end ***********************************************/
+
+		/***********************************************	Window related data start ***********************************************/
+
+
+		var childNodes = $("#mainForm\\:selectedRoomWindows_data").children();
+		var noOfRows = childNodes.length;
+		var i=0; 
+		
+		for (var i = 0; i &lt; noOfRows; i++) {		               	
+               var row = childNodes[i].childNodes;
+               hiddenId  = row[0].innerHTML; 
+               
+               if(hiddenId == 'No records found.'){               	
+               	
+               	break;
+               	               	
+               } else {
+               
+                imgName  	=  row[1].innerHTML; 
+                dataType 	=  row[2].innerHTML;
+                wallName 	=  row[3].innerHTML; 
+                imgTop 		=  row[4].innerHTML.indexOf('px') > 0 ? row[4].innerHTML : row[4].innerHTML+'px'; 
+                imgLeft 	=  row[5].innerHTML.indexOf('px') > 0 ? row[5].innerHTML : row[5].innerHTML+'px';
+                imgWidth 	=  row[6].innerHTML.indexOf('px') > 0 ? row[6].innerHTML : row[6].innerHTML+'px';
+                imgHeight 	=  row[7].innerHTML.indexOf('px') > 0 ? row[7].innerHTML : row[7].innerHTML+'px';
+                status 		=  row[8].innerHTML;
+                wallId	 	=  row[9].innerHTML;
+                imgType 	=  row[10].innerHTML;
+
+                if(status=='0'){
+                
+	               	var cloned;	               	
+					if(dataType == 'Wooden Single Glaze'){
+						cloned = $("#mainForm\\:dragWSGWindow").clone();
+						cloned.attr('id','mainForm:dragWSGWindow'+wsgWindowCount);
+						selectTypeId = "WSGWindow"+wsgWindowCount;
+						wsgWindowCount = wsgWindowCount + 1;						
+					}else if(dataType == 'Wooden Double Glaze'){
+						cloned = $("#mainForm\\:dragWDGWindow").clone();
+						cloned.attr('id','mainForm:dragWDGWindow'+wdgWindowCount);
+						selectTypeId = "WDGWindow"+wdgWindowCount;
+						wdgWindowCount = wdgWindowCount + 1;						
+					}else if(dataType == 'Wooden Two'){
+						cloned = $("#mainForm\\:dragWTWindow").clone();
+						cloned.attr('id','mainForm:dragWTWindow'+wtWindowCount);
+						selectTypeId = "WTWindow"+wtWindowCount;
+						wtWindowCount = wtWindowCount + 1;						
+					}else if(dataType == 'PVC Single Glaze'){
+						cloned = $("#mainForm\\:dragPSGWindow").clone();
+						cloned.attr('id','mainForm:dragPSGWindow'+psgWindowCount);
+						selectTypeId = "PSGWindow"+psgWindowCount;
+						psgWindowCount = psgWindowCount + 1;						
+					}else if(dataType == 'PVC Double Glaze'){
+						cloned = $("#mainForm\\:dragPDGWindow").clone();
+						cloned.attr('id','mainForm:dragPDGWindow'+pdgWindowCount);
+						selectTypeId = "PDGWindow"+pdgWindowCount;
+						pdgWindowCount = pdgWindowCount + 1;						
+					}else if(dataType == 'PVC Two'){
+						cloned = $("#mainForm\\:dragPTWindow").clone();
+						cloned.attr('id','mainForm:dragPTWindow'+ptWindowCount);
+						selectTypeId = "PTWindow"+ptWindowCount;
+						ptWindowCount = ptWindowCount + 1;						
+					}else if(dataType == 'Metal Double'){
+						cloned = $("#mainForm\\:dragMDWindow").clone();
+						cloned.attr('id','mainForm:dragMDWindow'+mdWindowCount);
+						selectTypeId = "MDWindow"+mdWindowCount;
+						mdWindowCount = mdWindowCount + 1;						
+					}else if(dataType == 'Metal Two'){
+						cloned = $("#mainForm\\:dragMTWindow").clone();
+						cloned.attr('id','mainForm:dragMTWindow'+mtWindowCount);
+						selectTypeId = "MTWindow"+mtWindowCount;
+						mtWindowCount = mtWindowCount + 1;						
+					}
+
+					var listOfWall =  $("#mainForm\\:hiddenWallsString").val().split(",");
+					optionList = "";
+					for (var j = 0; j &lt; listOfWall.length; j++) {
+						var wallData = listOfWall[j].split("_");
+						if(wallData[0]==wallId){
+							optionList = optionList + '<option value="' + wallData[0] + '" selected="true">' + wallData[1] + '</option>';
+						} else {
+							optionList = optionList + '<option value="' + wallData[0] + '">' + wallData[1] + '</option>';
+						}						
+					}
+
+					cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+					var temp = cloned.first();
+					cloned.find("input").attr('value',imgType).show();
+					
+					if(optionList!=''){		
+						$('<select style="width:80px;">'+optionList+'</select>').attr('id',selectTypeId).prependTo(temp);
+					}
+							
+					if(imgType.indexOf("Door") > -1){
+						$('<input></input>').attr('type','hidden').attr('id','doorHiddenId').attr('value',hiddenId).appendTo(temp);
+					}else if(imgType.indexOf("Window") > -1){
+						$('<input></input>').attr('type','hidden').attr('id','windowHiddenId').attr('value',hiddenId).appendTo(temp);
+					}	
+					
+					$("#mainForm\\:droppablePanel").append(temp);
+					cloned.find('.letter').remove();
+	
+					$(cloned).resize(function () {
+				      isDragDropEventOccured = true;
+				     });
+
+					$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+						$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+					})
+					
+	               	cloned.css('position','absolute');
+					cloned.css('top',imgTop).css('left',imgLeft);
+					
+					cloned.find("img").resizable({
+						containment:'#mainForm\\:droppablePanel'
+					}).css('width',imgWidth).css('height',imgHeight);		
+					
+					cloned.find("img").parent().css('width',imgWidth).css('height',imgHeight);		
+					$.lastClicked = temp.find( "img" );		
+               	}                                
+            }
+		}
+		
+		for (var i = 0; i &lt; noOfRows; i++) {
+            var row = childNodes[i].childNodes;
+         	hiddenId = row[0].innerHTML;					
+			if(hiddenId == 'No records found.') {
+				break;
+			} else {
+                status 	= row[7].innerHTML;
+                if(status=='1'){
+                	childNodes[i].remove();
+                }				
+			}                	
+         }
+
+		/***********************************************	Window related data end ***********************************************/
+
+	       $("#mainForm\\:doorName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:windowName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	
+		isDragDropEventOccured = true;
+         		
+	} 
+
+	function updateDoorWindow(){		
+		if($("#mainForm\\:hiddenCreateTable").val() == 'true'){
+			$("#mainForm\\:hiddenCreateTable").attr('value',false);
+			getDoorWindow();
+		}		
+	}
+	
+	function validateIsCreateTable(){
+			var hiddenCreateTableVal = $("#mainForm\\:hiddenCreateTable").val();
+			setIsCreateTableVar( [ { name: 'hiddenCreateTableVal', value: hiddenCreateTableVal } ] );
+	}
+
+</h:outputScript>
+
+</html>

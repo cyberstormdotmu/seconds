@@ -1,0 +1,5 @@
+2014-05-12 15:23:38,742 DEBUG main service.wlist.linear.LinearWaitingList - Returning Filtered Request: pid[11] fqn[[/table/][99][][-1]] time[1399888418086] ->"p2 GREATER_THAN 5" "p1 EQUALS apa" 
+2014-05-12 15:23:38,813 WARN  main service.wlist.linear.LinearWaitingList - Could not bind Node Waiting List to JMX: javax.management.InstanceAlreadyExistsException: com.cubeia.firebase.waitlist:type=NodeList-99/
+2014-05-12 15:23:38,814 WARN  main service.wlist.linear.LinearWaitingList - Could not bind Node Waiting List to JMX: javax.management.InstanceAlreadyExistsException: com.cubeia.firebase.waitlist:type=NodeList-99/a/
+2014-05-12 15:23:38,814 DEBUG main service.wlist.linear.LinearWaitingList - Returning Filtered Request: pid[11] fqn[[/table/][99][][-1]] time[1399888418749] ->"p2 GREATER_THAN 5" "p1 EQUALS apa" 
+2014-05-12 15:23:38,815 WARN  main service.wlist.linear.LinearWaitingList - Could not bind Node Waiting List to JMX: javax.management.InstanceAlreadyExistsException: com.cubeia.firebase.waitlist:type=NodeList-99/

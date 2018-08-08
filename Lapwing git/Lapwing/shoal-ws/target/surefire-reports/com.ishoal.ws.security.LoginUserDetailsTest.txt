@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ishoal.ws.security.LoginUserDetailsTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.39 sec - in com.ishoal.ws.security.LoginUserDetailsTest

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ishoal.core.products.CreateProductServiceIT
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.298 sec - in com.ishoal.core.products.CreateProductServiceIT

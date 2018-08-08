@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ishoal.core.repository.OrderRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.39 sec - in com.ishoal.core.repository.OrderRepositoryTest

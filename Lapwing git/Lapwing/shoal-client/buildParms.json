@@ -1,0 +1,6 @@
+{
+  "buildParms": {
+    "buildPath": "target/build",
+    "distPath": "target/dist"
+  }
+}

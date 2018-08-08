@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+
+<h:head></h:head>
+<h:body>
+	<!-- 	<p:remoteCommand name="onpageLoadTableUpdate" -->
+	<!-- 		action="#{distributionLineBean.updateDataTable()}" -->
+	<!-- 		update="distributionLinesTable" /> -->
+	<ui:composition template="commonLayout.xhtml">
+		<!-- 	<ui:composition template="gga.xhtml"> -->
+		<ui:define name="head">
+		</ui:define>
+
+		<ui:define name="content">
+			<h:form id="form">
+				<p:growl id="messages" showDetail="true" sticky="false" life="2000" />
+				<p:panel header="Okuma Yükleme" style="max-width: 1280px">
+					<h:panelGrid columns="1" width="101%" rowClasses="valignTop">
+						<p:row>
+							<p:fileUpload style="width:400px" cancelLabel="İptal"
+								uploadLabel="Yükle" label="Seç"
+								fileUploadListener="#{readingUploadBean.handleFileUpload}"
+								mode="advanced" sizeLimit="10000000" dragDropSupport="true"
+								update=":form:messages,absentReadingDialog"
+								oncomplete= "PF('absentReadingDialog').show();" />
+							<p:outputLabel id="periodDateText" value="Dönem Tarihi:"
+								for="periodDateCalendar" />
+							<p:calendar id="periodDateCalendar" mask="true" locale="tr"
+								value="#{readingUploadBean.readingPeriodDate}">
+
+								<p:ajax event="dateSelect"
+									listener="#{readingUploadBean.onDateSelect}" update="messages" />
+							</p:calendar>
+						</p:row>
+						<p:row>
+							<h:outputLabel value="Bir Proje Seçiniz:"
+								for="dropDownAutoComplete" />
+							<p:autoComplete id="dropDownAutoComplete" dropdown="true"
+								value="#{readingUploadBean.projectAutoCompleteString}"
+								completeMethod="#{readingUploadBean.projectAutoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect"
+									listener="#{readingUploadBean.onProjectSelect}"
+									update="billsChoose,messages" />
+							</p:autoComplete>
+
+
+							<!-- 							<h:outputLabel value="Bir Dağıtım Hattı Seçiniz:" -->
+							<!-- 								for="dropDownAutoCompleteDistLine" /> -->
+							<!-- 							<p:autoComplete id="dropDownAutoCompleteDistLine" dropdown="true" -->
+							<!-- 								value="#{readingUploadBean.distributionLineAutoCompleteString}" -->
+							<!-- 								completeMethod="#{readingUploadBean.distributionLineAutoComplete}" -->
+							<!-- 								style="margin-right:50px;"> -->
+							<!-- 								<p:ajax event="itemSelect" -->
+							<!-- 									listener="#{readingUploadBean.onDistributionLineSelect}" /> -->
+							<!-- 									 update="billSelect" -->
+							<!-- 							</p:autoComplete> -->
+
+						</p:row>
+						<p:row>
+							<h:outputLabel value="Döneme Bağlanacak Faturaları Seçiniz"
+								for="billsChoose" />
+							<p:selectManyCheckbox id="billsChoose"
+								value="#{readingUploadBean.selectedBills}" layout="grid"
+								columns="3" converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{readingUploadBean.unbindedBills}"
+									var="bill" itemValue="#{bill}" itemLabel="#{bill.fileName}" />
+							</p:selectManyCheckbox>
+							<!-- 							<h:outputLabel value="Bir Fatura Seçiniz:" for="billSelect" /> -->
+							<!-- 							<p:selectOneMenu id="billSelect" style="width:150px" -->
+							<!-- 								value="#{readingUploadBean.billForReadingString}" -->
+							<!-- 								converter="omnifaces.SelectItemsConverter"> -->
+							<!-- 								<p:ajax event="change" update="@this" -->
+							<!-- 									listener="#{readingUploadBean.onBillSelect}" /> -->
+							<!-- 																<p:ajax event="change" -->
+							<!-- 																	listener="#{readingUploadBean.onBillSelect}" -->
+							<!-- 																	/> -->
+							<!-- 								<f:selectItem itemLabel="Fatura Seçiniz" itemValue="" -->
+							<!-- 									noSelectionOption="true" required="true" /> -->
+							<!-- 								<f:selectItems value="#{readingUploadBean.billDateStrings}" -->
+							<!-- 									var="bill" itemLabel="#{bill}" itemValue="#{bill}" /> -->
+							<!-- 							</p:selectOneMenu> -->
+						</p:row>
+					</h:panelGrid>
+					<p:dialog id="absentReadingDialog" width="700px"
+						header="Eksik Pay Ölçer Tamamlama" widgetVar="absentReadingDialog"
+						modal="true" >
+						
+						<p:panel>
+						<p:dataGrid columns="3" layout="grid" rows="12" id="allocatorDataGrid"
+							value="#{readingUploadBean.absentAllocatorsByReading}"
+							var="allocatorReading" emptyMessage="Eksik Pay Ölçer Verisi Bulunmamıştır">
+							<f:facet name="header">
+            					Eksik Pay Ölçerler
+        					</f:facet>
+							<p:panel header="#{allocatorReading.serialNo}"
+								style="text-align:center">
+								<p:outputLabel id="allocatorValueText" value="Değer gir:"
+								for="allocatorValueInput" />
+									<p:inputText id="allocatorValueInput" value="#{readingUploadBean.allocatorValueInputByDevice}">
+									<p:ajax event="change"
+									listener="#{readingUploadBean.allocatorValueInput(allocatorReading.serialNo)}"/>
+								</p:inputText>
+								
+							</p:panel>
+						</p:dataGrid>
+						</p:panel>
+						<p:panel>
+						<p:dataGrid columns="3" layout="grid" rows="12" id="heatMeterDataGrid"
+							value="#{readingUploadBean.absentHeatMetersByReading}"
+							var="heatMeterReading" emptyMessage="Eksik Isı Sayacı Verisi Bulunmamıştır">
+							<f:facet name="header">
+            					Eksik Isı Sayaçları
+        					</f:facet>
+							<p:panel header="#{heatMeterReading.serialNo}"
+								style="text-align:center">
+								<p:outputLabel id="heatMeterValueText" value="Değer gir:"
+								for="heatMeterValueInput" />
+									<p:inputText id="heatMeterValueInput" value="#{readingUploadBean.heatMeterValueInputByDevice}">
+									<p:ajax event="change"
+									listener="#{readingUploadBean.heatMeterValueInput(heatMeterReading.serialNo)}"/>
+								</p:inputText>
+								
+							</p:panel>
+						</p:dataGrid>
+						</p:panel>
+						<p:panel>
+						<p:dataGrid columns="3" layout="grid" rows="12" id="waterMeterDataGrid"
+							value="#{readingUploadBean.absentWaterMetersByReading}"
+							var="waterMeterReading" emptyMessage="Eksik Isı Sayacı Verisi Bulunmamıştır">
+							<f:facet name="header">
+            					Eksik Su Sayaçları
+        					</f:facet>
+							<p:panel header="#{waterMeterReading.serialNo}"
+								style="text-align:center">
+								<p:outputLabel id="waterMeterValueText" value="Değer gir:"
+								for="waterMeterValueInput" />
+									<p:inputText id="waterMeterValueInput" value="#{readingUploadBean.waterMeterValueInputByDevice}">
+									<p:ajax event="change"
+									listener="#{readingUploadBean.waterMeterValueInput(waterMeterReading.serialNo)}"/>
+								</p:inputText>
+								
+							</p:panel>
+						</p:dataGrid>
+						</p:panel>
+						<p:commandButton id="absentAllocatorsSave" 
+								update=":form:messages" value="#{readingUploadBean.buttonString()}"
+								actionListener="#{readingUploadBean.saveAbsentMetersReadings()}"
+								oncomplete="PF('absentReadingDialog').hide();" />
+								
+					</p:dialog>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

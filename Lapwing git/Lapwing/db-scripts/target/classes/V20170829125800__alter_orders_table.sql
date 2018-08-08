@@ -1,0 +1,2 @@
+-- Column: payment_due_date ADD in orders TABLE
+ALTER TABLE ORDERS ADD COLUMN PAYMENT_DUE_DATE DATE;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="server/bin" path="server/src"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="server/lib/javaee-api-5.1.2.jar"/>
+	<classpathentry kind="lib" path="server/lib/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="server/lib/red5.jar"/>
+	<classpathentry kind="lib" path="server/lib/spring-beans-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="server/lib/spring-context-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="server/lib/spring-core-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="server/lib/spring-web-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

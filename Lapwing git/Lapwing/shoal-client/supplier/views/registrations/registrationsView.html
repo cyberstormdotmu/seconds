@@ -1,0 +1,103 @@
+<div class="content-wrap"><div id="main-content" class="container">
+
+    <div id="left-column" class="col-sm-12">
+        <div class="row">
+            <div class="pull-right">
+                <button class="btn btn-default btn-xs" id="refresh" ng-click="vm.newRegistrations.refresh()"><span
+                        class="fa fa-refresh" aria-hidden="true"></span> Refresh
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <uib-tabset>
+                <uib-tab heading="Pending Registrations">
+                <table id="list-of-registered-users" class="table table-striped table-responsive table-hover table-headings">
+                <thead>
+                    <tr>
+                        <th>Forename</th>
+                        <th>Surname</th>
+                        <th>Email Address</th>
+                        <th>Mobile No.</th>
+                        <th>Organisation</th>
+                        <th>Company No.</th>
+                        <th>Apply for</th>
+                        <th>Registration date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="registration in vm.newRegistrations.registrations">
+                        <td>{{ registration.buyer.firstName }}</td>
+                        <td>{{ registration.buyer.surname }}</td>
+                        <td>{{ registration.buyer.emailAddress }}</td>
+                        <td>{{ registration.buyer.mobileNumber }}</td>
+                        <td>{{ registration.organisation.registrationNumber }}</td>
+                        <td>{{ registration.organisation.name }}</td>
+                        <td>{{ registration.buyer.appliedFor }}</td>
+                        <td>{{ registration.registeredDate | date:'short' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </uib-tab>
+                <uib-tab heading="Authorised Registrations">
+                <table id="list-of-registered-users" class="table table-striped table-responsive table-hover table-headings">
+                <thead>
+                    <tr>
+                        <th>Forename</th>
+                        <th>Surname</th>
+                        <th>Email Address</th>
+                         <th>Mobile No.</th>
+                        <th>Organisation</th>
+                        <th>Company No.</th>
+                        <th>User Role</th>
+                        <th>Registration date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="registration in vm.newRegistrations.confirmregistrations">
+                        <td>{{ registration.buyer.firstName }}</td>
+                        <td>{{ registration.buyer.surname }}</td>
+                        <td>{{ registration.buyer.emailAddress }}</td>
+                         <td>{{ registration.buyer.mobileNumber }}</td>
+                        <td>{{ registration.organisation.name }}</td>
+                        <td>{{ registration.organisation.registrationNumber }}</td>
+                        <td>{{ registration.buyer.appliedFor }}</td>
+                        <td>{{ registration.registeredDate | date:'short' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </uib-tab>
+                <uib-tab heading="Cancelled Registrations">
+                <table id="list-of-registered-users" class="table table-striped table-responsive table-hover table-headings">
+                <thead>
+                    <tr>
+                        <th>Forename</th>
+                        <th>Surname</th>
+                        <th>Email Address</th>
+                         <th>Mobile No.</th>
+                        <th>Organisation</th>
+                        <th>Company No.</th>
+                        <th>Apply for</th>
+                        <th>Registration date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="registration in vm.newRegistrations.rejectregistrations">
+                        <td>{{ registration.buyer.firstName }}</td>
+                        <td>{{ registration.buyer.surname }}</td>
+                        <td>{{ registration.buyer.emailAddress }}</td>
+                         <td>{{ registration.buyer.mobileNumber }}</td>
+                        <td>{{ registration.organisation.name }}</td>
+                        <td>{{ registration.organisation.registrationNumber }}</td>
+                        <td>{{ registration.buyer.appliedFor }}</td>
+                        <td>{{ registration.registeredDate | date:'short' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>
+</div>

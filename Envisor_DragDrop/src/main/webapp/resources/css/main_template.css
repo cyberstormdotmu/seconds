@@ -1,0 +1,251 @@
+/*
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations under
+ * the License.
+ *
+ * The Original Code is ICEfaces 1.5 open source software code, released
+ * November 5, 2006. The Initial Developer of the Original Code is ICEsoft
+ * Technologies Canada, Corp. Portions created by ICEsoft are Copyright (C)
+ * 2004-2011 ICEsoft Technologies Canada, Corp. All Rights Reserved.
+ *
+ * Contributor(s): _____________________.
+ */
+html, body, div, table, fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	/* 	background-image:url(''); */
+}
+
+.fullbackground {
+	/* 	position: relative; */
+	
+}
+
+img.fullbackground {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: 100%; /* alternative: right:0; */
+	height: 100%; /* alternative: bottom:0; */
+}
+
+html {
+	overflow: scroll;
+	/*background: url('../resources/css/images/bugday2.jpg') no-repeat center
+		center fixed;*/
+	background: maroon repeat center
+		center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg',
+		sizingMethod='scale');
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
+}
+
+body {
+	font-family: Arial, Sans-Serif;
+	font-size: 0.8em;
+}
+
+table {
+	font-size: 1.0em;
+}
+
+ul {
+	margin-left: 20px;
+}
+
+li {
+	margin-left: 5px;
+}
+
+div.clearer {
+	clear: both;
+	height: -5px;
+	line-height: .01em;
+	padding: 0;
+	margin: 0;
+}
+
+/* header begin */
+div.header_container {
+	width: 100%;
+	height: 50px;
+	min-width: 730px;
+}
+
+div.header_container div.header_left {
+	display: inline;
+	height: 100px;
+	position: relative;
+}
+
+div.header_right {
+	float: right;
+	position: absolute;
+	text-align: left;
+	height: 100px;
+	top: 100;
+	right: 0;
+}
+
+/* header end */
+
+/* header begin */
+div.footer_container {
+	width: 100%;
+	height: 95px;
+	min-width: 730px;
+	background-image: url('../resources/css/images/footer-bg.jpg');
+	background-repeat: repeat-x;
+	background-position: bottom left; /*position: relative;*/
+}
+
+div.footer_container div.footer_left {
+	float: left;
+	display: inline;
+	width: 80%;
+	padding-left: 15px;
+	padding-top: 50px;
+	font-size: 0.9em;
+	text-align: center;
+	color: white;
+}
+
+div.footer_container div.footer_left a, div.footer_container div.footer_left a:hover,
+	div.footer_container div.footer_left a:visited {
+	color: #FFA500;
+	text-decoration: none;
+}
+
+div.footer_container div.footer_left a:hover {
+	text-decoration: underline;
+}
+
+div.footer_container div.footer_right {
+	float: right;
+	display: inline;
+	width: 121px;
+}
+
+div#footer {
+	min-height: 75px;
+}
+
+/* footer end */
+div.columnleft {
+	margin-left: 5px;
+	margin-top: 15px;
+	width: 26px;
+	float: left;
+}
+
+div.columnMiddle {
+	min-height: 500px;
+	margin-left: 265px;
+	padding: 5px;
+	position: relative;
+}
+
+.order-table {
+	border-collapse: collapse;
+}
+
+.order-table-header {
+	text-align: center;
+	background: none repeat scroll 0 0 #E5E5E5;
+	border-bottom: 1px solid #BBBBBB;
+	padding: 16px;
+}
+
+.order-table-odd-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #FFFFFFF;
+	border-top: 1px solid #BBBBBB;
+}
+
+.order-table-even-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border-top: 1px solid #BBBBBB;
+}
+
+.order-table-footer {
+	text-align: center;
+	background: none repeat scroll 0 0 #E5E5E5;
+	border-top: 1px solid #BBBBBB;
+	padding: 16px;
+}
+
+.panelColumns td {
+	vertical-align: top;
+	border: none;
+}
+
+.ui-datagrid-content {
+	border: 0px;
+	vertical-align: top;
+}
+
+.panelColumnsDiv div {
+	vertical-align: top;
+	border: none;
+}
+
+.ui-panelgrid tr, .ui-panelgrid td {
+	border: 0 !important;
+	background-color: #E3EAEE;
+}
+
+/* PRIMEFACES'I EZELÝM */
+.ui-panel {
+	margin: 0 auto;
+}
+
+.ui-dock-item-bottom span {
+	color: #FFFFFF;
+}
+
+.someCssClassName {
+	background-image: url('../resources/css/images/picon.fw.png')
+}
+
+.ui-icon-person_tbt {
+	background-image: url('../resources/css/images/picon.fw.png');
+}
+
+.ui-icon[class*=" icon-"] {
+	/* Remove the jQuery UI Icon */
+	background: none repeat scroll 0 0 transparent;
+	/* Remove the jQuery UI Text Indent */
+	text-indent: 0;
+	/* Bump it up - jQuery UI is -8px */
+	margin-top: -0.5em;
+}
+
+.ui-button-icon-only .ui-icon[class*=" icon-"] {
+	/* Bump it - jQuery UI is -8px */
+	margin-left: -7px;
+}
+
+/* Allow use of icon-large to be properly aligned */
+.ui-icon.icon-large {
+	margin-top: -0.75em;
+}
+.highlightTableRow {
+   background: none repeat scroll 0 0 #E0EEEE;
+      font-weight: bold;
+}

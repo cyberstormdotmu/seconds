@@ -1,0 +1,30 @@
+#![Single Wallet - Transfer Funds]
+client:Actor
+game:CashGameBackEndAdapter
+opService:OperatorService
+wallet:WalletService
+operator:RemoteOperator
+
+# Enter firebase execution
+client:response=game.takeSeat()
+(1)game:true=opService.isSingleWallet(operator)
+*1 opService
+  This call should be 
+  cached aggressively
+*1
+
+game:ok=opService.transferToGame()
+opService:=operator.withdraw()
+
+(2)opService:=wallet.internalTransfer()
+*2 wallet
+  Transfer funds from operator system 
+  account to player static account
+*2
+
+(3)game:=wallet.openSession()
+*3 wallet
+  Transfer buy-in from player static 
+  account to newly created player 
+  session account.
+*3

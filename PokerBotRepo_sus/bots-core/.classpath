@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="src" path="target/maven-shared-archive-resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/firebase/firebase-protocol/1.10.1-BETA2/firebase-protocol-1.10.1-BETA2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/styx/styx-core/1.17/styx-core-1.17.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/firebase/client/firebase-java-textclient/1.10.1-BETA2/firebase-java-textclient-1.10.1-BETA2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/firebase/client/firebase-java-connector/1.10.1-BETA2/firebase-java-connector-1.10.1-BETA2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/firebase/firebase-api/1.10.1-BETA2/firebase-api-1.10.1-BETA2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xec/oss/xec.se-commons/1.4.6/xec.se-commons-1.4.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/simple-jndi/simple-jndi/0.11.4.1/simple-jndi-0.11.4.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/utilities/1.2.0/utilities-1.2.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-client/9.1.1.v20140108/websocket-client-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util/9.1.1.v20140108/jetty-util-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-io/9.1.1.v20140108/jetty-io-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-common/9.1.1.v20140108/websocket-common-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-api/9.1.1.v20140108/websocket-api-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cometd/java/cometd-java-client/3.0.0.beta2/cometd-java-client-3.0.0.beta2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cometd/java/bayeux-api/3.0.0.beta2/bayeux-api-3.0.0.beta2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cometd/java/cometd-java-common/3.0.0.beta2/cometd-java-common-3.0.0.beta2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util-ajax/9.1.1.v20140108/jetty-util-ajax-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-mapper-lgpl/1.9.3/jackson-mapper-lgpl-1.9.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-lgpl/1.9.3/jackson-core-lgpl-1.9.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-client/9.1.1.v20140108/jetty-client-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-http/9.1.1.v20140108/jetty-http-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/mina/mina-filter-ssl/1.1.0/mina-filter-ssl-1.1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/mina/mina-core/1.1.0/mina-core-1.1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/mina/mina-integration-jmx/1.1.0/mina-integration-jmx-1.1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jboss/jboss-cache/1.4.1.SP8/jboss-cache-1.4.1.SP8.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jgroups/jgroups/2.2.8/jgroups-2.2.8.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jboss/jboss-system/4.2.0.GA/jboss-system-4.2.0.GA.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jboss/jboss-jmx/4.2.0.GA/jboss-jmx-4.2.0.GA.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-server/9.1.1.v20140108/jetty-server-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-cli/commons-cli/1.2/commons-cli-1.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-servlet/9.1.1.v20140108/jetty-servlet-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-security/9.1.1.v20140108/jetty-security-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-plus/9.1.1.v20140108/jetty-plus-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-webapp/9.1.1.v20140108/jetty-webapp-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-xml/9.1.1.v20140108/jetty-xml-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-jndi/9.1.1.v20140108/jetty-jndi-9.1.1.v20140108.jar"/>
+</classpath>

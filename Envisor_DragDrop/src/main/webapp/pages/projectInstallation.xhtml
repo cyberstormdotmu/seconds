@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+ 
+<h:head></h:head>
+<h:body>
+
+	<ui:composition template="commonLayout.xhtml">
+		<!-- 	<ui:composition template="gga.xhtml"> -->
+		<ui:define name="head">
+		</ui:define>
+
+		<ui:define name="content">
+			<h:form id="form">
+				<p:growl id="saveGrowl" showDetail="true" sticky="false" life="2000" />
+				<h:outputText value="&#160;" />
+
+				<p:panel header="Proje Kurulumu" style="max-width: 900px">
+					<!-- projelerin dökümü burada yapılıyor -->
+
+
+
+
+					<p:accordionPanel id="setupAccordionPanel"
+						widgetVar="setupAccordionPanel" dynamic="true" cache="true">
+						<p:tab id="setupTab1" title="Genel Tanımlar">
+							<p:panel header="Genel Tanımlar" style="width:600px">
+								<p:panelGrid columns="2">
+									<h:outputText id="projectCodeText" value="Proje Kodu:" />
+									<p:inputText id="projectCodeInput"
+										value="#{projectInstallationBean.projectCode}" />
+
+									<h:outputText id="projectProjectNameText" value="Proje Adı: " />
+									<p:inputText id="projectProjectNameInput"
+										value="#{projectInstallationBean.projectName}" />
+
+									<h:outputText id="projectAddressText" value="Adres: " />
+									<p:inputTextarea id="projectAddressInput"
+										value="#{projectInstallationBean.address}" />
+
+									<h:outputText id="projectNameText" value="Yönetici Adı: " />
+									<p:inputText id="projectNameInput"
+										value="#{projectInstallationBean.name}" />
+
+									<h:outputText id="projectSurnameText" value="Soyad: " />
+									<p:inputText id="projectSurnameInput"
+										value="#{projectInstallationBean.surname}" />
+
+
+
+									<h:outputText id="projectAuthorizedText" value="Yetkili: " />
+									<p:inputText id="projectAuthorizedInput"
+										value="#{projectInstallationBean.authorized}" />
+
+									<h:outputText id="projectPhoneText" value="Telefon: " />
+									<p:inputText id="projectPhoneInput"
+										value="#{projectInstallationBean.phone}" />
+
+									<h:outputText id="projectEmailText" value="E-mail: " />
+									<p:inputText id="projectEmailInput"
+										value="#{projectInstallationBean.email}" />
+
+									<h:outputText id="projectRegistryDateText"
+										value="Kayıt Tarihi:" />
+									<p:calendar id="projectRegistrayDateCalendar" mask="true"
+										value="#{projectInstallationBean.registryDate}" />
+
+									<h:outputText id="projectexplanationText" value="Not:" />
+									<p:inputText id="projectexplanationInput"
+										value="#{projectInstallationBean.explanations}" />
+
+									<h:outputText id="projectEnvisorText" value="Envisor: " />
+									<p:selectOneRadio id="envisorRadio"
+										value="#{projectInstallationBean.envisorability}">
+										<f:selectItem itemLabel="Var" itemValue="#{true}" />
+										<f:selectItem itemLabel="Yok" itemValue="#{false}" />
+									</p:selectOneRadio>
+
+									<h:outputText id="projectOperatorText" value="Operatör: " />
+									<p:selectOneRadio id="operatorRadio"
+										value="#{projectInstallationBean.operator}">
+										<f:selectItem itemLabel="Kendisi" itemValue="Kendisi" />
+										<f:selectItem itemLabel="Diğer" itemValue="Diğer" />
+									</p:selectOneRadio>
+
+									<h:outputText id="projectDataServicesText"
+										value="Data Servisleri:" />
+									<p:selectOneRadio id="dataServicesRadio"
+										value="#{projectInstallationBean.dataServices}">
+										<f:selectItem itemLabel="WSDL" itemValue="wsdl" />
+										<f:selectItem itemLabel="SOAP" itemValue="soap" />
+									</p:selectOneRadio>
+
+								</p:panelGrid>
+
+
+							</p:panel>
+							<p:commandButton id="buttonProjectSave" value="Kaydet"
+								action="#{projectInstallationBean.saveProject}"
+								update=":form:saveGrowl" />
+
+						</p:tab>
+
+
+
+
+						<p:tab id="setupTab2" title="Ölçüm Tipleri: ">
+							<p:selectManyButton
+								value="#{projectInstallationBean.selectedMeasurementTypes}"
+								converter="omnifaces.SelectItemsConverter">
+								<f:selectItems
+									value="#{projectInstallationBean.measurementTypes}"
+									var="measurementType" itemValue="#{measurementType}"
+									itemLabel="#{measurementType.type}" />
+							</p:selectManyButton>
+
+							<p:commandButton id="measurementSave" value="Projeye Ekle"
+								action="#{projectInstallationBean.bindMeasurementType}"
+								update=":form:saveGrowl" />
+
+
+						</p:tab>
+
+
+						<p:tab id="setupTab3" title="Projeye ait Dağıtım Hatları">
+							<p:dataTable id="addedDistributionLineTable"
+								var="distributionLine"
+								widgetVar="addedDistributionLineTableWidget"
+								value="#{projectInstallationBean.addedDistributionLines}"
+								rowKey="#{distributionLine.name}" rows="5"
+								emptyMessage="Eklenmiş Dağıtım Hattı bulunmamaktadır. Projeye dağıtım hattı eklemek için Lütfen Dağıtım Hattı Ekle Butonuna tıklayınız"
+								lazy="false">
+								<p:column headerText="Adı">
+									<h:outputText value="#{distributionLine.name}" />
+								</p:column>
+								<p:column headerText="Operasyon">
+									<h:outputText value="#{distributionLine.operation}" />
+								</p:column>
+								<!-- 								<p:column headerText="Okuma Yöntemi"> -->
+								<!-- 									<h:outputText value="#{distributionLine.readOutMethod}" /> -->
+								<!-- 								</p:column> -->
+								<p:column headerText="Ölçüm Tipleri">
+									<h:outputText
+										value="#{projectInstallationBean.getMeterTypesofDistributionLineAsString(distributionLine)}" />
+								</p:column>
+							</p:dataTable>
+
+							<p:commandButton id="distributionLineSave"
+								value="Dağıtım Hattı Ekle"
+								onclick="PF('distributionLineConsole').show();" type="button" />
+
+
+
+
+							<p:dialog id="distributionLineDialog" width="700px"
+								header="Dağıtım Hattı Konsolu"
+								widgetVar="distributionLineConsole" modal="true">
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText id="distributionLineNameText"
+										value="Dağıtım Hattı Adı:" />
+									<p:inputText id="distributionLineNameInput"
+										value="#{projectInstallationBean.nameDistLine}" />
+
+									<h:outputText id="distributionLineOperationText"
+										value="Operasyon" />
+									<p:inputText id="distributionLineOperationInput"
+										value="#{projectInstallationBean.operationDistLine}" />
+
+									<h:outputText id="distributionLineReadOutText"
+										value="Okuma Yöntemi" />
+									<!-- 									<p:inputText id="distributionLineReadOutInput" -->
+									<!-- 										value="#{projectInstallationBean.readOutMethodDistLine}" /> -->
+									<p:selectOneMenu converter="omnifaces.SelectItemsConverter">
+										<f:selectItems value="#{projectInstallationBean.readOutMethods}" var="readOutMethod" itemValue="#{readOutMethod}"
+										itemLabel="#{readOutMethod.type}"/>
+									</p:selectOneMenu>
+
+									<h:outputText id="distributionLineMeterTypeText"
+										value="Sayaç Tipleri" />
+									<p:selectManyCheckbox id="meterTypes"
+										value="#{projectInstallationBean.selectedMeterTypes}"
+										layout="grid" columns="3"
+										converter="omnifaces.SelectItemsConverter">
+										<f:selectItems value="#{projectInstallationBean.meterTypes}"
+											var="meterType" itemValue="#{meterType}"
+											itemLabel="#{meterType.name}" />
+									</p:selectManyCheckbox>
+									<p:commandButton id="saveDistributionLineButton"
+										value="Dağıtım Hattını Ekle"
+										actionListener="#{projectInstallationBean.bindDistributionLine()}"
+										oncomplete="PF('distributionLineConsole').hide();"
+										update=":form:saveGrowl,addedDistributionLineTable" />
+								</h:panelGrid>
+							</p:dialog>
+
+						</p:tab>
+						
+
+
+						<p:tab id="setupTab4" title="Dağıtım Hatlarının Binaları">
+						
+						</p:tab>
+					</p:accordionPanel>
+
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

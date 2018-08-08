@@ -1,0 +1,9 @@
+2014-04-22 13:16:56,080 [INFO ] com.cubeia.backoffice.operator.wallet.config.OperatorApiKey - Operator wallet is configured with the following Operator API Key: ABC
+2014-04-22 13:16:56,087 [INFO ] com.cubeia.backoffice.operator.wallet.config.OperatorApiKey - Operator wallet is configured with the following Operator API Key: 82813920-a9d2-11e3-a5e2-0800200c9a66
+2014-04-22 13:16:56,088 [INFO ] com.cubeia.backoffice.operator.wallet.config.OperatorApiKey - Operator wallet is configured with the following Operator API Key: XYZ
+2014-04-22 13:16:56,089 [INFO ] com.cubeia.backoffice.operator.wallet.config.OperatorApiKey - Operator wallet is configured with the following Operator API Key: 82813920-a9d2-11e3-a5e2-0800200c9a66
+2014-04-22 13:16:56,090 [INFO ] com.cubeia.backoffice.operator.wallet.config.OperatorApiKey - Operator wallet is configured with the following Operator API Key: ABC
+2014-04-22 13:16:56,386 [DEBUG] com.cubeia.backoffice.operator.wallet.service.ApiKeyCalculator - HASH KEY SIGNATURE MATCH FAIL!!!
+2014-04-22 13:16:56,452 [DEBUG] com.cubeia.backoffice.operator.wallet.service.ApiKeyCalculator - HASH KEY SIGNATURE MATCHES
+2014-04-22 13:16:56,463 [DEBUG] com.cubeia.backoffice.operator.wallet.service.WalletService - Balance[1000.00] Withdraw[1100.00]
+2014-04-22 13:16:56,465 [DEBUG] com.cubeia.backoffice.operator.wallet.service.WalletService - Balance[1000.00] Withdraw[100.00]

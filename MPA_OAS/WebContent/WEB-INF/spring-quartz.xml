@@ -1,0 +1,34 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+        
+       <bean id="globalScheduler" class="com.tatva.utils.GlobalScheduler" />
+        
+       <bean id="myScheduler"
+  			class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  				<property name="targetObject" ref="globalScheduler" />
+  				<property name="targetMethod" value="setGlobalAttributes" />
+		</bean>
+		
+		<bean id="simpleTrigger"
+  				class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+  				<property name="jobDetail" ref="myScheduler" />
+  				<property name="repeatInterval" value="86400000" />
+  				<property name="startDelay" value="1000" />
+ 		</bean>
+	
+    	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+  			<property name="jobDetails">
+   				<list>
+    				<ref bean="myScheduler" />
+   				</list>
+  			</property>
+ 			 <property name="triggers">
+  				 <list>
+   					 <ref bean="simpleTrigger" />
+  				 </list>
+  			</property>
+		 </bean>
+        
+</beans>

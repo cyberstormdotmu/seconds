@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+ 
+<hibernate-configuration>
+    
+    <session-factory>
+
+        <mapping class="com.tatva.domain.UserMaster" />
+        <mapping class="com.tatva.domain.BookingPeriodBlock" />
+        <mapping class="com.tatva.domain.AppointmentMaster" />
+        <mapping class="com.tatva.domain.AppointmentCraft" />
+        <mapping class="com.tatva.domain.TransactionMaster" />
+        <mapping class="com.tatva.domain.HolidayMaster" />
+        <mapping class="com.tatva.domain.GlobalAttribute" />
+        <mapping class="com.tatva.domain.TransactionLogForm" />
+        <mapping class="com.tatva.domain.AppointmentMasterHistory" />
+        
+    </session-factory>
+    
+    
+         
+</hibernate-configuration>

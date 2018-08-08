@@ -1,0 +1,36 @@
+<ng-form id="orderVerificationForm" name="vm.orderVerificationForm">
+    <div class="row">
+        <div class="checkout-panel form-group">
+            <label class="col-sm-12">
+                A verification code has be sent to your registered mobile number. Please enter the code to continue
+            </label>
+            <label class="control-label col-xs-4" style="padding-top: 15px !important;">Verification Code:</label>
+            <div class="col-xs-7" style="padding-top: 15px !important;">
+                <input type="text" class="form-control input-lg input-group" name="verificationCode"  ng-maxlength="6"  sho-restrict-numeric ng-model="vm.verificationCode" integer required ng-class="{ 'has-error' : vm.orderVerificationForm.hasError(vm.verificationCode) }"/>
+                <div class="help-block" ng-messages="vm.orderVerificationForm.verificationCode.$error"  ng-if="vm.orderVerificationForm.hasError(vm.verificationCode)">
+                    <p ng-message="required" class="text-danger">
+                        <small>A verification code is required.</small>
+                    </p>
+                    <p ng-message="maxlength" class="text-danger">
+                        <small>OTP length is too long</small>
+                    </p>
+                </div>
+                <div class="alert alert-danger" id="login-error-message" ng-show="vm.orderVerificationForm.message">
+                    {{ vm.orderVerificationForm.message }}
+                </div>
+            </div>
+            <div class="row checkout-action-buttons">
+                <div>
+                    <div class="pull-left">
+                        <a class="btn btn-default" ui-sref="checkout.payment"><i><span
+                                class="fa fa-chevron-left"></span></i> Back a Step</a>
+                    </div>
+                    <div class="pull-right">
+                        <a id="checkout-next-step-button" class="btn btn-success" ng-click="vm.verifyOrder(); vm.next()">Next Step <i><span
+                                class="fa fa-chevron-right"></span></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-form>

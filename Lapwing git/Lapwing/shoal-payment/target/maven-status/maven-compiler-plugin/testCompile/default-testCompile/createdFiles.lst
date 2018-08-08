@@ -1,0 +1,3 @@
+com\ishoal\payment\buyer\FakeBuyerPaymentService.class
+com\ishoal\payment\buyer\stripe\StripeBuyerPaymentServiceTest.class
+com\ishoal\payment\buyer\config\ShoalPaymentTestConfiguration.class

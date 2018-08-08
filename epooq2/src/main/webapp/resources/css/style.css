@@ -1,0 +1,125 @@
+@font-face {
+	font-family: 'Myriad Pro';
+	src: url('../font/MyriadPro-Regular.otf');
+}
+
+html,body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+body {
+	font-family: 'Myriad Pro', Arial, sans-serif;
+	background-image: url('../clouds.png');
+	background-repeat: no-repeat;
+	background-attachment: absolute;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#header {
+	height: 85px;
+	background:url(../top-repeat.png);
+	background-repeat: repeat-x;
+}
+
+#player {
+	margin: 0px auto;
+	width: 600px;
+	height: 335px;
+	border: 0px solid #1f2328;
+}
+
+#playerText p {
+	color: white;
+	font-size: 30px;
+	font-weight: normal;
+}
+
+.input {
+	border: 0px solid #444444;
+	height: 60px;
+	width: 397px;
+	text-align: center;
+	background: url(../inputfield.png) no-repeat center top;
+	color: black;
+	padding-left: 40px;
+	padding-right: 40px;
+	margin-top: 8px;
+	font-size: 20px;
+}
+
+div#animation {
+	transform: rotateX(120deg);
+	-webkit-transform: rotateX(120deg); /* Safari and Chrome */
+	-moz-transform: rotateX(120deg); /* Firefox */
+}
+
+.ui-loading .ui-loader {
+	display: none;
+}
+
+.ui-loader {
+	display: none;
+}
+
+.strokeme
+{
+    color: white;
+    text-shadow:
+    -1px -1px 0 #FFF,
+    1px -1px 0 #FFF,
+    -1px 1px 0 #FFF,
+    1px 1px 0 #FFF;  
+}
+
+.animationclass {
+	transition: All 0.5856s linear;
+	-webkit-transition: All 0.5856s linear;
+	-moz-transition: All 0.5856s linear;
+	-o-transition: All 0.5856s linear;
+	transform: rotate(0deg) scale(0.5) skew(1deg) translate(0px);
+	-webkit-transform: rotate(0deg) scale(0.5) skew(1deg) translate(0px);
+	-moz-transform: rotate(0deg) scale(0.5) skew(1deg) translate(0px);
+	-o-transform: rotate(0deg) scale(0.5) skew(1deg) translate(0px);
+	-ms-transform: rotate(0deg) scale(0.5) skew(1deg) translate(0px);
+}
+
+.animationclass:hover {
+	transform: rotate(0deg) scale(0.9) skew(1deg) translate(0px);
+	-webkit-transform: rotate(0deg) scale(0.9) skew(1deg) translate(0px);
+	-moz-transform: rotate(0deg) scale(0.9) skew(1deg) translate(0px);
+	-o-transform: rotate(0deg) scale(0.9) skew(1deg) translate(0px);
+	-ms-transform: rotate(0deg) scale(0.9) skew(1deg) translate(0px);
+}
+
+/* Footer */
+#footer {
+	background-image: url(../bottom-repeat.png);
+	background-repeat: repeat-x;
+	width: 100%;
+	height: 80px;
+	margin-top: 5px;
+	text-align: center;
+}
+
+[data-role=page] {
+	min-height: 100%;
+	position: relative;
+}
+
+[data-role=content] {
+	padding-bottom: 85px;
+	/* based on how tall your footer is and how much gap you want */
+}
+
+[data-role=footer] {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 85px
+		/* this can be configurable, or omitted, as long as the above padding-bottom is at least as much as the height of the footer is */
+}

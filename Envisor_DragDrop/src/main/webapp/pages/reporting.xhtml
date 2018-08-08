@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<h:head></h:head>
+
+<h:body>
+
+	<ui:composition template="commonLayout.xhtml">
+		<ui:define name="head">
+		</ui:define>
+		<ui:define name="content">
+			<h:form id="form">
+
+
+				<p:panel header="Raporlama" style="max-width: 1280px">
+					<h:panelGrid columns="1" width="101%" rowClasses="valignTop">
+						<p:row>
+							<h:outputLabel value="Bir Proje Seçiniz:"
+								for="dropDownAutoComplete" />
+							<p:autoComplete id="dropDownAutoComplete" dropdown="true"
+								value="#{reportingBean.projectAutoCompleteString}"
+								completeMethod="#{reportingBean.projectAutoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect"
+									listener="#{reportingBean.onProjectSelect}" 
+									update="startPeriodSelect,endPeriodSelect"/>
+							</p:autoComplete>
+
+<!-- 							<h:outputLabel value="Bir Dağıtım Hattı Seçiniz:" -->
+<!-- 								for="dropDownAutoCompleteDistLine" /> -->
+<!-- 							<p:autoComplete id="dropDownAutoCompleteDistLine" dropdown="true" -->
+<!-- 								value="#{reportingBean.distributionLineAutoCompleteString}" -->
+<!-- 								completeMethod="#{reportingBean.distributionLineAutoComplete}" -->
+<!-- 								style="margin-right:50px;"> -->
+<!-- 								<p:ajax event="itemSelect" -->
+<!-- 									listener="#{reportingBean.onDistributionLineSelect}" -->
+<!-- 									update="startPeriodSelect,endPeriodSelect" /> -->
+<!-- 							</p:autoComplete> -->
+						</p:row>
+						<p:row>
+							<h:outputLabel value="Başlangıç Dönemi:" for="startPeriodSelect" />
+							<p:selectOneMenu id="startPeriodSelect" style="width:150px"
+								value="#{reportingBean.startPeriodString}"
+								converter="omnifaces.SelectItemsConverter">
+								<p:ajax event="change" update="@this"
+									listener="#{reportingBean.onStartPeriodSelect}" />
+								<f:selectItem itemLabel="Dönem Seçiniz" itemValue=""
+									noSelectionOption="true" required="true" />
+								<f:selectItems value="#{reportingBean.periodStrings}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel value="Bitiş Dönemi:" for="endPeriodSelect" />
+							<p:selectOneMenu id="endPeriodSelect" style="width:150px"
+								value="#{reportingBean.endPeriodString}"
+								converter="omnifaces.SelectItemsConverter" >
+								<p:ajax event="change" update="@this"
+									listener="#{reportingBean.onEndPeriodSelect}" />
+								<f:selectItem itemLabel="Dönem Seçiniz" itemValue=""
+									noSelectionOption="true" required="true" />
+								<f:selectItems value="#{reportingBean.periodStrings}" />
+							</p:selectOneMenu>
+							
+							<h:outputLabel value="Ek Bedel:" for="additionalPrice" />
+							<p:inputText id="additionalPrice" value="#{reportingBean.additionalPrice}"/>
+
+							<!-- 							<p:dialog widgetVar="statusDialog" modal="true" draggable="false" -->
+							<!-- 								closable="false" resizable="false" showHeader="false"> -->
+							<!-- 								<p:graphicImage name="images/ajax-loader.gif" /> -->
+							<!-- 							</p:dialog> -->
+							<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+								closable="false" resizable="false" showHeader="false">
+								<p:calendar></p:calendar>
+							</p:dialog>
+
+<!-- 							<p:commandButton id="createReportButton" value="Rapor Oluştur" -->
+<!-- 								actionListener="#{reportingBean.fillManagementReport()}" -->
+<!-- 								update="reportingTable,energyDataTable,headerDataTable" -->
+<!-- 								icon="ui-icon-repeat" style="margin-left:50px" /> -->
+							<p:commandButton id="PDFBoxButton" value="Rapor Oluştur"
+								actionListener="#{reportingBean.makeReport()}"
+								icon="ui-icon-repeat" style="margin-left:50px" />
+							
+							<h:commandLink value="PDF Oluştur">
+								<!-- 																<p:graphicImage name="/resources/css/images/pdf.png" /> -->
+								<!-- 																<p:dataExporter type="pdf" target="reportingTable" -->
+								<!-- 																	fileName="rapor" pageOnly="true" /> -->
+								<pe:exporter type="pdf"
+									target="headerDataTable,energyDataTable,reportingTable"
+									fileName="rapor" subTable="true" encoding="IBM857"
+									datasetPadding="4" facetFontStyle="BOLD" />
+							</h:commandLink>
+						</p:row>
+					</h:panelGrid>
+					<p:row>
+
+						<script type="javascript">
+.yourTableClass table{
+    border-collapse: separate;
+    border-spacing: 10px;
+    *border-collapse: expression('separate', cellSpacing = '10px');
+    color: red;
+}</script>
+
+
+						<p:dataTable id="headerDataTable"
+							widgetVar="headerDataTableWidget"
+							value="#{reportingBean.reportHeaders}">
+
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column colspan="8" headerText="Genel Özellikler" />
+								</p:row>
+								<p:row>
+									<p:column headerText="Fatura No" />
+									<p:column headerText="Dönem Başlangıç" />
+									<p:column headerText="Dönem Bitiş" />
+									<p:column headerText="İlk okuma" />
+									<p:column headerText="Son Endeks" />
+									<p:column headerText="Tüketim" />
+									<p:column headerText="Tüketim KWH" />
+									<p:column headerText="Tutar" />
+								</p:row>
+							</p:columnGroup>
+
+							<p:subTable id="headerSubTable" var="reportHeader"
+								value="#{reportingBean.reportHeaders}">
+								<p:column>
+									<h:outputText value="#{reportHeader.billNo}" />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{reportingBean.getPrintableDateAsString(reportHeader.periodStart)}" />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{reportingBean.getPrintableDateAsString(reportHeader.periodEnd)}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{reportHeader.firstReading}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{reportHeader.lastindex}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{reportHeader.usage}">
+										<f:convertNumber pattern="#0.00" />
+									</h:outputText>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{reportHeader.usageKWH}">>
+										<f:convertNumber pattern="#0.00" />
+									</h:outputText>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{reportHeader.charge}" />
+								</p:column>
+							</p:subTable>
+
+
+						</p:dataTable>
+						<p:dataTable id="energyDataTable"
+							widgetVar="energyDataTableWidget"
+							value="#{reportingBean.reportHeaders}">
+
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column colspan="8" headerText="Genel gider Payları" />
+								</p:row>
+								<p:row>
+									<p:column headerText="Pay Tipi" />
+									<p:column headerText="Enerji Dağılımı" />
+									<p:column headerText="Tutar" />
+									<p:column headerText="Değerler" />
+									<p:column headerText="Birim" />
+									<p:column headerText="Birim Fiyat" />
+								</p:row>
+							</p:columnGroup>
+							<p:subTable id="energySubTable" var="energyHeader"
+								value="#{reportingBean.energyHeaders}">
+								<p:column>
+									<h:outputText value="#{energyHeader.allocationType}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{energyHeader.energy}">
+										<f:convertNumber pattern="#0.00" />
+									</h:outputText>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{energyHeader.priceBySection}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{energyHeader.valueBySection}" >
+									<f:convertNumber pattern="#0.00" />
+									</h:outputText>
+									
+								</p:column>
+								<p:column>
+									<h:outputText value="#{energyHeader.unit}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{energyHeader.unitPrice}">
+										<f:convertNumber pattern="#0.00" />
+									</h:outputText>
+								</p:column>
+							</p:subTable>
+
+
+						</p:dataTable>
+
+
+						<!-- 						<p:separator /> -->
+
+						<p:dataTable id="reportingTable" widgetVar="reportingTableWidget" stickyHeader="true"
+							var="flat" value="#{reportingBean.flats}" lazy="true">
+							<f:facet name="header">
+								<h:outputText value="Daireler" />
+							</f:facet>
+							<p:columnGroup type="header">
+								<p:row>
+<!-- 									<p:column rowspan="2" headerText="Daire" /> -->
+									<p:column colspan="9" headerText="Daire Özellikleri" />
+								</p:row>
+								<p:row>
+									<p:column headerText="Ölçüm Tipi"  />
+									<p:column headerText="Oda No" />
+									<p:column headerText="Pay Ölçer Seri no" />
+									<p:column headerText="Önceki Endeks" />
+									<p:column headerText="Son Endeks" />
+									<p:column headerText="Tüketim" />
+									<p:column headerText="Birim" />
+									<p:column headerText="Kges" />
+									<p:column headerText="Tüketim Pay Ölçer" />
+								</p:row>
+								
+							</p:columnGroup>
+							<p:subTable var="allocatorHeader" 
+								value="#{reportingBean.allocatorsByFlat(flat)}">
+								<f:facet name="header">
+									<h:outputText value="Daire #{flat.no}" />
+								</f:facet>
+								<p:columnGroup type="header">
+								<p:row>
+								<p:column headerText="Isınma" />
+								</p:row>
+								</p:columnGroup>
+								<p:column >
+									<h:outputText value="Isınma" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{allocatorHeader.roomNo}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{allocatorHeader.allocatorSerialNo}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{allocatorHeader.lastIndex}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{allocatorHeader.currentIndex}" />
+								</p:column>
+								<f:facet name="middle">
+									<h:outputText value="Gandalf" />
+								</f:facet>
+								<p:column>
+									<h:outputText value="#{allocatorHeader.usage}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="HCA" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{allocatorHeader.kges}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{allocatorHeader.allocatorusage}">
+										<f:convertNumber pattern="#0.00" />
+									</h:outputText>
+								</p:column>
+								<p:columnGroup type="middle">
+								<p:row>
+								<p:column headerText="Sıcak Su" />
+								</p:row>
+								</p:columnGroup>
+								
+								<p:columnGroup type="footer">
+									<p:row>
+										<p:column colspan="8" style="text-align:right"
+											footerText="Toplam:" />
+										<p:column footerText="#{reportingBean.getStrByFlat(flat)} Str" />
+									</p:row>
+									<p:row>
+										<p:column colspan="8" style="text-align:right"
+											footerText="Isınma Sayaç:" />
+										<p:column
+											footerText="#{reportingBean.getStrByFlat(flat)* reportingBean.energyHeader.unitPrice}">
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column colspan="8" style="text-align:right"
+											footerText="Isınma Ortak:" />
+										<p:column
+											footerText="#{flat.area * reportingBean.energyHeader2.unitPrice}" />
+									</p:row>
+									<p:row>
+										<p:column colspan="8" style="text-align:right"
+											footerText="Enerji Bedeli" />
+										<p:column
+											footerText="#{(reportingBean.getStrByFlat(flat)* reportingBean.energyHeader.unitPrice) +(flat.area* reportingBean.energyHeader2.unitPrice)}" />
+									</p:row>
+								</p:columnGroup>
+							</p:subTable>
+							
+								
+						</p:dataTable>
+
+					</p:row>
+
+				</p:panel>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

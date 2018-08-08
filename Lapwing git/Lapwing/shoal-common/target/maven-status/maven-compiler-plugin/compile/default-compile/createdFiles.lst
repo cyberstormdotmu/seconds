@@ -1,0 +1,11 @@
+com\ishoal\common\SimpleResult.class
+com\ishoal\common\util\Streamable.class
+com\ishoal\common\util\OrderReferenceGenerator.class
+com\ishoal\common\util\CustomCollectors.class
+com\ishoal\common\util\OrderReferenceGenerationStrategy.class
+com\ishoal\common\util\ErrorType.class
+com\ishoal\common\util\IterableUtils.class
+com\ishoal\common\Result.class
+com\ishoal\common\util\TimeBasedOrderReferenceGenerationStrategy.class
+com\ishoal\common\domain\OrderReference.class
+com\ishoal\common\PayloadResult.class

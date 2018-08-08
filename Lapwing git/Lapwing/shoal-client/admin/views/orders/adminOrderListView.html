@@ -1,0 +1,28 @@
+<div class="content-wrap">
+<div id="main-content" class="container">
+
+    <div id="left-column" class="col-sm-12">
+        <div class="row">
+            <div class="pull-right">
+                <button class="btn btn-default btn-xs" id="refresh" ng-click="vm.refresh()"><span
+                        class="fa fa-refresh" aria-hidden="true"></span> Refresh
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <uib-tabset>
+                <uib-tab heading="Unconfirmed Orders">
+                    <sho-admin-order-list orders="vm.unconfirmedOrders"/>
+                </uib-tab>
+                <uib-tab heading="Confirmed Orders">
+                    <sho-admin-order-list orders="vm.confirmedOrders"/>
+                </uib-tab>
+                <uib-tab heading="Cancelled Orders">
+                    <sho-admin-order-list orders="vm.cancelledOrders"/>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>
+</div>

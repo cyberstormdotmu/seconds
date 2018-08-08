@@ -1,0 +1,17 @@
+!/bin/sh
+#
+# description: Script to start/stop the Shoal Platform.
+#
+### BEGIN INIT INFO
+# Provides: shoal
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Shoal Platform 
+# Description: Shoal Platform 
+### END INIT INFO
+
+
+/opt/shoal/current/bin/shoalapp.sh $*
+

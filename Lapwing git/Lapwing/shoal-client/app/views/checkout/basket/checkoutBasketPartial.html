@@ -1,0 +1,97 @@
+<div ng-switch="vm.order.basket.isEmpty">
+    <div ng-switch-when="true">
+        <div class="row">
+            <div class="col-xs-12 checkout-panel">Your basket is empty</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                <a id="checkout-continue-shopping-button" class="btn btn-default" href="#/products">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+    <div ng-switch-when="false" ng-form name="vm.basketForm">
+        <div class="row">
+            <div class="checkout-panel">
+                <div class="row checkout-basket-heading">
+                    <div class="col-xs-2 col-xs-offset-6">
+                        <div class="text-right">Original Price<br/><em>per unit, ex vat</em></div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="text-right">Price you pay<br/><em>per unit, ex vat</em></div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="text-right">Subtotal<br/><em>ex vat</em></div>
+                    </div>
+                </div>
+                <div class="checkout-basket-contents">
+                    <div class="row" ng-repeat="(productCode, item) in vm.order.basket.items">
+                        <div class="col-xs-2">
+                            <img class="img-responsive img-thumbnail" ng-src="{{ item.image.url }}"
+                                 name="{{ item.image.description }}" alt="{{ item.image.description }}"/>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>{{ item.productName }}</span>
+
+                            <div>
+                                <label>Quantity</label>
+                                <input ng-model="item.bindQuantity" name="item_quantity" class="inline"
+                                       class="inline" type="number" title="Item Quantity"
+                                       required integer min="1" max="{{item.stock}}" />
+                                <div class="help-block" ng-messages="vm.basketForm.item_quantity.$error">
+                                    <div ng-messages-include="views/validation/quantityValidationTemplate.html"></div>
+                                </div>
+                                <label>Stock Available</label> 
+                                <span class="value" ng-show="item.stock">{{ item.stock - item.bindQuantity | number}}</span>
+                                <span class="value" ng-show="!item.stock"> 0 </span>
+                            </div>
+                                <span class="checkout-remove-item"><a ng-click="vm.removeItem(item)">Remove from
+                                    basket</a></span>
+                        </div>
+                        <div class="col-xs-2"><span
+                                class="value pull-right">{{ item.initialUnitPrice | currency }}</span></div>
+                        <div class="col-xs-2"><span
+                                class="value pull-right">{{ item.unitPrice | currency }}</span>
+                        </div>
+                        <div class="col-xs-2"><span class="value pull-right">{{ item.unitPrice * item.quantity | currency }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-7">
+                        <div class="text-right">Subtotal:</div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="text-right" id="checkout-basket-subtotal">{{ vm.order.basket.subTotal | currency }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-7">
+                        <div class="text-right">VAT:</div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="text-right" id="checkout-basket-vat-total">{{ vm.order.basket.vatTotal | currency }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-7">
+                        <div class="text-right">Total:</div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="text-right" id="checkout-basket-gross-total">{{ vm.order.basket.grossTotal | currency }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row checkout-action-buttons">
+            <div id="checkout-continue-shopping-button" class="col-xs-1"><a class="btn btn-default" href="#/products">Continue Shopping</a></div>
+            <div class="col-xs-1 col-xs-offset-10">
+                <div class="pull-right">
+                    <a id="checkout-next-step-button" ng-show="vm.basketForm.$valid" class="btn btn-success" ui-sref="checkout.addresses" ng-disabled="!vm.basketForm.$valid">Next Step <i><span
+                            class="fa fa-chevron-right"></span></i></a>
+                    <a id="checkout-next-step-button" ng-show="!vm.basketForm.$valid" class="btn btn-success" ui-sref="" ng-disabled="!vm.basketForm.$valid">Next Step <i><span
+                            class="fa fa-chevron-right"></span></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

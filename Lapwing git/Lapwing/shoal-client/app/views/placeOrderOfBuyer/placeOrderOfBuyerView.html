@@ -1,0 +1,82 @@
+<div class="modal-content" id="savedContact">
+	<div class="modal-header">
+		<h3 class="modal-title">Search Buyer</h3>
+		<a href="#" class="close" ng-click="vm.close()"><img
+			src="../app/images/popup-close.png" alt="" /></a>
+	</div>
+
+	<div class="modal-body">
+		<form class="row" id="searchForm" name="vm.searchForm"
+			sho-mark-required-fields role="form" class="form-horizontal"
+			ng-submit="vm.searchForm.$valid">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-3">
+
+						<div class="form-group">
+							<input type="text" id="firstName" class="form-control"
+								name="firstName" ng-model="vm.firstName"
+								placeholder="First Name" />
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="lastname" name="lastname"
+								ng-model="vm.lastname" placeholder="Last name" />
+						</div>
+
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group" >
+							<input type="text" class="form-control" id="emailAddress"
+								name="emailAddress" ng-model="vm.emailAddress"
+								placeholder="Your email address"/>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<button type="submit" id="submit" class="btn btn-primary btn-lg"
+								class="btn btn-primary btn-block"
+								ng-click="vm.serchForm()">
+								<span class="fa fa-search" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div ng-if="vm.userPicked" class="bg-success">
+					Now you can place order on behalf of {{vm.userPicked.emailAddress}} buyer.
+				</div>
+				<div ng-if="vm.searchedBuyerList">
+					<table class="table table-striped table-responsive table-hover table-headings">
+					    <thead>
+					    <tr>
+					        <th>First Name</th>
+					        <th>Last Name</th>
+					        <th>Email Address</th>
+					        <th class="text-center">Action</th>
+					    </tr>
+					    </thead>
+
+					    <tbody>
+					    <tr ng-repeat="searchedBuyer in vm.searchedBuyerList">
+					        <td>{{ searchedBuyer.forename }}</td>
+					        <td>{{ searchedBuyer.surname }}</td>
+					        <td>{{ searchedBuyer.emailAddress }}</td>
+					        <td class="text-center">
+					            <div class="btn-group" uib-dropdown>
+					                <button id="buyers-pick-{{ creditWithdrawRequest.buyer.emailAddress }}" type="button" class="btn btn-success btn-xs" ng-click="vm.pickUser(searchedBuyer.emailAddress)">
+					                	Pick Buyer
+					            </button>
+					            </div>
+					        </td>
+					    </tr>
+					    </tbody>
+					</table>
+				</div>
+				<div ng-if="vm.errorMessage" class="bg-danger">
+					<p>{{ vm.errorMessage }}</p>
+				</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,75 @@
+<div id="credits-partial" class="order-page-partial">
+    <div class="row">
+        <div id="open-orders" class="col-xs-12">
+            <uib-tabset active="activeForm">
+                <uib-tab index="0" heading="Your Orders">
+                        <div class="col-xs-5 search">Search by Order Status
+                                <input type="text" class="form-control search-term"  ng-model="vm.searchOrderStatusText" placeholder="order status" ng-change="vm.searchOrderResult()" >
+                            </div>
+                            <div class="col-xs-5 search">Search by Payment Status
+                                <input type="text" class="form-control search-term"  ng-model="vm.searchPaymentStatusText" placeholder="payment status" ng-change="vm.searchOrderResult()" >
+                            </div>
+                    <table class="table table-striped table-responsive table-hover table-headings" id="select">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Order Reference</th>
+                    <th>Status</th> 
+                    <th class="text-right">Net</th>
+                    <th class="text-right">Gross</th>
+                    <th>Payment Status</th>
+                    <th>Payment Due Date</th>   
+                    <th class="text-center"></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr ng-repeat="order in searchedItems | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize"">
+                    <td class="word-break">{{ order.created | date:'short' }}</td>
+                    <td class="word-break">{{ order.reference }}</td>
+                    <td class="word-break">{{ order.status }}</td>
+                    <td class="word-break text-right">{{ order.orderTotal.net | currency }}</td>
+                    <td class="word-break text-right">{{ order.orderTotal.gross | currency }}</td>
+                    <td class="word-break">{{ order.paymentStatus }}</td>
+                    <td class="word-break">{{ order.dueDate | date:'dd/MM/yyyy' }}</td>
+                    <td class="word-break text-center">
+                        <a class="btn btn-success btn-xs" id="view-order-{{order.reference}}"
+                                   ui-sref="account.order({orderReference: order.reference})"><span
+                                class="fa fa-search" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+                    <!-- pager -->
+                <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                    Previous
+                </button>
+                {{currentPage+1}}/{{numberOfPages()}}
+                <button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                    Next
+                </button>
+                </uib-tab>
+                <uib-tab index="1" heading="Payments">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <h2>Money Owed</h2>
+                                <h3>{{ vm.orderBalance.moneyOwnedBalance | currency }}</h3>
+                            </div>
+                            <div class="col-sm-6">
+                                <h2>Overdue Payments</h2>
+                                <h3>{{ vm.orderBalance.latePaymentBalance | currency }}</h3>
+                            </div>
+                            <!-- <div class="col-sm-4">
+                                <h2>See Accounts Payable</h2>
+                                <h3>{{ vm.orderBalance.accountPaybleBalance | currency
+                                    }}</h3>
+                            </div> -->
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

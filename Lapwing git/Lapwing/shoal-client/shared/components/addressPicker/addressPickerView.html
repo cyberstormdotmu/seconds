@@ -1,0 +1,32 @@
+<ng-form class="form-horizontal" name="vm.addressForm">
+    <div class="form-group">
+        <label class="col-xs-4 control-label">Select Address:</label>
+
+        <div class="col-xs-8">
+            <select class="form-control" ng-model="vm.selectedAddressKey"
+                    name="selectedAddressKey"
+                    required>
+                <option ng-repeat="(key, address) in vm.addresses" value="{{ key }}">{{ key }}
+                </option>
+            </select>
+
+            <div class="help-block" ng-messages="vm.addressForm.selectedAddressKey.$error">
+                <p ng-message="required" class="text-danger">
+                    <small>Please select an address</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-4">
+            <div sho-address address="vm.selectedAddress"></div>
+        </div>
+    </div>
+    <br/>
+    <div class="col-xs-4  col-xs-offset-3">
+        <div class="pull-right">
+            <a id="checkout-next-step-button" class="btn btn-success" ng-click="vm.openAddressModal()"
+               >Add New Address </a>
+        </div>
+    </div>
+</ng-form>

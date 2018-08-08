@@ -1,0 +1,9 @@
+2014-12-28 23:52:40,644 - INFO  com.cubeia.backoffice.users.migration.MySQLMigrationAdapter -  ********* MySQL Migration disabled
+2014-12-28 23:52:40,644 - INFO  com.cubeia.backoffice.users.migration.MySQLMigrationAdapter -  ********* MySQL Migration disabled
+2014-12-28 23:52:40,644 - INFO  com.cubeia.backoffice.users.migration.MySQLMigrationAdapter -  ********* MySQL Migration disabled
+2014-12-28 23:52:41,284 - WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 23505, SQLState: 23505
+2014-12-28 23:52:41,284 - ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Unique index or primary key violation: "CONSTRAINT_INDEX_2 ON PUBLIC.USER(USERNAME, OPERATORID)"; SQL statement:
+insert into User (id, creationDate, externalId, information_fk, lastLoginDate, operatorId, password, status, userName, userType) values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?) [23505-167]
+2014-12-28 23:52:41,519 - WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 23505, SQLState: 23505
+2014-12-28 23:52:41,519 - ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Unique index or primary key violation: "CONSTRAINT_INDEX_2 ON PUBLIC.USER(USERNAME, OPERATORID)"; SQL statement:
+insert into User (id, creationDate, externalId, information_fk, lastLoginDate, operatorId, password, status, userName, userType) values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?) [23505-167]

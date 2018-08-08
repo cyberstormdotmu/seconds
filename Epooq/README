@@ -1,0 +1,46 @@
+Epooq 2.0 demo
+--------------
+
+# Vaatimukset
+
+- Java 1.6 (tai uudempi)
+- Red5 0.8.0 (uudemmissa versioissa ongelmia)
+- Apache Ant
+- Haxe
+
+# Kääńtäminen
+
+$ ant clean package
+
+Tämän jälkeen server/dist/ -hakemistosta löytyy epooq.war -paketti jonka voi
+asentaa Red5-palvelimelle.
+
+Asennus onnistuu helpoiten käyttämällä mukana tulevaa deploy.sh skriptiä.
+Ennen skriptin käyttö muuta skriptissä olevat RED5_DIR ja ANT_DIR muuttujat
+vastamaan omaa ymåpäristöäsi.
+
+# Arkkitehtuuri
+
+Tässä lyhyt yhteenveto demon eri osista:
+
+Epooq 2.0 demo on koostuu kahdesta osasta, backendistä ja selaimessa
+pyörivästä frontendistä.
+
+Backend on rakennettu red5 serverin 0.8 version päälle. Tämä siksi
+että uudemmat version k.o. serverisoftasta eivät toimineet oikein.
+Vanhan Red5:n takia/vuoksi backend on rakennettu Javalla Spring
+Framework 2.5.6:n päälle. Red5 tallentaa muistovideot
+tiedostojärjestelmään, mutta nauhoitettujen videoiden metatiedot
+tallennetaan H2-tietokantaan. H2-tietokannan skeemaa hallitaan
+Liquibase-kirjastolla.
+
+Frontend puolen pilviajo on ohjelmoitu Javascriptillä ja siinä on
+käytetty avuksi threejs-kirjastoa. Muuten käytössä on staattiset sivut
+jotka on koostettu backendin puolella Spring Frameworkilla. Videoiden
+nauhoitukseen on ohjelmoitu oma Flash-palikka Haxella
+(http://haxe.org) joka keskustelee red5:n kanssa suoraan, mutta se on
+hyvin yksinkertainen ja sitä tuskin tarvitsee muokata.
+
+Jotta projektia voi jatkokehittää niin tarvitaan Java, red5 0.8 ja jos
+videotallennusta pitää muokata niin myös Haxe. Kaikki ovat ilmaisia
+työkaluja joten ne saa haettua Internetistä.

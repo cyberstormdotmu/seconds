@@ -1,0 +1,30 @@
+<project>
+
+	<!-- Clean -->
+	<target name="clean" description="Clean software packages and compiled files">
+		<echo message="CLEAN"/>
+		
+		<subant target="clean">
+			<fileset dir="." includes="*/build.xml"/>
+		</subant>
+	</target>
+	
+	<!-- Compile -->
+	<target name="compile" description="Compile source files">
+		<echo message="COMPILE"/>
+		
+		<subant target="compile">
+			<fileset dir="." includes="*/build.xml"/>
+		</subant>
+	</target>
+	
+	<!-- Package -->
+	<target name="package" depends="compile" description="Build a software package (zip/jar/war)">
+		<echo message="PACKAGE"/>
+		
+		<subant target="package">
+			<fileset dir="." includes="*/build.xml"/>
+		</subant>
+	</target>
+	
+</project>

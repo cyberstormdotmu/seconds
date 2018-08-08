@@ -1,0 +1,41 @@
+.has-error .form-control {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.has-error .form-control:focus {
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+}
+
+/**
+  override tendancy of bootstrap to highlight form control labels.
+**/
+.has-error .control-label {
+    color: #333 !important;
+}
+
+/**
+    highlighting for a required field icon
+**/
+.sho-required-field-icon {
+    font-size: 1.30em !important;
+    font-weight: bold;
+    color: #a94442;
+}
+
+/**
+  hide help block by default.
+**/
+.form-group .help-block, .input-group .help-block {
+    display: none;
+}
+
+/**
+  show help block when we decide it should be shown.
+**/
+.form-group.has-error .help-block, .input-group.has-error .help-block {
+    display: block;
+}

@@ -1,0 +1,23 @@
+Business Rules List:
+--------------------
+1. The customer could submit an appointment booking one day in advance (only before 1700 hours) for the next day. Otherwise, it would be the day after next onwards.
+2. Customers are able to book more than one appointment per day and appointment date of up to one month in advance.
+3. There will be no appointment scheduled for weekends and public holidays.
+4. For each appointment time slot, it allows up to 2 bookings (default) of different customers i.e. customer A booked 930hrs slot and customers B also booked 930hrs slot. However, customer C could not book 930hrs slot (hidden from the system) as it is full.
+5. Customer who has booked a slot is not allowed to book the same time slot.
+6. Customer is able to input more than one craft numbers.
+7. For single appointment, the appointment time slots interval is 15 mins and caters for only one transaction.
+8. For group appointment, the appointment time slots interval is 30 mins and caters up to 3 transactions (qty), customers are required to input at least 2 or 3 transactions; validate and alert customers if only 1 or more than 3 transactions (qty) entered.
+
+
+
+Admin Tables:
+-------------
+
+Create table for holidays.
+User tables with Roles
+
+
+TODO List:
+----------
+Maintain holiday list in some file and provide interface for that

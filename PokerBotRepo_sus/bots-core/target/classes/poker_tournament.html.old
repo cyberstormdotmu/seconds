@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	
+	<h1>Start Poker Tournament Batch</h1>
+	
+	<form action="/batch/start" method="get">
+	    <p>
+	    
+	    <table>
+	    	<tr>
+	    		<td><label for="url">URL or IP: </label></td>
+	    		<td><input type="text" name="url" id="url"/><br></td>
+	    	</tr>
+	    	
+	    	<tr>
+	    		<td><label for="port">Port: </label></td>
+	    		<td><input type="text" name="port" id="port"/></td>
+	    	</tr>
+	    	
+	    	
+	    	
+	    	<!-- STANDARD PARAMETERS -->
+
+	    	<tr>
+	    		<td><label for="requested">number of bots: </label></td>
+	    		<td><input type="text" name="requested" id="requested"/></td>
+	    	</tr>
+	    	
+	    	
+	    	<!-- MTT PARAMETERS -->
+			
+			<tr>
+	    		<td><label for="mttId">Instance ID (-1 for random): </label></td>
+	    		<td><input type="text" name="mttId" id="mttId"/></td>
+	    	</tr>
+	    	
+	    	<tr>
+	    		<td><label for="rejoin">Rejoin: </label></td>
+	    		<td><input type="checkbox" name="rejoin" id="rejoin"/></td>
+	    	</tr>
+	    	
+	    	
+	    	<!-- MISC PARAMETERS -->
+	    	
+	    	<tr>
+	    		<td><label for="chat">Chat: </label></td>
+	    		<td><input type="checkbox" name="chat" id="chat"/></td>
+	    	</tr>
+	    		
+		
+						
+	    </table>
+	    
+	    <!-- Parameters that cannot be changed -->
+	    <input type="hidden" name="gameId" id="gameId" value="77"/><br>
+	    
+	    <input type="hidden" name="tournament_bot" id="tournament_bot" value="on"/><br>
+	   	
+	   	<input type="hidden" name="aiclass" id="mode" value="com.cubeia.game.poker.bot.TournamentPokerBot"/>
+	   	
+	   	<input type="submit" value="start!"/> <input type="reset"/>
+	   	
+	</form>
+
+</html>

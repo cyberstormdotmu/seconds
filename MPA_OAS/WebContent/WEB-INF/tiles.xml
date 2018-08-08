@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+	
+	<!-- User definition-->
+	<definition name="baseLayout" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+		<put-attribute name="body" value="" />
+	</definition>
+	
+	<definition name="/page.updateUser" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user/updateUser.jsp" />
+	</definition>
+	
+	<definition name="/page.insertUser" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user/insertUser_1.jsp" />
+	</definition>
+	
+	<definition name="/page.listUsers" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user/listUsers_1.jsp" />
+	</definition>
+
+	<definition name="/page.login" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="" />
+		<put-attribute name="footer" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user/login.jsp" />
+	</definition>
+	
+	<definition name="/page.appointment" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Appointment"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/appointment/appointmentForm.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="/page.checkAppointment" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Appointment"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/appointment/checkAppointment.jsp" />
+ 	</definition>
+	
+	<definition name="/page.listAppointmentForUser" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Appointment"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/appointment/listAppointmentForUser.jsp" />
+ 	</definition>
+
+	<definition name="/page.rescheduleAppointment" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Appointment"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/appointment/rescheduleAppointment.jsp" />
+ 	</definition>
+
+	<definition name="/page.checkin" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Check In"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/checkin/checkin.jsp" />
+ 	</definition> 
+ 		
+ 	<definition name="/page.listAppointments" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/appointment/listAppointments.jsp" />
+	</definition>
+	 
+	<definition name="/page.addBookingPeriodBlock" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/adminBookingPeriod/addBookingPeriodBlock.jsp" />
+	</definition>
+	
+	<definition name="/page.listBookingPeriodBlock" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/adminBookingPeriod/listBookingPeriodBlock.jsp" />
+	</definition>
+
+	<definition name="/page.bookingSlot" template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/adminBookingSlot/bookingSlot.jsp" />
+	</definition>
+
+ 	<definition name="/page.confirmation" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Appointment Confirmation"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/appointment/confirmationForm.jsp"/>
+ 	</definition>
+
+
+ 	<definition name="/page.appointmentReceipt" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Appointment Receipt"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/appointment/appointmentReceipt.jsp"/>
+ 	</definition>
+ 	
+ 	<definition name="/page.reportSelection" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Report Selection"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/report/reportSelection.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="/page.homePage" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Report"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/home/homePage.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="/page.error" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Error"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/home/error.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="/page.changePassword" template="/WEB-INF/jsp/template/layout.jsp">
+	  <put-attribute name="title" value="Change Password"/>
+	  <put-attribute name="header" value="/WEB-INF/jsp/template/header_new.jsp" />
+	  <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	  <put-attribute name="body" value="/WEB-INF/jsp/user/changePassword.jsp" />
+ 	</definition>
+ 
+</tiles-definitions>

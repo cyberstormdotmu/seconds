@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+    http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2
+      http://maven.apache.org/xsd/assembly-1.1.2.xsd"
+>
+    <id>dev</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <baseDirectory>shoal-platform-${project.version}</baseDirectory>
+    <fileSets>
+        <fileSet>
+            <outputDirectory>/bin</outputDirectory>
+            <directory>target/classes</directory>
+            <includes><include>*.sh</include></includes>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/lib</outputDirectory>
+            <includes><include>com.ishoal:shoal-app</include></includes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>/client</outputDirectory>
+            <includes><include>com.ishoal:shoal-client:*:dev</include></includes>
+            <unpack>true</unpack>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>/config</outputDirectory>
+            <includes><include>com.ishoal:shoal-config:*:dev</include></includes>
+            <unpack>true</unpack>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>/db-scripts</outputDirectory>
+            <includes><include>com.ishoal:db-scripts:*:main</include></includes>
+            <unpack>true</unpack>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>/db-scripts</outputDirectory>
+            <includes><include>com.ishoal:db-scripts:*:test</include></includes>
+            <unpack>true</unpack>
+        </dependencySet>
+    </dependencySets>
+</assembly>

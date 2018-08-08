@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="settings.table" value="settings_tbl" />
+	<property name="community.table" value="community_tbl" />
+	<property name="picture.table" value="picture_tbl" />
+	<property name="story.table" value="story_tbl" />
+	<property name="anchor.table" value="anchor_tbl" />
+	<property name="key.table" value="key_tbl" />
+
+	<changeSet id="1" author="tkorri" context="production">
+		
+		<createTable tableName="${settings.table}">
+			<column name="key" type="varchar">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="value" type="varchar">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	    
+		<createTable tableName="${picture.table}">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="mime_type" type="varchar">
+				<constraints nullable="false" />
+			</column>
+			<column name="data" type="bytea">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="${community.table}">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="varchar">
+				<constraints nullable="false" />
+			</column>
+			<column name="picture_id" type="varchar">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint constraintName="fk_${community.table}_picture_id"
+			baseTableName="${community.table}"
+			baseColumnNames="picture_id"
+			referencedTableName="${picture.table}"
+			referencedColumnNames="id" />
+		
+		<createTable tableName="${story.table}">
+			<column name="id" type="varchar">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="title" type="varchar">
+				<constraints nullable="false" />
+			</column>
+			<column name="place" type="varchar">
+				<constraints nullable="true" />
+			</column>
+			<column name="community_id" type="bigint">
+				<constraints nullable="true" />
+			</column>
+			<column name="ready" type="boolean" defaultValue="false">
+				<constraints nullable="false" />
+			</column>
+			<column name="created" type="timestamp" defaultValue="now()">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint constraintName="fk_${story.table}_community_id"
+			baseTableName="${story.table}"
+			baseColumnNames="community_id"
+			referencedTableName="${community.table}"
+			referencedColumnNames="id" />
+		
+		
+		<createTable tableName="${anchor.table}">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="title" type="varchar">
+				<constraints nullable="false" />
+			</column>
+			<column name="date" type="timestamp" defaultValue="now()">
+				<constraints nullable="false" />
+			</column>
+			<column name="place" type="varchar">
+				<constraints nullable="true" />
+			</column>
+			<column name="content" type="varchar">
+				<constraints nullable="true" />
+			</column>
+			<column name="community_id" type="bigint">
+				<constraints nullable="true" />
+			</column>
+			<column name="picture_id" type="bigint">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint constraintName="fk_${anchor.table}_community_id"
+			baseTableName="${anchor.table}"
+			baseColumnNames="community_id"
+			referencedTableName="${community.table}"
+			referencedColumnNames="id" />
+		
+		<addForeignKeyConstraint constraintName="fk_${anchor.table}_picture_id"
+			baseTableName="${anchor.table}"
+			baseColumnNames="picture_id"
+			referencedTableName="${picture.table}"
+			referencedColumnNames="id" />
+		
+		<createTable tableName="${key.table}">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="question" type="varchar">
+				<constraints nullable="false" />
+			</column>
+			<column name="age" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="community_id" type="bigint">
+				<constraints nullable="true" />
+			</column>
+			<column name="picture_id" type="bigint">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint constraintName="fk_${key.table}_community_id"
+			baseTableName="${key.table}"
+			baseColumnNames="community_id"
+			referencedTableName="${community.table}"
+			referencedColumnNames="id" />
+		
+		<addForeignKeyConstraint constraintName="fk_${key.table}_picture_id"
+			baseTableName="${key.table}"
+			baseColumnNames="picture_id"
+			referencedTableName="${picture.table}"
+			referencedColumnNames="id" />
+		
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,49 @@
+<assembly>
+  <id>bin</id>
+  
+  <formats>
+    <format>zip</format>
+  </formats>
+  
+  <includeBaseDirectory>false</includeBaseDirectory>
+  
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>bots/lib</outputDirectory>
+      <unpack>false</unpack>
+    </dependencySet>
+  </dependencySets>
+    
+  <fileSets>    
+    <fileSet>
+      <directory>src/main/script</directory>
+      <outputDirectory>bots/</outputDirectory>
+      <fileMode>777</fileMode>
+    </fileSet>
+  
+    <!-- fileSet>
+      <directory>target</directory>
+      <outputDirectory>bots/</outputDirectory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+    </fileSet -->
+    
+    <fileSet>
+      <directory>src/etc</directory>
+      <outputDirectory>bots/conf</outputDirectory>
+      <includes>
+        <include>*.properties</include>
+        <include>*.xml</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet>
+      <directory>src/etc</directory>
+      <outputDirectory>bots/bots</outputDirectory>
+      <includes>
+        <include>bots.txt</include>
+      </includes>
+    </fileSet>
+  </fileSets>    
+</assembly>

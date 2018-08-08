@@ -1,0 +1,142 @@
+<div class="content-wrap">
+	<div id="main-content" class="container">
+		<div id="left-column" class="col-sm-12">
+			<div class="row">
+				<form id="addAdminForm" class="form-horizontal" role="form"
+					name="vm.addAdminForm" sho-mark-required-fields
+					ng-submit="vm.addAdmin.$valid">
+					<legend>Add Admin</legend>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">First name:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm" name="firstName"
+								ng-model="vm.firstName" required />
+							<div class="help-block"
+								ng-messages="vm.addAdminForm.firstName.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the first name.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Surname:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm" name="surname"
+								ng-model="vm.surname" required />
+							<div class="help-block"
+								ng-messages="vm.addAdminForm.surname.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the surname.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Email address:</label>
+						<div class="col-xs-9">
+							<input type="email" class="form-control input-sm"
+								name="emailAddress" ng-model="vm.emailAddress" required />
+							<div class="help-block"
+								ng-messages="vm.addAdminForm.emailAddress.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the contact's email address.</small>
+								</p>
+								<p ng-message="email" class="text-danger">
+									<small>Please ensure your email address is valid.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Password:</label>
+						<div class="col-xs-9">
+							<input type="password" class="form-control" name="password"
+								ng-model="vm.password" required sho-password />
+							<div class="help-block"
+								ng-messages="vm.addAdminForm.password.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter your chosen password.</small>
+								</p>
+								<p ng-message="password" class="text-danger">
+									<small>Please ensure your password meets the criteria
+										below.</small>
+								</p>
+							</div>
+							<span class="help-block"><small>Passwords must be
+									between 8 and 20 characters long and must include at least one
+									lowercase letter, one uppercase letter, one digit and one
+									special character.</small></span>
+						</div>
+					</div>
+
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Confirm Password:</label>
+						<div class="col-xs-9">
+							<input type="password" class="form-control"
+								name="confirmPassword" ng-model="vm.confirmPassword" required
+								sho-password />
+							<div class="help-block"
+								ng-messages="vm.addAdminForm.confirmPassword.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please re-enter your chosen password.</small>
+								</p>
+							</div>
+							<p ng-show="vm.password != vm.confirmPassword"
+								class="text-danger">
+								<small>Your password and confirm password must be same.</small>
+							</p>
+						</div>
+					</div>
+
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Mobile Number:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control" name="mobile_number"
+								ng-model="vm.mobileNumber" required integer ng-minlength="11"
+								ng-maxlength="15" />
+							<div class="help-block"
+								ng-messages="vm.addAdminForm.mobile_number.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the primary mobile number.</small>
+								</p>
+								<p ng-message="integer" class="text-danger">
+									<small>Please enter a valid mobile number.</small>
+								</p>
+								<p ng-message="maxlength" class="text-danger">
+									<small>The mobile number entered is too long. It should
+										be less than 15 digits long with no spaces or country codes(ie
+										+44).</small>
+								</p>
+								<p ng-message="minlength" class="text-danger">
+									<small>The mobile number entered is too short. It
+										should be more than 11 digits long with no spaces or country
+										codes(ie +44).</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success pull-right"
+							ng-disabled="!vm.addAdminForm.$valid"
+							ng-click="vm.submitAddAdminForm()" sho-validate-on-click>
+							Add</button>
+					</div>
+					<div ng-if="vm.errorMessage" class="bg-danger">
+						<p>{{ vm.errorMessage }}</p>
+					</div>
+					<div ng-if="vm.successMessage" class="bg-success">
+						<p>{{ vm.successMessage }}</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,90 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click="vm.close()">&times;</button>
+	<h3 class="modal-title">Enter Address</h3>
+</div>
+<div class="modal-body">
+	<form id="newAddress" class="form-horizontal" sho-mark-required-fields role="form" name="newAddressForm"
+		ng-submit="newAddressForm.$valid && vm.newAddressSave()">
+		<fieldset>
+			<div class="form-group" sho-highlight-errors>
+				<label class="control-label col-xs-3">Full Name:</label>
+				<div class="col-xs-9">
+					<input type="text" class="form-control input-sm" name="delivery_department" ng-change="vm.departmentNameChange();" ng-model="vm.address.form.address.departmentName" required />
+					<div class="help-block" ng-if="newAddressForm.delivery_department.$error.required">
+						<p class="text-danger">
+							<small>Please enter the department name for deliveries.</small>
+						</p>
+					</div>
+					<div class="help-block" ng-if="newAddressForm.delivery_department.$error.serverError">
+						<p class="text-danger">
+							<small>{{vm.errorMessage}}.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" sho-highlight-errors>
+				<label class="control-label col-xs-3">Address Line 1 (or company name):</label>
+				<div class="col-xs-9">
+					<input type="text" class="form-control input-sm" name="delivery_building" ng-model="vm.address.form.address.buildingName" required />
+					<div class="help-block" ng-messages="newAddressForm.delivery_building.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter the building name for deliveries.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" sho-highlight-errors>
+				<label class="control-label col-xs-3">Address Line 2 (Optional):</label>
+				<div class="col-xs-9">
+					<input type="text" class="form-control input-sm" name="delivery_street" ng-model="vm.address.form.address.streetAddress" />
+					<!-- <div class="help-block" ng-messages="newAddressForm.delivery_street.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter the street name for deliveries.</small>
+						</p>
+					</div> -->
+				</div>
+			</div>
+
+			<div class="form-group" sho-highlight-errors>
+				<label class="control-label col-xs-3">Country:</label>
+				<div class="col-xs-9">
+					<input type="text" class="form-control input-sm" name="delivery_locality" ng-model="vm.address.form.address.locality" ng-readonly="true"/>
+				</div>
+			</div>
+
+			<div class="form-group" sho-highlight-errors>
+				<label class="control-label col-xs-3">Town/City:</label>
+				<div class="col-xs-9">
+					<input type="text" class="form-control input-sm" name="delivery_town" ng-model="vm.address.form.address.postTown" required />
+					<div class="help-block" ng-messages="newAddressForm.delivery_town.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter the town for deliveries.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" sho-highlight-errors>
+				<label class="control-label col-xs-3">Postcode:</label>
+				<div class="col-xs-9">
+					<input type="text" class="form-control input-sm" name="delivery_postcode" ng-model="vm.address.form.address.postcode" required sho-postcode />
+					<div class="help-block" ng-messages="newAddressForm.delivery_postcode.$error">
+						<p ng-message="required" class="text-danger">
+							<small>Please enter the post code for deliveries.</small>
+						</p>
+						<p ng-message="postcode" class="text-danger">
+							<small>Please enter a valid post code, with or without a separating space.</small>
+						</p>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+		<div class="form-group">
+			<div class="col-xs-4 col-xs-offset-8">
+                    <button type="submit" class="btn btn-success">Add Address </button>
+           	</div>
+        </div>
+	</form>
+</div>

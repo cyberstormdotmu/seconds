@@ -1,0 +1,29 @@
+#chart-container {
+    position: relative;
+}
+
+.ct-chart {
+    margin: 25px 0;
+}
+
+.ct-series-a .ct-area {
+    fill: #70c5f6;
+    fill-opacity: 1;
+}
+
+.ct-series-b .ct-area {
+    fill: #1c2b3a;
+    fill-opacity: 1;
+}
+
+.ct-series-c .ct-area {
+    fill: #1c7293;
+    fill-opacity: 1;
+}
+
+.ct-label {
+    font-size: 0.6rem;
+    color: #333;
+    fill: #333;
+}
+

@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="checkout-panel">
+            <div class="checkout-basket">
+                <div class="row checkout-basket-heading">
+                    <div class="col-xs-4">Product</div>
+                    <div class="col-xs-2 text-right">Quantity</div>
+                    <div class="col-xs-2 text-right">Original Price<br/><em>per unit, ex vat</em></div>
+                    <div class="col-xs-2 text-right">Price you pay<br/><em>per unit, ex vat</em></div>
+                    <div class="col-xs-2 text-right">Subtotal<br/><em>ex vat</em></div>
+                </div>
+                <div class="checkout-basket-contents">
+                    <div class="row" data-ng-repeat="(productCode, item) in vm.order.basket.items">
+                        <div class="col-xs-4">{{ item.productName }}</div>
+                        <div class="col-xs-2 text-right">{{ item.quantity }}</div>
+                        <div class="col-xs-2 text-right">{{ item.initialUnitPrice | currency }}</div>
+                        <div class="col-xs-2 text-right">{{ item.unitPrice | currency }}</div>
+                        <div class="col-xs-2 text-right">{{ item.unitPrice * item.quantity | currency }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-7 text-right"><strong>Total (ex VAT):</strong></div>
+                    <div class="col-xs-2 text-right" id="review-order-subtotal"><strong>{{ vm.order.basket.subTotal | currency }}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-7 text-right">VAT:</div>
+                    <div class="col-xs-2 text-right" id="review-order-vat-total">{{ vm.order.basket.vatTotal | currency }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-7 text-right">Total (inc VAT):</div>
+                    <div class="col-xs-2 text-right" id="review-order-gross-total" >{{ vm.order.basket.grossTotal | currency }}</div>
+                </div>
+                <div class="row checkout-basket-credits">
+                    <div class="col-xs-3 col-xs-offset-7 text-right">Silverwing Credits Applied:</div>
+                    <div class="col-xs-2 text-right">({{ vm.order.creditToBeApplied | currency }})</div>
+                </div>
+                <div class="row checkout-basket-credits">
+                    <div class="col-xs-3 col-xs-offset-7 text-right">{{vm.order.appliedVendorCredits[0].vendorName}} Westcoast Credit Applied:</div>
+                    <div class="col-xs-2 text-right">({{ vm.order.appliedVendorCredits[0].creditsApplied | currency }})</div>
+                </div>
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-7 text-right">Amount Paid:</div>
+                    <div class="col-xs-2 text-right">{{ vm.order.balanceToPay | currency }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-7 text-right">Amount Due:</div>
+                    <div class="col-xs-2 text-right">{{ vm.order.appliedVendorCredits[0].creditsApplied | currency }}</div>
+                </div>
+                <div class="row" ng-if="vm.order.balanceToPay > 0">
+                    <div class="col-xs-3 col-xs-offset-7 text-right">{{vm.paymentMethodName}} Fees:</div>
+                    <div class="col-xs-2 text-right">
+                        {{ (vm.order.balanceToPay * vm.paymentChargesPercentage / 100) + vm.paymentExtraCharge | currency }}
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.order.balanceToPay > 0">
+                    <div class="col-xs-3 col-xs-offset-7 text-right">Balance Payable:</div>
+                    <div class="col-xs-2 text-right" id="review-order-balance-payable">
+                        {{ vm.order.balanceToPay + ((vm.order.balanceToPay * vm.paymentChargesPercentage / 100) + vm.paymentExtraCharge) | currency }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="checkout-panel">
+            <div class="row">
+                <div class="col-xs-2 text-right">Invoice Address:</div>
+                <div class="col-xs-4">
+                    <div sho-address address="vm.order.invoiceAddress"></div>
+                </div>
+                <div class="col-xs-2 text-right">Delivery Address:</div>
+                <div class="col-xs-4">
+                    <div sho-address address="vm.order.deliveryAddress"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="checkout-panel" data-ng-if="vm.order.paymentMethod === 'Card Payment'">
+            <div class="row">
+                <div class="col-xs-3 text-right">Cardholder name:</div>
+                <div class="col-xs-8">{{ vm.paymentCard.cardholderName }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 text-right">Card number:</div>
+                <div class="col-xs-8">{{ vm.paymentCard.cardNumber }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 text-right">Expiry:</div>
+                <div class="col-xs-8">{{ vm.paymentCard.expiry }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 text-right">CVC:</div>
+                <div class="col-xs-8">{{ vm.paymentCard.cvc }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="checkout-panel">
+            <form class="form-horizontal">
+                <div>
+                    <label data-ng-if="vm.order.paymentMethod === 'Card Payment'"><input type="checkbox" style="margin-right: 5px !important;" id="acceptTCs" data-ng-model="vm.order.acceptedTCs" />Accept Terms and Conditions</label>
+                    <label data-ng-if="vm.order.paymentMethod === 'On Invoice'"><input type="checkbox" id="acceptTCs" data-ng-model="vm.order.acceptedTCs" />Accept </label><a class="terms-and-conditions checkout-link-cursor" data-ng-if="vm.order.paymentMethod === 'On Invoice'" data-ng-click="vm.termsAndConditionsView()"> Terms and Conditions</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row" data-ng-if="vm.errorMessages.length > 0">
+    <div class="col-xs-12">
+        <div class="checkout-panel bg-danger">
+            <p data-ng-repeat="errorMessage in vm.errorMessages">{{ errorMessage }}</p>
+        </div>
+    </div>
+</div>
+<div class="row checkout-action-buttons">
+    <div class="col-xs-1"><a class="btn btn-default" data-ui-sref="checkout.payment"><i><span
+            class="fa fa-chevron-left"></span></i> Back a Step</a></div>
+    <div class="col-xs-1 col-xs-offset-10">
+        <div class="pull-right">
+            <a id="checkout-place-order-button" class="btn btn-success" data-ng-click="vm.placeOrder()" data-ng-disabled="!vm.allowPlaceOrder()">Place
+                Order</a>
+        </div>
+    </div>
+</div>

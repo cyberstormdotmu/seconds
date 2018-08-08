@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.close()">&times;</button>
+    <h3 class="modal-title">Enter New vendor Details</h3>
+</div>
+<div class="modal-body">
+  <form id="create-vendor-form" class="form-horizontal" role="form" name="vm.VendorForm" sho-mark-required-fields ng-submit="vm.newVendorSave()">
+        <fieldset>
+            <div class="form-group" sho-highlight-errors>
+                <label class="control-label col-xs-3">Principal Name:</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control input-sm" name="product_vendorName" ng-model="vm.VendorForm.vendorName" required ng-maxlength="64"/>
+                    <div class="help-block" ng-messages="vm.VendorForm['product_vendorName'].$error">
+                        <p ng-message="required" class="text-danger">
+                            <small>Please enter the name of the principal that is selling this product.</small>
+                        </p>
+                         <p ng-message="maxlength" class="text-danger">
+                            <small>The Principal Name entered is too long. It should not be more than 64 chracters.</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <div class="col-xs-4 col-xs-offset-8">
+                    <button type="submit" class="btn btn-success">Add New Principal</button>
+            </div>
+        </div>
+    </form>
+</div>

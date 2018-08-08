@@ -1,0 +1,498 @@
+<div id="profile-partial">
+	<div class="row">
+		<div class="col-xs-12">
+			<h1 ng-show="vm.profile.form.isCompleted">Your Account Profile</h1>
+			<h1 ng-hide="vm.profile.form.isCompleted">Please complete your
+				account profile</h1>
+			<p class="info">
+				<i class="star" id="sho-required-field-icon">*</i>denotes a required
+				field
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">&nbsp;</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<form id="profileForm" class="form-horizontal"
+				sho-mark-required-fields role="form" name="profileForm"
+				ng-submit=" profileForm.$valid && vm.profile.form.save()">
+				<fieldset>
+					<legend>
+						<u><h3>User Details</h3></u>
+					</legend>
+					<label class="control-label col-xs-3">Username:</label>
+					<div class="col-xs-9">
+						<p class="form-control-static">{{ vm.userInfo.name }}</p>
+					</div>
+					<!-- <label class="control-label col-xs-3">Buyer ReferralCode:</label> -->
+					<div class="col-xs-9" ng-hide="true">
+						<p class="form-control-static">{{
+							vm.profile.form.user.buyerReferralCode }}</p>
+					</div>
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Mobile number:</label>
+						<!-- <div class="col-xs-2">
+				          <select class="form-control" ng-model="countryCode" ng-options="country for country in Codelist| orderBy:'country'">
+				           <option>{{ country }}</option>
+				          </select>
+      					</div> -->
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="user_mobileNumber"
+								ng-model="vm.profile.form.user.mobileNumber" required integer
+								ng-minlength="11" ng-maxlength="15" />
+							<div class="help-block"
+								ng-messages="profileForm.user_mobileNumber.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the primary mobile number.</small>
+								</p>
+								<p ng-message="integer" class="text-danger">
+									<small>Please enter a valid mobile number.</small>
+								</p>
+								<p ng-message="maxlength" class="text-danger">
+									<small>The mobile number entered is too long. It should
+										be less than 15 digits long with no spaces or country codes(ie
+										+44).</small>
+								</p>
+								<p ng-message="minlength" class="text-danger">
+									<small>The mobile number entered is too short. It
+										should be more than 11 digits long with no spaces or country
+										codes(ie +44).</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Westcoast Customer
+							Account Number:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								ng-model="vm.profile.form.user.westcoastAccountNumber"
+								name="westcoastAccountNumber" readonly="readonly" />
+							<!-- <input type="text" class="form-control input-sm" ng-model="vm.profile.form.user.westcoastAccountNumber" ng-pattern="/^[a-zA-Z0-9\s]*$/" name="westcoastAccountNumber" ng-minlength="4" ng-maxlength="15" readonly="readonly"/>
+                            <div class="help-block" ng-messages="profileForm.westcoastAccountNumber.$error">
+								<p ng-message="maxlength" class="text-danger">
+	                                <small>The Westcoast Customer Account Number entered is too long. It should be less than 16 characters.</small>
+	                            </p>
+								<p ng-message="pattern" class="text-danger">
+	                                <small>The Westcoast Customer Account Number contains invalid characters. It contains only alphabets and numeric characters.</small>
+	                            </p>
+	                            <p ng-message="minlength" class="text-danger">
+	                                <small>The Westcoast Customer Account Number entered is too short. It should be at least 4 characters.</small>
+	                            </p>
+                            </div> -->
+						</div>
+					</div>
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">VAT number:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								ng-model="vm.profile.form.user.lapwingAccountNumber"
+								name="lapwingAccountNumber" ng-maxlength="15"
+								ng-pattern="/^[a-zA-Z0-9\s]*$/" />
+							<div class="help-block"
+								ng-messages="profileForm.lapwingAccountNumber.$error">
+								<p ng-message="maxlength" class="text-danger">
+									<small>The VAT number entered is too long. It should be
+										less than 15 digits.</small>
+								</p>
+								<p ng-message="pattern" class="text-danger">
+									<small>The VAT Number contains invalid characters. It
+										contains only alphabets and numeric characters.</small>
+								</p>
+								<p ng-message="integer" class="text-danger">
+									<small>Please enter a valid VAT number.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>
+						<u><h3>Company Details</h3></u>
+					</legend>
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3 sho-">Name:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="organisation_name"
+								ng-model="vm.profile.form.organisation.name" autofocus required />
+							<div class="help-block"
+								ng-messages="profileForm.organisation_name.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the name of your organisation.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Registration Number:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="organisation_reg_number"
+								ng-model="vm.profile.form.organisation.registrationNumber"
+								required />
+							<div class="help-block"
+								ng-messages="profileForm.organisation_reg_number.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the registration number of your
+										organisation.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3 sho-">Type of industry:</label>
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control input-sm" name="industry" ng-model="vm.profile.form.organisation.industry" autofocus required/>
+                            <div class="help-block" ng-messages="profileForm.industry.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the name of your organisation.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">No. of employees:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="numberOfEmps" ng-model="vm.profile.form.organisation.numberOfEmps" required integer ng-minlength="1" ng-maxlength="15" />
+                            <div class="help-block" ng-messages="profileForm.numberOfEmps.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the account number for the organisation's bank account.</small>
+                                </p>
+                                <p ng-message="integer" class="text-danger">
+                                    <small>Please enter a valid account number consisting of numeric values only.</small>
+                                </p>
+                                <p ng-message="minlength" class="text-danger">
+                                    <small>The account number entered is too short, it should be 1 digits long with no spaces.</small>
+                                </p>
+                                <p ng-message="maxlength" class="text-danger">
+                                    <small>The account number entered is too long, it should be 15 digits long with no spaces.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div> -->
+				</fieldset>
+				<fieldset>
+					<legend>
+						<u><h3>Contact Details</h3></u>
+					</legend>
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Title:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="contact_title" ng-model="vm.profile.form.contact.title" />
+							<!--                             <div class="help-block" ng-messages="profileForm.contact_title.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the contact's title / salutation.</small>
+                                </p>
+                            </div> -->
+						</div>
+					</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">First name:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="contact_firstName"
+								ng-model="vm.profile.form.contact.firstName"
+								ng-init="vm.profile.form.contact.firstName = vm.profile.form.contact.firstName == null ? vm.profile.form.user.firstName : vm.profile.form.contact.firstName"
+								required />
+							<div class="help-block"
+								ng-messages="profileForm.contact_firstName.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the contact's first name.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Surname:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="contact_surname"
+								ng-model="vm.profile.form.contact.surname" required
+								ng-init="vm.profile.form.contact.surname = vm.profile.form.contact.surname == null ? vm.profile.form.user.surname : vm.profile.form.contact.surname" />
+							<div class="help-block"
+								ng-messages="profileForm.contact_surname.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the contact's surname.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Email address:</label>
+						<div class="col-xs-9">
+							<input type="email" class="form-control input-sm"
+								name="contact_emailAddress"
+								ng-model="vm.profile.form.contact.emailAddress" required
+								ng-init="vm.profile.form.contact.emailAddress = vm.profile.form.contact.emailAddress == null ? vm.profile.form.user.emailAddress : vm.profile.form.contact.emailAddress" />
+							<div class="help-block"
+								ng-messages="profileForm.contact_emailAddress.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the contact's email address.</small>
+								</p>
+								<p ng-message="email" class="text-danger">
+									<small>Please ensure your email address is valid.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Telephone number:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="contact_phoneNumber"
+								ng-model="vm.profile.form.contact.phoneNumber" required integer
+								ng-maxlength="15" ng-minlength="11"
+								ng-init="vm.profile.form.contact.phoneNumber = vm.profile.form.contact.phoneNumber == null ? vm.profile.form.user.mobileNumber : vm.profile.form.contact.phoneNumber" />
+							<div class="help-block"
+								ng-messages="profileForm.contact_phoneNumber.$error">
+								<p ng-message="required" class="text-danger">
+									<small>Please enter the contact's primary phone number.</small>
+								</p>
+								<p ng-message="integer" class="text-danger">
+									<small>Please enter a valid phone number.</small>
+								</p>
+								<p ng-message="maxlength" class="text-danger">
+									<small>The phone number entered is too long. It should
+										be less than 15 digits long with no spaces or country codes(ie
+										+44).</small>
+								</p>
+								<p ng-message="minlength" class="text-danger">
+									<small>The phone number entered is too short. It should
+										be more than 11 digits long with no spaces or country codes(ie
+										+44).</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<!-- <fieldset>
+                    <legend><h3>Delivery Address</h3></legend>
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Department:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="delivery_department" 
+                        ng-model="vm.profile.form.deliveryAddress.departmentName" required />
+                            <div class="help-block" ng-messages="profileForm.delivery_department.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the department name for deliveries.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Building Name/ Number:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="delivery_building" ng-model="vm.profile.form.deliveryAddress.buildingName" required />
+                            <div class="help-block" ng-messages="profileForm.delivery_building.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the building name for deliveries.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Street Name:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="delivery_street" ng-model="vm.profile.form.deliveryAddress.streetAddress" required />
+                            <div class="help-block" ng-messages="profileForm.delivery_street.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the street name for deliveries.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Locality:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="delivery_locality" ng-model="vm.profile.form.deliveryAddress.locality" />
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Town:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="delivery_town" ng-model="vm.profile.form.deliveryAddress.postTown" required />
+                            <div class="help-block" ng-messages="profileForm.delivery_town.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the town for deliveries.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Postcode:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="delivery_postcode" ng-model="vm.profile.form.deliveryAddress.postcode" required sho-postcode />
+                            <div class="help-block" ng-messages="profileForm.delivery_postcode.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the post code for deliveries.</small>
+                                </p>
+                                <p ng-message="postcode" class="text-danger">
+                                    <small>Please enter a valid post code, with or without a separating space.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+         -->
+				<fieldset>
+					<legend>
+						<u><h3>Bank Account (optional)</h3></u>
+					</legend>
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Account Name:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="bank_account_name"
+								ng-model="vm.profile.form.bankAccount.accountName"
+								maxlength="64" />
+							<!--                             <div class="help-block" ng-messages="profileForm.bank_account_name.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the name associated with the organisation's bank account.</small>
+                                </p>
+                            </div> -->
+						</div>
+					</div>
+					<!-- REW we need to make this field auto format the hyphens ie 12-34-56 -->
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Sort code:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="bank_sort_code"
+								ng-model="vm.profile.form.bankAccount.sortCode" sho-sortcode
+								placeholder="XX-XX-XX" maxlength="8" />
+							<div class="help-block"
+								ng-messages="profileForm.bank_sort_code.$error">
+								<!-- <p ng-message="required" class="text-danger">
+                                    <small>Please enter the sort code for the organisation's bank account.</small>
+                                </p> -->
+								<p ng-message="sortcode" class="text-danger">
+									<small>Please enter a valid sort code, 6 digits in the
+										format 12-34-56.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<label class="control-label col-xs-3">Account Number:</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control input-sm"
+								name="bank_account_number"
+								ng-model="vm.profile.form.bankAccount.accountNumber" integer
+								maxlength="8" />
+							<div class="help-block"
+								ng-messages="profileForm.bank_account_number.$error">
+								<!-- <p ng-message="required" class="text-danger">
+                                    <small>Please enter the account number for the organisation's bank account.</small>
+                                </p>
+                                <p ng-message="minlength" class="text-danger">
+                                    <small>The account number entered is too short, it should be 8 digits long with no spaces.</small>
+                                </p> -->
+								<p ng-message="integer" class="text-danger">
+									<small>Please enter a valid account number consisting
+										of numeric values only.</small>
+								</p>
+								<p ng-message="maxlength" class="text-danger">
+									<small>The account number entered is too long, it
+										should be 8 digits long with no spaces.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Bank Name:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="bank_name" ng-model="vm.profile.form.bankAccount.bankName" maxlength="64" />
+                            <div class="help-block" ng-messages="profileForm.bank_name.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the name of the bank whom your account belongs to.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Building Name/Number:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="bank_building_name" ng-model="vm.profile.form.bankAccount.buildingName" maxlength="64" />
+                            <div class="help-block" ng-messages="profileForm.bank_building_name.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the building name for your bank branch.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Street Name:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="bank_street" ng-model="vm.profile.form.bankAccount.streetAddress" maxlength="128" />
+                            <div class="help-block" ng-messages="profileForm.bank_street.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the street name for your bank branch.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Country:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="bank_locality" ng-model="vm.profile.form.bankAccount.locality"  maxlength="64"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Town:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="bank_town" ng-model="vm.profile.form.bankAccount.postTown"  maxlength="64" />
+                            <div class="help-block" ng-messages="profileForm.bank_town.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the town for your bank branch.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" sho-highlight-errors>
+                        <label class="control-label col-xs-3">Postcode:</label>
+                        <div class="col-xs-9"><input type="text" class="form-control input-sm" name="bank_postcode" ng-model="vm.profile.form.bankAccount.postcode" sho-postcode  maxlength="8" />
+                            <div class="help-block" ng-messages="profileForm.bank_postcode.$error">
+                                <p ng-message="required" class="text-danger">
+                                    <small>Please enter the post code for your bank branch.</small>
+                                </p>
+                                <p ng-message="postcode" class="text-danger">
+                                    <small>Please enter a valid post code, with or without a separating space.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div> -->
+
+				</fieldset>
+				<div class="alert alert-danger" ng-show="vm.profile.form.isError">
+					There was a problem saving your details. Please try again. <br />
+				</div>
+				<div id="profile-accepted" class="alert alert-success"
+					ng-show="vm.profile.form.isCompleted && vm.profile.form.isSaved">
+					Your profile was updated successfully. <br />
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success pull-right"
+						ng-disabled="!profileForm.$valid" sho-validate-on-click>
+						<span ng-if="!vm.profile.form.isCompleted">Complete profile</span>
+						<span ng-if="vm.profile.form.isCompleted">Update and
+							Continue</span>
+					</button>
+					<br />
+				</div>
+			</form>
+			<p>If you would like to cancel your account, please email
+				help@silverwing.co with your request.</p>
+		</div>
+	</div>
+	<!--<pre>{{ profileForm | json: 4}}</pre>-->
+</div>

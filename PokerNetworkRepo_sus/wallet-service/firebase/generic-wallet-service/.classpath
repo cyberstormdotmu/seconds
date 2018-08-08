@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="target/maven-shared-archive-resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/firebase/firebase-api/1.10.1-BETA2-SNAPSHOT/firebase-api-1.10.1-BETA2-SNAPSHOT.jar" sourcepath="M2_REPO/com/cubeia/firebase/firebase-api/1.10.1-BETA2-SNAPSHOT/firebase-api-1.10.1-BETA2-SNAPSHOT-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/MAVEN_REPO/NewMavenRepository/com/cubeia/firebase/firebase-api/1.10.1-BETA2-SNAPSHOT/firebase-api-1.10.1-BETA2-SNAPSHOT-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/xec/oss/xec.se-commons/1.4.6/xec.se-commons-1.4.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/simple-jndi/simple-jndi/0.11.4.1/simple-jndi-0.11.4.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.4/commons-lang-2.4.jar"/>
+  <classpathentry kind="src" path="/wallet-api"/>
+  <classpathentry kind="src" path="/accounting-api"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.6.6/slf4j-log4j12-1.6.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar"/>
+</classpath>

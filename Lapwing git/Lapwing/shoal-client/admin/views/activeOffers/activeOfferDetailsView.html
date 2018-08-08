@@ -1,0 +1,785 @@
+<div class="content-wrap"><div id="main-content" class="container">
+    <div id="left-column" class="col-sm-12">
+
+        <div class="row">
+            <h3>Offer Report</h3>
+        </div>
+        <div ng-show="vm.report">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Summary</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-2 text-right"><strong>Product:</strong></div>
+                            <div class="col-sm-4">{{ vm.report.productCode }} ({{ vm.report.productName }})</div>
+                            <div class="col-sm-2 text-right"><strong>Offer Period:</strong></div>
+                            <div class="col-sm-4">{{ vm.report.offerStartDate | date:'short' }} - {{ vm.report.offerEndDate | date:'short' }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right"><strong>Principal:</strong></div>
+                            <div class="col-sm-4">{{ vm.report.vendorName }}</div>
+                            <div class="col-sm-2 text-right"><strong>Confirmed Volume:<br/>Paid Volume:<br/>Unpaid Volume:<br/>Part Paid Volume:</strong></div>
+                            <div class="col-sm-4">{{ vm.report.confirmedVolume }}<br/>{{ vm.report.paidVolume }}<br/>{{ vm.report.unpaidVolume }}<br/>{{ vm.report.partiallyPaidVolume }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Current Price Band</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-2 text-right"><strong>Buyer Price (net):</strong></div>
+                            <div class="col-sm-4 text-right">{{ vm.report.currentPriceBand.buyerPrice | accounting }}
+                            </div>
+                            <div class="col-sm-2 text-right" ng-show="vm.report.currentPriceBand.maxVolume > 0"><strong>Volume Range:</strong></div>
+                            <div class="col-sm-4 text-right" ng-show="vm.report.currentPriceBand.maxVolume > 0">{{ vm.report.currentPriceBand.minVolume }} - {{
+                                vm.report.currentPriceBand.maxVolume }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right"><strong>Vendor Price (net):</strong></div>
+                            <div class="col-sm-4 text-right">{{ vm.report.currentPriceBand.vendorPrice | accounting }}
+                            </div>
+                            <div class="col-sm-2 text-right"><strong>Margin (net):</strong></div>
+                            <div class="col-sm-4 text-right">{{ vm.report.currentPriceBand.shoalMargin | accounting }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-hide="true">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Vendor[Supplier]</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Initial Payment</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-sm-offset-3 text-right"><strong>Net</strong></div>
+                            <div class="col-sm-3 text-right"><strong>VAT</strong></div>
+                            <div class="col-sm-3 text-right"><strong>Gross</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Per Unit:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.paymentPerUnit.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.paymentPerUnit.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.paymentPerUnit.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                          <!--    <div class="col-sm-3 text-right"><strong>Pending:</strong></div> -->
+                          	<div class="col-sm-3 text-right"><strong>Unpaid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.pendingAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.pendingAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.pendingAmount.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <!--  <div class="col-sm-3 text-right"><strong>Unpaid:</strong></div>-->
+                            <div class="col-sm-3 text-right"><strong>Paid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.unpaidAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.unpaidAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.unpaidAmount.gross | accounting }}</div>
+                        </div>
+                       <!--  <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Paid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.paidAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.paidAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorInitialPayment.paidAmount.gross | accounting }}</div>
+                        </div>
+                        --> 
+                        <div class="row">
+                            <div class="col-sm-12">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Balancing Payment<span data-ng-if="vm.report.offerOpen"> (Potential)</span></strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-sm-offset-3 text-right"><strong>Net</strong></div>
+                            <div class="col-sm-3 text-right"><strong>VAT</strong></div>
+                            <div class="col-sm-3 text-right"><strong>Gross</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Per Unit:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.paymentPerUnit.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.paymentPerUnit.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.paymentPerUnit.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                          <!-- <div class="col-sm-3 text-right"><strong>Pending:</strong></div> -->  
+                             <div class="col-sm-3 text-right"><strong>Unpaid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.pendingAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.pendingAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.pendingAmount.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                           <!-- <div class="col-sm-3 text-right"><strong>Unpaid:</strong></div> --> 
+                            <div class="col-sm-3 text-right"><strong>Paid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.unpaidAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.unpaidAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.unpaidAmount.gross | accounting }}</div>
+                        </div>
+<!--                         <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Paid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.paidAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.paidAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.vendorBalancingPayment.paidAmount.gross | accounting }}</div>
+                        </div>
+                         -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Payment Calculations[Silverwing]</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Initial Payment</strong></div>
+                         </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-sm-offset-3 text-right"><strong>Net</strong></div>
+                            <div class="col-sm-3 text-right"><strong>VAT</strong></div>
+                            <div class="col-sm-3 text-right"><strong>Gross</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Per Unit:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.paymentPerUnit.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.paymentPerUnit.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.paymentPerUnit.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                          <!-- <div class="col-sm-3 text-right"><strong>Pending:</strong></div> -->  
+                             <div class="col-sm-3 text-right"><strong>Unpaid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.pendingAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.pendingAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.pendingAmount.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                          <!--  <div class="col-sm-3 text-right"><strong>Unpaid:</strong></div>-->  
+                             <div class="col-sm-3 text-right"><strong>Paid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.unpaidAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.unpaidAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.unpaidAmount.gross | accounting }}</div>
+                        </div>
+                      <!-- <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Paid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.paidAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.paidAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalInitialPayment.paidAmount.gross | accounting }}</div>
+                        </div>
+                         -->  
+                        <div class="row">
+                            <div class="col-sm-12">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Balancing Payment<span data-ng-if="vm.report.offerOpen"> (Potential)</span></strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-sm-offset-3 text-right"><strong>Net</strong></div>
+                            <div class="col-sm-3 text-right"><strong>VAT</strong></div>
+                            <div class="col-sm-3 text-right"><strong>Gross</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Per Unit:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.paymentPerUnit.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.paymentPerUnit.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.paymentPerUnit.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                           <!-- <div class="col-sm-3 text-right"><strong>Pending:</strong></div> --> 
+                            <div class="col-sm-3 text-right"><strong>Unpaid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.pendingAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.pendingAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.pendingAmount.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                           <!-- <div class="col-sm-3 text-right"><strong>Unpaid:</strong></div> --> 
+                            <div class="col-sm-3 text-right"><strong>Paid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.unpaidAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.unpaidAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.unpaidAmount.gross | accounting }}</div>
+                        </div>
+                      <!-- <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Paid:</strong></div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.paidAmount.net | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.paidAmount.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{ vm.report.shoalBalancingPayment.paidAmount.gross | accounting }}</div>
+                        </div>
+                         -->  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-hide="true">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Route 1 Payment Calculations</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Unit Price:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route1PaymentDetail in vm.report.route1Details.paymentDetails"><b>{{ route1PaymentDetail.unitPrice | accounting }}</b></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Orders</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Orders Placed:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route1PaymentDetail in vm.report.route1Details.paymentDetails">{{ route1PaymentDetail.numberOfOrderPlaced }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Payments Received:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route1PaymentDetail in vm.report.route1Details.paymentDetails">{{ route1PaymentDetail.numberOfPaymentsReceived }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Payments Pending:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route1PaymentDetail in vm.report.route1Details.paymentDetails">{{ route1PaymentDetail.numberOfPaymentsPending }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Quantities</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Quantities Confirmed:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route1PaymentDetail in vm.report.route1Details.paymentDetails">{{ route1PaymentDetail.quantitiesConfirmed }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Paid Quantities:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route1PaymentDetail in vm.report.route1Details.paymentDetails">{{ route1PaymentDetail.paidQuantities }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Unpaid Quantities:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route1PaymentDetail in vm.report.route1Details.paymentDetails">{{ route1PaymentDetail.unpaiQuantities }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Discount monies per order:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route1PaymentDetail in vm.report.route1Details.paymentDetails">{{ route1PaymentDetail.discountMoniesPerOrder }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"></div>
+                            <div class="col-sm-3 text-right"><strong>NET</strong></div>
+                            <div class="col-sm-2 text-right"><strong>VAT</strong></div>
+                            <div class="col-sm-3 text-right"><strong>GROSS</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Received payments:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.amountReceived.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route1Details.amountReceived.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.amountReceived.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Pending payments:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.amountPending.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route1Details.amountPending.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.amountPending.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Credits:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.lapwingCreditsEarned.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route1Details.lapwingCreditsEarned.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.lapwingCreditsEarned.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Credits used:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.lapwingCreditsUsed.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route1Details.lapwingCreditsUsed.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.lapwingCreditsUsed.gross | accounting }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-left"><strong>Payment Calculations:</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Margin Total:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.totalLapwingMargin | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Discount Monies Inc VAT:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.discountMoniesIncVat | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Keeps:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.lapwingKeeps | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Supplier Balance:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route1Details.supplierBalance | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Route 2 Payment Calculations</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Unit Price:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails"><b>{{ route2PaymentDetail.unitPrice | accounting }}</b></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Orders</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Orders Placed:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.numberOfOrderPlaced }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Payments Received:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.numberOfPaymentsReceived }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Payments Pending:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.numberOfPaymentsPending }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Part Payments Pending:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.numberOfPartialPayments }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Quantities</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Quantities Confirmed:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.quantitiesConfirmed }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Paid Quantities:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.paidQuantities }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Unpaid Quantities:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.unpaiQuantities }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Part Paid Quantities:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.partpaidQuantities }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Discount monies per order:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route2PaymentDetail in vm.report.route2Details.paymentDetails">{{ route2PaymentDetail.discountMoniesPerOrder }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"></div>
+                            <div class="col-sm-3 text-right"><strong>NET</strong></div>
+                            <div class="col-sm-2 text-right"><strong>VAT</strong></div>
+                            <div class="col-sm-3 text-right"><strong>GROSS</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Received payments:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.amountReceived.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route2Details.amountReceived.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.amountReceived.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Pending payments:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.amountPending.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route2Details.amountPending.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.amountPending.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Credits:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.lapwingCreditsEarned.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route2Details.lapwingCreditsEarned.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.lapwingCreditsEarned.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Credits used:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.lapwingCreditsUsed.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route2Details.lapwingCreditsUsed.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.lapwingCreditsUsed.gross | accounting }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-left"><strong>Payment Calculations:</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Margin Total:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.totalLapwingMargin | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Discount Monies Inc VAT:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.discountMoniesIncVat | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Supplier Keeps:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.supplierKeeps | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Balance:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route2Details.lapwingBalance | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-hide="true">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Route 1 and 2 Payment Calculations</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Unit Price:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails"><b>{{ route3PaymentDetail.unitPrice | accounting }}</b></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Orders</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Orders Placed:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.numberOfOrderPlaced }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Payments Received:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.numberOfPaymentsReceived }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Payments Pending:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.numberOfPaymentsPending }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Part Payments Pending:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.numberOfPartialPayments }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><strong>Quantities</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Quantities Confirmed:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.quantitiesConfirmed }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Paid Quantities:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.paidQuantities }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Unpaid Quantities:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.unpaiQuantities }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Part Paid Quantities:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.partpaidQuantities }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Discount monies per order:</strong></div>
+                            <div class="col-sm-2 text-right" ng-repeat="route3PaymentDetail in vm.report.route3Details.paymentDetails">{{ route3PaymentDetail.discountMoniesPerOrder }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"></div>
+                            <div class="col-sm-3 text-right"><strong>NET</strong></div>
+                            <div class="col-sm-2 text-right"><strong>VAT</strong></div>
+                            <div class="col-sm-3 text-right"><strong>GROSS</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Received payments:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.amountReceived.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route3Details.amountReceived.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.amountReceived.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Pending payments:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.amountPending.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route3Details.amountPending.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.amountPending.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Credits:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.lapwingCreditsEarned.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route3Details.lapwingCreditsEarned.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.lapwingCreditsEarned.gross | accounting }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Credits used:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.lapwingCreditsUsed.net | accounting }}</div>
+                            <div class="col-sm-2 text-right">{{vm.report.route3Details.lapwingCreditsUsed.vat | accounting }}</div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.lapwingCreditsUsed.gross | accounting }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-left"><strong>Payment Calculations:</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Margin Total:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.totalLapwingMargin | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Discount Monies Inc VAT:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.discountMoniesIncVat | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Supplier Balance:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.supplierBalance | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right"><strong>Silverwing Balance:</strong></div>
+                            <div class="col-sm-3 text-right">{{vm.report.route3Details.lapwingBalance | accounting }}</div>
+                            <div class="col-sm-2 text-right"></div>
+                            <div class="col-sm-3 text-right"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-hide="true">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Outstanding Balance</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-3 text-right"><strong>Outstanding Balance to Supplier:</strong></div>
+                            <div class="col-sm-3 text-left">{{ vm.report.outstandingBalanceToSupplier | accounting }}
+                            </div>
+                            <div class="col-sm-3 text-right"><strong>Outstanding Balance to Silverwing:</strong></div>
+                            <div class="col-sm-3 text-left">{{ vm.report.outstandingBalanceToLapwing | accounting }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="vm.report.allRouteDetails.length > 0">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Order Wise Daily Balance Sheet Calculation</div>
+                    <div class="panel-body">
+                        <div class="row" style="overflow-x: scroll !important;">
+                            <table style="width : 2700px !important;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 450px !important;border: 1px solid grey !important;padding-left: 8px !important;"></th>
+                                        <th style="width: 750px !important;border: 1px solid grey !important;padding-left: 8px !important;">Settlement</th>
+                                        <th style="width: 450px !important;border: 1px solid grey !important;padding-left: 8px !important;"></th>
+                                        <th style="width: 450px !important;border: 1px solid grey !important;padding-left: 8px !important;">Balance Transfers</th>
+                                        <th style="width: 300px !important;border: 1px solid grey !important;padding-left: 8px !important;">Silverwing Margin</th>
+                                        <th style="width: 300px !important;border: 1px solid grey !important;padding-left: 8px !important;">Net Margin</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table class="table table-striped table-responsive table-hover table-headings" style="width : 2700px !important;">
+                                <thead>
+                                <tr>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Date</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Order</th>                 
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Total Paid By Customer (Incl. VAT)</th>
+                                    <!-- Settlement -->
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Silverwing Credits</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Card / Upfront</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Supplier Credits</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Balance Transfer</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">SW Margin</th>
+                                    <!-- -->
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Minimum Price</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Discount Monies</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Silverwing Margin</th>
+                                    <!-- Balance Transfers -->
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Siverwing To Supplier</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Supplier To Silverwing (expected)</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Supplier To Silverwing (actual)</th>
+                                    <!-- Silverwing Margin -->
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Retained By Silverwing</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Payable To Silverwing</th>
+                                    <!-- Net Margin -->
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Silverwing To Supplier</th>
+                                    <th style="width: 150px !important;border: 1px solid grey !important;">Supplier To Silverwing</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-repeat="RouteDetail in vm.report.allRouteDetails">
+                                    <td style="width: 150px !important;">{{ RouteDetail.time | date:'short' }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.orderReference }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.totalpricePaid | currency }}</td>
+                                    <!-- Settlement -->
+                                    <td style="width: 150px !important;">{{ RouteDetail.lapwingCreditsUsed | currency }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.cardPaymentUsed | currency }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.supplierCreditsUsed | currency }}</td>
+                                    <td style="width: 150px !important;">NA</td>
+                                    <td style="width: 150px !important;">NA</td>
+                                    <!-- -->
+                                    <td style="width: 150px !important;">{{ RouteDetail.minimumPrice | currency }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.totalDiscountMonies | currency }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.silverwingMargin | currency }}</td>
+                                    <!-- Balance Transfers -->
+                                    <td style="width: 150px !important;">{{ RouteDetail.balanceToBeTransferredToSupplier | currency }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.balanceToBePaidToLapwingexpected | currency }}</td>
+                                    <td style="width: 150px !important;">NA</td>
+                                    <!-- Silverwing Margin -->
+                                    <td style="width: 150px !important;">{{ RouteDetail.silverwingMarginRetainedBySilverwing | currency }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.silverwingMarginPayableToSilverwing | currency }}</td>
+                                    <!-- Net Margin -->
+                                    <td style="width: 150px !important;">{{ RouteDetail.netMoneyExchangeSilverwingToSupplier | currency }}</td>
+                                    <td style="width: 150px !important;">{{ RouteDetail.netMoneyExchangeSupplierToSilverwing | currency }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-hide="true">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Order Wise Daily Balance Sheet Calculation</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <table class="table table-striped table-responsive table-hover table-headings">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Order Number</th>
+                                    <th>Quantity</th>
+                                    <th>Price Paid</th>
+                                    <th>Minimum Price</th>
+                                    <th>Silverwing Credit Used</th>
+                                    <th>Card payment used</th>
+                                    <th>Supplier Credit Balance</th>
+                                    <th>Total discount monies</th>
+                                    <th>Discount held</th>
+                                    <th>Max LM+VAT</th>
+                                    <th>Silverwing Margin + VAT Held</th>
+                                    <th>Balance to be transferred to Supplier</th>
+                                    <th>Balance to be paid to Silverwing</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-repeat="RouteDetail in vm.report.allRouteDetails">
+                                    <td>{{ RouteDetail.time | date:'short' }}</td>
+                                    <td>{{ RouteDetail.orderReference }}</td>
+                                    <td>{{ RouteDetail.quantities }}</td>
+                                    <td>{{ RouteDetail.pricePaid | currency }}</td>
+                                    <td>{{ RouteDetail.minimumPrice | currency }}</td>
+                                    <td>{{ RouteDetail.lapwingCreditsUsed | currency }}</td>
+                                    <td>{{ RouteDetail.cardPaymentUsed | currency }}</td>
+                                    <td>{{ RouteDetail.supplierCreditsUsed | currency }}</td>
+                                    <td>{{ RouteDetail.totalDiscountMonies | currency }}</td>
+                                   
+                                    <td>{{ RouteDetail.maxLapwingMargingIncVat | currency }}</td>
+                                    <td>{{ RouteDetail.lapwingMarginIncVatHeld | currency }}</td>
+                                    <td>{{ RouteDetail.balanceToBeTransferredToSupplier | currency }}</td>
+                                    <td>{{ RouteDetail.balanceToBePaidToLapwing | currency }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="vm.allOutstandingBalanceSheet.length > 0">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Daily Balance Sheet</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <table class="table table-striped table-responsive table-hover table-headings">
+                                <thead>
+                                <tr>
+                                    <th>Payment Record Date</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Reference Number</th>
+                                    <th>Recieved Date</th>
+                                    <th>Amount</th>
+                                    <th>Received</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-show="outstandingBalanceSheet.amount > 0" ng-repeat="outstandingBalanceSheet in vm.allOutstandingBalanceSheet| orderBy:'paymentRecordDate' track by $index">
+                                    <td>{{ outstandingBalanceSheet.paymentRecordDate | date:'dd/MM/yyyy' }}</td>
+                                    <td>{{ outstandingBalanceSheet.from }}</td>
+                                    <td>{{ outstandingBalanceSheet.to }}</td>
+                                    <td>{{ outstandingBalanceSheet.userReference }}</td>
+                                    <td>{{ outstandingBalanceSheet.receivedDate | date:'dd/MM/yyyy' }}</td>
+                                    <td>{{ outstandingBalanceSheet.amount | accounting }}</td>
+                                    <td>{{ outstandingBalanceSheet.received }}</td>
+                                    <td class="text-center" >
+                                        <div class="btn-group" uib-dropdown ng-show="outstandingBalanceSheet.received == 'No' && outstandingBalanceSheet.amount > 0">
+                                            <button type="button" class="btn btn-success btn-xs" ng-click="vm.recordPayment(outstandingBalanceSheet)">
+                                            <span aria-hidden="true">
+                                                </span>Record Payment<span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Buyers</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="row">
+                                    <div class="col-sm-6 text-right"><strong>Payments Received (gross):</strong></div>
+                                    <div class="col-sm-6 text-right">{{ vm.report.fullPaymentsReceived | accounting }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 text-right"><strong>Payments Outstanding (gross):</strong></div>
+                                    <div class="col-sm-6 text-right"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">&nbsp;</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="row">
+                                    <div class="col-sm-6 text-right"><strong>Credits Earned (gross):</strong></div>
+                                    <div class="col-sm-6 text-right">{{ vm.report.buyerCreditsEarned | accounting }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 text-right"><strong>Credits Spent (gross):</strong></div>
+                                    <div class="col-sm-6 text-right">{{ -vm.report.buyerCreditsSpent | accounting }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">&nbsp;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <a class="btn btn-default btn-xs" role="button" data-ui-sref="loggedIn.activeOffers.list"><span
+                        class="fa fa-chevron-left" aria-hidden="true"></span> Return to Offer List</a>
+            </div>
+        </div>
+    </div>
+    </div>
+</div></div>

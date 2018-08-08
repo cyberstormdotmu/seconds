@@ -1,0 +1,357 @@
+/* 
+    Document   : style
+    Created on : 16-Sep-2015, 15:33:39
+*/
+/* imports */
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300);
+
+/* table formatting */
+
+
+table.table-headings {
+    margin: 20px 0 50px;
+    border-bottom: 1px solid #3d4686;
+}
+
+table.table-headings thead {
+    border-top: 1px solid #3d4686;
+    background-color: rgba(61, 70, 134, .2);
+}
+
+table.table-headings th,
+table.table-headings td {
+    font-weight: 500;
+    font-size: 0.77rem;
+}
+
+.panel, .panel-group .panel {
+    border-radius: 0;
+}
+
+.panel-primary {
+    border-color: #1a656e;
+}
+
+.panel-primary>.panel-heading {
+    background-color: #1a656e;
+    background-image: none;
+    border-color: #1a656e;
+    border-radius: 0;
+}
+
+/*Checkout page*/
+.checkout-step-wrapper {
+    margin-bottom: 30px;
+}
+
+.checkout-steps {
+    padding: 8px 15px;
+    counter-reset: checkout-step;
+    margin: 0;
+}
+
+.checkout-steps > li {
+    display: inline-block;
+    position: relative;
+    margin: 0 2em;
+    list-style: none;
+    color: #ccc;
+}
+
+.checkout-steps > li:before {
+    content: counter(checkout-step);
+    counter-increment: checkout-step;
+    position: absolute;
+    left: -2em;
+}
+
+.checkout-steps > li.current-step {
+    color: #fff;
+}
+
+.checkout-remove-item {
+}
+
+.checkout-action-buttons {
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.checkout-basket-heading {
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 10px;
+}
+
+.checkout-basket-contents {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.checkout-basket-contents div.row {
+    margin-bottom: 10px; }
+
+.checkout-basket-credits {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.checkout-panel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e5e5e5;
+    padding: 20px;
+}
+
+.checkout-panel input#cardNumber {
+    width: 400px;
+}
+
+.checkout-panel .checkout-expiry-month {
+    width: 60px;
+    display: inline-block;
+}
+
+.checkout-panel .checkout-expiry-year {
+    width: 100px;
+    display: inline-block;
+}
+
+.checkout-panel input#cvc {
+    width: 100px;
+}
+
+#checkout-payment-card-details {
+    margin-top: 30px;
+}
+
+/*.checkout-payment-credit-panel {
+    height: 270px;
+}*/
+
+.checkout-link-cursor{
+    cursor: pointer;
+}
+/*Checkout page*/
+
+/*Profile page*/
+div#profile-partial .fa-check {
+    color: #19a032;
+}
+
+#profileForm fieldset {
+    margin-bottom: 2rem;
+}
+/*Profile page*/
+
+/* basket formatting */
+
+div.basket-view {
+    margin-top: 20px; }
+div.basket-view h2 {
+    margin-top: 0px;
+    margin-bottom: 0px; }
+div.basket-view  span.expires-in {
+    color: #666;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+div.basket-view-wrapper {
+    padding-bottom: 10px;  }
+
+.basket-view span {
+    display: block;
+    font-size: 20px;
+}
+
+.basket-view i {
+    text-transform: none;
+    color: #666;
+}
+
+.basket-view button {
+    margin-top: 20px;
+}
+
+.sho-float-right {
+    display:block;
+    float:right!important;
+}
+
+.basket-summary {
+    margin-top: 20px;
+    margin-right: 50px;
+}
+/* basket formatting */
+
+/*Pricechart*/
+#chart-container {
+    position: relative;
+}
+
+.ct-chart {
+    margin: 25px 0;
+}
+
+.ct-series-a .ct-area {
+    fill: #70c5f6;
+    fill-opacity: 1;
+}
+
+.ct-series-b .ct-area {
+    fill: #1c2b3a;
+    fill-opacity: 1;
+}
+
+.ct-series-c .ct-area {
+    fill: #1c7293;
+    fill-opacity: 1;
+}
+
+.ct-label {
+    font-size: 0.6rem;
+    color: #333;
+    fill: #333;
+}
+
+.ct-green-label {
+    font-size: 0.6rem;
+    color: #333;
+    fill: #333;
+}
+/*Pricechart*/
+
+/*Account page*/
+
+#order-detail-partial .panel {
+    -webkit-box-shadow: none; 
+    box-shadow: none;     }
+
+#order-detail-partial .panel-primary {
+    border-width: 0px;
+}
+
+#order-detail-partial .panel-heading {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: inherit;
+    color: #333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#order-detail-partial .panel-body {
+    padding-left: 0;
+    padding-right: 0; }
+
+#order-detail-partial .light-underline {
+    border-bottom: #e5e5e5 1px solid;
+}
+
+#order-detail-partial .dark-underline {
+    border-bottom: #333 1px solid;
+}
+
+#order-detail-partial .double-underline {
+    border-bottom: #333 double;
+}
+
+#order-detail-partial .summary-box {
+    background-color: #eee;
+    overflow: visible;
+}
+
+.creditapplication-panel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e5e5e5;
+    padding: 15px;
+}
+/*Account page*/
+
+/* product listing formatting */
+
+div.product-listings {
+    margin-top: 20px; }
+div.product-listings h2 {
+    margin-top: 0px;
+    margin-bottom: 0px; }
+div.product-listings  span.expires-in {
+    color: #666;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+div.product-listings > div.product-listing-wrapper {
+    padding-top: 30px;
+    border-style: dotted;
+    border-color: #d8d8d8;
+    border-width: 1px 0 0; }
+div.product-listings > div.product-listing-wrapper:last-child {
+    border-bottom-width: 0px; }
+
+/* product page formatting */
+
+span.expires-in i {
+    display: block;
+    font-style: normal;
+    font-size: 20px;
+}
+
+.product-pricing {
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.product-pricing div[class*='col-'] {
+    margin-bottom: 20px;}
+
+.product-pricing label {
+    font-weight: normal;
+    margin-bottom: 0px;
+    color: #666;
+}
+
+.product-pricing span {
+    display: block;
+    font-size: 20px;
+}
+
+.product-pricing #chart-container span {
+    font-size: 12px !important;
+}
+
+.product-pricing i {
+    text-transform: none;
+    color: #666;
+}
+
+.product-pricing button {
+    margin-top: 20px;
+}
+
+.product-specification col.row-label {
+    background-color: #f4f4f4;
+}
+
+.product-specification > tbody > tr > td {
+    border-top-style: dotted;
+}
+
+.product-specification > tbody > tr > td:first-child {
+    padding-right: 40px;
+}
+
+.pricechartmargin .ct-chart{
+    margin : 0px !important ;
+}
+
+.defaultheight{
+    height: 50px !important;
+}
+
+.wordWrapTableContent {
+    word-break: break-all;
+}

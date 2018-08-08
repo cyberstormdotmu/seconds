@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Main log file -->
+	<appender name="BOT_LOG" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"   value="@LOG_DIRECTORY@bot.log" />
+		<param name="Append" value="false" />	    	
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %t %-5p %c{4} - %m%n"/>
+		</layout>	    
+	</appender>	
+	
+	<!-- Protocol verification Log -->
+	<appender name="VERIFICATION_LOG" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"   value="@LOG_DIRECTORY@verification.log" />
+		<param name="Append" value="false" />	    	
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %t %-5p %c{4} - %m%n"/>
+		</layout>	    
+	</appender>
+	
+	<!-- JBoss TreeCache Log -->
+	<appender name="CACHE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"   value="@LOG_DIRECTORY@cache.log" />
+		<param name="Append" value="false" />	    	
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %t %-5p %c{4} - %m%n"/>
+		</layout>	    
+	</appender>
+	
+	<!-- STDOUT, minimize the use of this -->
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %C{1} - %m%n"/>
+			<!--param name="ConversionPattern" value="%d %-5p [%t] %C{1} (%F:%L) - %m%n"/-->
+		</layout>		
+	</appender>
+
+	<category name="org.mortbay">
+		<priority value="info"/>
+		<appender-ref ref="BOT_LOG"/>
+	</category>
+	
+	<category name="com.game" additivity="false">
+		<priority value="debug"/>
+		<appender-ref ref="BOT_LOG"/>
+		<appender-ref ref="STDOUT"/>
+	</category>
+
+	<category name="com.cubeia" additivity="false">
+		<priority value="info"/>
+		<appender-ref ref="BOT_LOG"/>
+		<appender-ref ref="STDOUT"/>
+	</category>
+	
+	<category name="com.cubeia.bots.mahjong" additivity="false">
+		<priority value="debug"/>
+		<appender-ref ref="BOT_LOG"/>
+		<appender-ref ref="STDOUT"/>
+	</category>
+	
+
+	<category name="org.jboss" additivity="false">
+		<priority value="warn"/>
+		<appender-ref ref="CACHE"/>
+	</category>
+	
+	<category name="org.jgroups">
+		<priority value="warn"/>
+		<appender-ref ref="CACHE"/>
+	</category>
+	
+	<category name="org.apache" additivity="false">
+		<priority value="warn"/>
+		<appender-ref ref="BOT_LOG"/>
+		<appender-ref ref="STDOUT"/>
+	</category>
+
+	<root>
+	  <priority value="info"/>
+	  <appender-ref ref="BOT_LOG"/>
+	  <appender-ref ref="STDOUT"/>
+	</root>
+	
+</log4j:configuration>

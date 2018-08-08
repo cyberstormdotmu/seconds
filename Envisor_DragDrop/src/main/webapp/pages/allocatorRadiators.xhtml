@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head></h:head>
+<h:body onload="onpageLoadTableUpdate()">
+	<ui:composition template="commonLayout.xhtml"> 
+		<ui:define name="head">
+		</ui:define>
+		<ui:define name="content">
+			<h:form id="form">
+				<p:growl id="saveGrowl" showDetail="true" sticky="false" life="2000" />
+				<h:outputText value="&#160;" />
+				<p:panel header="Pay Ölçerler" style="max-width: 1280px">
+					<h:panelGrid columns="2" width="101%" rowClasses="valignTop">
+						<p:row>
+							<h:outputLabel value="Bir Dağıtım Hattı Seçiniz:"
+								for="dropDownAutoCompleteDistLine" />
+							<p:autoComplete id="dropDownAutoCompleteDistLine" dropdown="true"
+								value="#{allocatorRadiatorBean.distributionLineAutoCompleteString}"
+								completeMethod="#{allocatorRadiatorBean.distributionLineAutoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect"
+									listener="#{allocatorRadiatorBean.onDistributionLineSelect}"
+									update="allocatorsTable"/>
+							</p:autoComplete>
+							<h:outputLabel value="Bir Daire Seçiniz:"
+								for="dropDownAutoCompleteFlat" />
+							<p:autoComplete id="dropDownAutoCompleteFlat" dropdown="true"
+								value="#{allocatorRadiatorBean.flatAutoCompleteString}"
+								completeMethod="#{allocatorRadiatorBean.flatAutoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect"
+									listener="#{allocatorRadiatorBean.onFlatSelect}"
+									update="allocatorsTable" />
+
+							</p:autoComplete>
+							<h:outputLabel value="Bir Oda Seçiniz:"
+								for="dropDownAutoComplete" />
+							<p:autoComplete id="dropDownAutoComplete" dropdown="true"
+								value="#{allocatorRadiatorBean.autocompleteString}"
+								completeMethod="#{allocatorRadiatorBean.autoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect"
+									listener="#{allocatorRadiatorBean.onSelect}"
+									update="allocatorsTable" />
+
+							</p:autoComplete>
+							<p:commandButton id="allocatorSave" value="Pay Ölçer Ekle"
+								onclick="PF('allocatorConsole').show();" type="button" />
+						</p:row>
+					</h:panelGrid>
+					<p:row>
+						<p:dataTable id="allocatorsTable" var="allocator"
+							widgetVar="allocatorsTableWidget"
+							value="#{allocatorRadiatorBean.heatCostAllocators}"
+							rowKey="#{allocator.id}" rows="15"
+							emptyMessage="Aradığınız kriterlere uygun pay ölçer bulunmamaktadır"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="15,30,45" lazy="false"
+							selection="#{allocatorRadiatorBean.selectedHeatCostAllocator}"
+							selectionMode="single">
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Tüm alanlarda ara:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('allocatorsTableWidget').filter()"
+										style="width:150px" placeholder="Ara" />
+								</p:outputPanel>
+							</f:facet>
+							<p:column headerText="Sıra no" sortBy="#{allocator.serialNo}"
+								filterBy="#{allocator.serialNo}">
+								<h:outputText value="#{allocator.serialNo}" />
+							</p:column>
+							<p:column headerText="Radyatör Markası"
+								sortBy="#{allocator.radiatorBrand}"
+								filterBy="#{allocator.radiatorBrand}">
+								<h:outputText value="#{allocator.radiatorBrand}" />
+							</p:column>
+							<p:column headerText="Radyatör Tipi"
+								sortBy="#{allocator.radiatorType}"
+								filterBy="#{allocator.radiatorType}">
+								<h:outputText value="#{allocator.radiatorType}" />
+							</p:column>
+							<p:column headerText="Kges" sortBy="#{allocator.kges}"
+								filterBy="#{allocator.kges}">
+								<h:outputText value="#{allocator.kges}" />
+							</p:column>
+							<p:column style="width:4%" exportable="false">
+								<p:commandButton id="selectButton"
+									onclick="PF('deleteAllocatorDialog').show();"
+									icon="ui-icon-close" title="Sil">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</p:row>
+
+					<p:dialog widgetVar="deleteAllocatorDialog" header="Dikkat!"
+						align="center" global="true" style="text-align:center;"
+						width="230px" resizable="false">
+						<p:column width="230px" style="text-align:center;">
+							<h:outputText width="230px" style="text-align:center;"
+								value="Pay Ölçeryı Sildiğinizde xx........ silmiş olursunuz" />
+							<br></br>
+							<h:outputText width="230px"
+								value="Pay Ölçeryı Silmek istediğinize emin misiniz" />
+
+						</p:column>
+						<br></br>
+						<br></br>
+						<p:commandButton value="Evet" styleClass="ui-confirmdialog-yes"
+							action="#{allocatorRadiatorBean.deleteWithRelations()}"
+							immediate="true" oncomplete="PF('deleteAllocatorDialog').hide();"
+							icon="ui-icon-check"
+							update=":form:allocatorsTable, :form:saveGrowl" />
+						<p:commandButton value="Hayır" styleClass="ui-confirmdialog-no"
+							onclick="PF('deleteAllocatorDialog').hide();"
+							icon="ui-icon-close" />
+					</p:dialog>
+
+					<p:dialog id="allocatorDialog" width="700px"
+						header="Pay Ölçer Ekleme " widgetVar="allocatorConsole"
+						modal="true">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputLabel value="Daire Seçiniz:" for="flatToAdd" />
+							<p:autoComplete id="flatToAdd" dropdown="true"
+								value="#{allocatorRadiatorBean.flatAutoCompleteString}"
+								completeMethod="#{allocatorRadiatorBean.flatAutoComplete}"
+								style="margin-right:50px;">
+								<p:ajax event="itemSelect"
+									listener="#{allocatorRadiatorBean.onFlatSelect}" />
+							</p:autoComplete>
+
+							<h:outputText id="roomText" value="Pay Ölçer Eklenecek Oda: " />
+							<p:autoComplete id="roomToAdd" dropdown="true"
+								value="#{allocatorRadiatorBean.roomToBindHeatCostAllocator}"
+								completeMethod="#{allocatorRadiatorBean.autoComplete}">
+
+							</p:autoComplete>
+							<h:outputText id="allocatorOrderText" value="Pay Ölçer Seri No:" />
+							<p:inputText id="allocatorOrderInput"
+								value="#{allocatorRadiatorBean.serialNo}" />
+							<h:outputText id="radiatorBrandText" value="Radyatör Markası" />
+							<p:inputText id="radiatorBrandInput"
+								value="#{allocatorRadiatorBean.radiatorBrand}" />
+							<h:outputText id="radiatorTypeText" value="Radyatör Tipi" />
+							<p:inputText id="radiatorTypeInput"
+								value="#{allocatorRadiatorBean.radiatorType}" />
+							<h:outputText id="kgesText" value="kges" />
+							<p:inputText id="kgesInput" value="#{allocatorRadiatorBean.kges}" />
+							<h:outputText id="measurementText" value="Radyatör Ölçüm" />
+							<p:inputText id="measurementInput"
+								value="#{allocatorRadiatorBean.measurement}" />
+							<p:commandButton id="saveAllocatorButton"
+								value="Pay Ölçeri  Ekle"
+								actionListener="#{allocatorRadiatorBean.bindHeatCostAllocator()}"
+								oncomplete="PF('allocatorConsole').hide();"
+								update=":form:saveGrowl,allocatorsTable" />
+						</h:panelGrid>
+					</p:dialog>
+
+
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

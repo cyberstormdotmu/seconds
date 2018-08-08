@@ -1,0 +1,11 @@
+-cp src
+
+--no-traces
+
+-swf ../server/war/resources/flash/epooqClient.swf
+
+-main EpooqClient
+
+-swf-header 800:600:24:FFFFFF
+
+-swf-version 11.2

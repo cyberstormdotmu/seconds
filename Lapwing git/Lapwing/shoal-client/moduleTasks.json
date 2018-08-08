@@ -1,0 +1,77 @@
+{
+  "config": {
+    "copy": {
+      "src": {
+        "expand": true,
+        "cwd": "<%= moduleName %>/",
+        "src": [
+          "**/*.*", "!*gruntfile.js"
+        ],
+        "dest": "<%= buildPath %>/"
+      },
+      "assets": {
+        "expand": true,
+        "cwd": "assets/",
+        "src": "**/*",
+        "dest": "<%= buildPath %>/assets/"
+      }
+    },
+    "concat": {
+      "options": {
+        "separator": "\n",
+        "stripBanners": true
+      },
+      "css": {
+        "src": [
+          "<%= moduleName %>/**/*.css"
+        ],
+        "dest": "<%= buildPath %>/<%= moduleName %>.css"
+      }
+    },
+    "ngAnnotate": {
+      "options": {
+        "remove": true,
+        "add": true,
+        "singleQuotes": true
+      },
+      "src": {
+        "files": [
+          {
+            "expand": true,
+            "src": [
+              "<%= buildPath %>/**/*.js",
+              "!<%= buildPath %>/**/*.min.js"
+            ]
+          }
+        ]
+      }
+    },
+    "uglify": {
+      "scripts": {
+        "options": {
+          "sourceMap": true,
+          "mangle": false,
+          "sourceMapName": "<%= buildPath %>/<%= moduleName %>.min.js.map",
+          "report": "min"
+        },
+        "src": [
+          "<%= buildPath %>/**/*Module.js",
+          "<%= buildPath %>/**/*.js",
+          "!<%= buildPath %>/**/*min.js"
+        ],
+        "dest": "<%= buildPath %>/<%= moduleName %>.min.js"
+      }
+    },
+    "watch": {
+      "scripts": {
+        "files": ["<%= moduleName %>/**/*", "test/<%= moduleName %>/**/*"],
+        "tasks": ["default"],
+        "options": {
+          "spawn": false,
+          "livereload": false
+        }
+      }
+    }
+  },
+  "tasks": ["copy", "concat", "ngAnnotate", "uglify"]
+}

@@ -1,0 +1,30 @@
+INSERT INTO USER_ROLES (USER_ID, ROLE_ID)
+VALUES (
+  (SELECT ID
+   FROM USERS
+   WHERE USER_NAME = 'tom@bosl.co.uk'),
+  'BUYER'
+);
+
+
+INSERT INTO USER_ROLES (USER_ID, ROLE_ID)
+VALUES (
+  (SELECT ID
+   FROM USERS
+   WHERE USER_NAME = 'melissa@niddhoney.co.uk'),
+  'BUYER'
+);
+
+
+INSERT INTO USER_ROLES (USER_ID, ROLE_ID)
+VALUES (
+  (SELECT ID
+   FROM USERS
+   WHERE USER_NAME = 'demo@the-shoal.com'),
+  'BUYER'
+);
+
+
+
+
+

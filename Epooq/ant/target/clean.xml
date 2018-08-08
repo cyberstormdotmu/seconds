@@ -1,0 +1,16 @@
+<project>
+
+	<import file="../common.xml"/>
+
+	<target name="clean">
+		<echo message="CLEAN"/>
+
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${bin.dir}" includes="**/*" />
+			<fileset dir="${dist.dir}" includes="**/*" />
+			<fileset dir="${doc.dir}" includes="**/*" />
+			<fileset dir="${test.dir}" includes="**/*" />
+		</delete>
+	</target>
+
+</project>

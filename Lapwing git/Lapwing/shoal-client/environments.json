@@ -1,0 +1,46 @@
+{
+  "configFilePath": "shared/config.js",
+  "config": {
+    "options": {
+      "space": "  ",
+      "wrap": "\"use strict\";\n\n {%= __ngModule %}",
+      "name": "shoal.config"
+    },
+    "dev": {
+      "options": {
+        "dest": "<%= buildParms.distPath %>/dev/<%= configFilePath %>"
+      },
+      "constants": {
+        "ENV": {
+          "name": "dev",
+          "webServiceUrl": "http://localhost:8443/ws",
+          "stripeApiKey": "pk_test_zeBbFTBJBmshI2mJ9o93pYQS"
+        }
+      }
+    },
+    "ci": {
+      "options": {
+        "dest": "<%= buildParms.distPath %>/ci/<%= configFilePath %>"
+      },
+      "constants": {
+        "ENV": {
+          "name": "ci",
+          "webServiceUrl": "https://localhost/ws",
+          "stripeApiKey": "pk_test_zeBbFTBJBmshI2mJ9o93pYQS"
+        }
+      }
+    },
+    "demo": {
+      "options": {
+        "dest": "<%= buildParms.distPath %>/demo/<%= configFilePath %>"
+      },
+      "constants": {
+        "ENV": {
+          "name": "demo",
+          "webServiceUrl": "https://demo.the-shoal.com/ws",
+          "stripeApiKey": "pk_test_zeBbFTBJBmshI2mJ9o93pYQS"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype>
+  <id>firebase-bots-archetype</id>
+  <sources>
+  	<source>src/main/java/BotImpl.java</source>
+  </sources>
+  <resourse>
+  	<source>src/main/resources/bot.html</source>
+  </resourse>
+</archetype>

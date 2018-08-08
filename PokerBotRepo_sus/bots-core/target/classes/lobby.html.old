@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	
+	<h1>Start Test Game batch</h1>
+	
+	<form action="batch/start" method="get">
+	    <p>
+	    
+	    <table>
+	    	<tr>
+	    		<td><label for="url">URL or IP: </label></td>
+	    		<td><input type="text" name="url" id="url"/><br></td>
+	    	</tr>
+	    	
+	    	<tr>
+	    		<td><label for="port">Port: </label></td>
+	    		<td><input type="text" name="port" id="port"/></td>
+	    	</tr>
+	    	
+	    	
+	    	
+	    	<!-- STANDARD PARAMETERS -->
+
+	    	<tr>
+	    		<td><label for="requested">Number of bots: </label></td>
+	    		<td><input type="text" name="requested" id="requested"/></td>
+	    	</tr>
+
+	    	<tr>
+	    		<td><label for="gameId">Game ID: </label></td>
+	    		<td><input type="text" name="gameId" id="gameId"/></td>
+	    	</tr>
+	    	
+
+
+	    </table>
+	    
+	   	<input type="hidden" name="aiclass" value="com.cubeia.firebase.bot.ai.impl.lobby.LobbyAI"/>
+	   	
+	   	<input type="submit" value="start!"/> <input type="reset"/>
+	   	
+	</form>
+
+</html>

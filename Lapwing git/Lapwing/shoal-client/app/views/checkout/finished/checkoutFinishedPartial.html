@@ -1,0 +1,9 @@
+<div class="row">
+    <div id="checkout-order-confirmation" class="col-xs-12" ng-if="vm.order.orderReference">
+        <h2>Your order has been submitted for processing.</h2>
+        <h2>Your order reference is {{ vm.order.orderReference }}.</h2>
+    </div>
+</div>
+<div class="row checkout-action-buttons">
+    <div id="checkout-continue-shopping-button" class="col-xs-1"><a class="btn btn-default" ng-href="#/products">Continue Shopping</a></div>
+</div>

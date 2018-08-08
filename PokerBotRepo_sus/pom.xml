@@ -1,0 +1,162 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.cubeia.firebase.bots</groupId>
+	<artifactId>firebase-bots-root</artifactId>
+	<packaging>pom</packaging>
+	<name>Cubeia Firebase Bots</name>
+	<version>1.17-SNAPSHOT</version>
+	<url>http://www.cubeia.com</url>
+	  
+	<organization>
+		<name>Cubeia Ltd</name>
+		<url>http://www.cubeia.com/</url>
+	</organization>
+	
+	<properties>
+		<firebase-version>1.10.1-BETA2</firebase-version>
+        <jetty-version>9.1.1.v20140108</jetty-version>
+	</properties>
+	
+	<modules>
+		<module>bots-core</module>
+		<module>firebase-bots-maven-plugin</module>
+		<module>firebase-bots-archetype</module>
+	</modules>
+	
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+		<configuration>
+			<useReleaseProfile>false</useReleaseProfile>
+			<updateBranchVersions>true</updateBranchVersions>
+			<updateWorkingCopyVersions>true</updateWorkingCopyVersions>
+			<autoVersionSubmodules>true</autoVersionSubmodules>
+			<preparationGoals>clean install</preparationGoals> 
+
+		</configuration>
+            </plugin>
+            
+            <!--
+         	<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                  <attach>true</attach>
+                </configuration>
+                <executions>
+                  <execution>
+                    <id>attach-sources</id>
+                    <phase>${attachPhase}</phase>
+                    <goals>
+                      <goal>jar</goal>
+                    </goals>
+                  </execution>
+                </executions>
+              </plugin>
+              -->
+              
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <inherited>true</inherited>  
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>install</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals> 
+					</execution>
+				</executions>
+			</plugin>
+				    
+			<plugin> 
+				<artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <inherited>true</inherited>  
+				<executions> 
+					<execution> 
+						<id>attach-javadocs</id>
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals> 
+					</execution> 
+				</executions> 
+			</plugin>
+				    
+			<plugin> 
+				<!-- explicitly define maven-deploy-plugin after other to force exec order -->
+				<artifactId>maven-deploy-plugin</artifactId> 
+                <version>2.7</version>
+                <inherited>true</inherited>  
+				<executions> 
+					<execution> 
+						<id>deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals> 
+					</execution> 
+				</executions> 
+			</plugin>
+				    
+		</plugins>
+	</build>
+	
+	
+	<scm>
+		<connection>scm:hg:https://bitbucket.org/cubeia/firebase-bots</connection>
+		<developerConnection>scm:hg:https://bitbucket.org/cubeia/firebase-bots</developerConnection>
+	  <tag>HEAD</tag>
+  </scm>
+    
+	<distributionManagement>
+		<repository>
+			<id>cubeia-nexus</id>
+			<name>Internal Release Repository</name>
+			<url>http://m2.cubeia.com/nexus/content/repositories/foss-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>cubeia-nexus</id>
+			<name>Internal Snapshot Repository</name>
+			<url>http://m2.cubeia.com/nexus/content/repositories/foss-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>cubeia-nexus</id>
+			<url>http://m2.cubeia.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>cubeia-nexus</id>
+			<url>http://m2.cubeia.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

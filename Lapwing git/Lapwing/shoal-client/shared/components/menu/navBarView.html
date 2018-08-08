@@ -1,0 +1,29 @@
+<div id="nav-wrapper">
+    <div class="container">
+        <nav role="navigation" class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-repeat="item in my.menuItems" ui-sref-active="active" >
+                        <a ui-sref="{{item.state}}" class="menu-link">{{item.name}}</a>
+                        <!--
+                        <a ng-click="my.goto(item)" class="menu-link">{{item.name}}</a>
+                        -->
+                    </li>
+                </ul>
+                <ul ng-if="my.rightMenuItems.length > 0" class="nav navbar-nav navbar-right">
+                    <li ng-repeat="item in my.rightMenuItems" ng-class="{ 'active': item.active === true }">
+                        <a ui-sref="{{item.state}}">{{item.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

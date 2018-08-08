@@ -1,0 +1,16 @@
+<div>
+    <p ng-message="required" class="text-danger">
+        <small>Please enter quantity</small>
+    </p>
+    <p ng-message="integer" class="text-danger">
+        <small>The quantity must be a whole number</small>
+    </p>
+    <p ng-message="min" class="text-danger">
+        <small>Value cannot be less than 1</small>
+    </p>
+    <p ng-message="max" class="text-danger">
+        <small ng-show="vm.product.stock != 0 && vm.product.stock > maximumProductOrderLimit">Value cannot be greater than {{maximumProductOrderLimit}}.</small>
+        <small ng-hide="vm.product.stock != 0 && vm.product.stock > maximumProductOrderLimit">Value cannot be greater than available stock.</small>
+        <small ng-show="vm.product.stock == 0">Stock Not Available</small>
+    </p>
+</div>

@@ -1,0 +1,21 @@
+###
+#
+# Config file for the auto load test server
+#
+###
+
+# Hostname
+url=localhost
+# Tcp port
+port=4123
+
+# Number of BOTS in test scenario
+requested=100
+# Number of iterations in load algorithm
+loadIterations=2
+# ai class
+
+aiclass=2
+mode=0
+slogin=0
+

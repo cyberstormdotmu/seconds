@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ishoal.ws.buyer.controller.RegistrationControllerTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.062 sec - in com.ishoal.ws.buyer.controller.RegistrationControllerTest

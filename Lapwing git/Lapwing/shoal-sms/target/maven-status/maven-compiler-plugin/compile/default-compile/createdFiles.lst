@@ -1,0 +1,5 @@
+com\ishoal\sms\config\ShoalSmsConfiguration.class
+com\ishoal\sms\dummy\LoggingSmsService.class
+com\ishoal\sms\config\ShoalSmsBeanConfiguration.class
+com\ishoal\sms\textmagic\TextMagicSmsService.class
+com\ishoal\sms\SmsService.class

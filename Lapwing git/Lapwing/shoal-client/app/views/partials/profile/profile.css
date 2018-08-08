@@ -1,0 +1,18 @@
+div#profile-partial .fa-check {
+    color: #19a032;
+}
+
+#profileForm fieldset {
+    margin-bottom: 2rem;
+}
+#sho-required-field-icon {
+	line-height: 14px;
+	font-size: 1.30em !important;
+	font-weight: bold;
+    color: #ff0000; 
+}
+.info {
+	color: #898989;
+	padding-left: 10px;
+	position: relative;
+}

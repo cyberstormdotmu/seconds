@@ -1,0 +1,94 @@
+<div class="content-wrap">
+<div id="main-content" class="container">
+
+    <div id="left-column" class="col-sm-12">
+        <div class="row">
+            <div class="pull-right">
+                <button class="btn btn-default btn-xs" id="refresh" ng-click="vm.refresh()"><span
+                        class="fa fa-refresh" aria-hidden="true"></span> Refresh
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <uib-tabset>
+                <uib-tab heading="Pending Silverwing Credit Withdraw Requests">
+              <table class="table table-striped table-responsive table-hover table-headings">
+                  <thead>
+                  <tr>
+                      <th style="display: none;">Withdraw Id</th>
+                      <th>Buyer Name</th>
+                      <th>Requested Amount</th>
+                      <th>Requested Date</th>
+                      <th class="text-center">Action</th>
+                  </tr>
+                  </thead>
+              
+                  <tbody>
+                  <tr ng-repeat="unconfirmedCreditWithdrawRequest in vm.unconfirmedCreditWithdrawRequests">
+                      <td style="display: none;">{{ unconfirmedCreditWithdrawRequest.id }}</td>
+                      <td>{{ unconfirmedCreditWithdrawRequest.buyer.user.username }}</td>
+                      <td>{{ unconfirmedCreditWithdrawRequest.requestedAmount }}</td>
+                      <td>{{ unconfirmedCreditWithdrawRequest.requestedDate | date:'dd/MM/yyyy' }}</td>
+                      <td class="text-center">
+                          <div class="btn-group" uib-dropdown>
+                              <button id="registrations-authorise-{{ unconfirmedCreditWithdrawRequest.buyer.emailAddress }}" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle><span
+                                      class="fa fa-flash" aria-hidden="true"></span> Actions <span
+                                      class="caret"></span></button>
+                              <ul class="uib-dropdown-menu" role="menu">
+                                        <li role="menuitem"><a id="registrations-confirm-{{ unconfirmedCreditWithdrawRequest.buyer.emailAddress }}" ng-click="vm.recordPayment(unconfirmedCreditWithdrawRequest)">Record Payment</a></li>
+                                        <li role="menuitem"><a id="registrations-reject-{{ unconfirmedCreditWithdrawRequest.buyer.emailAddress }}" ng-click="vm.cancelCreditWithdrawCredit(unconfirmedCreditWithdrawRequest)">Cancel Withdraw Request</a></li>
+                              </ul>
+                          </div>
+                      </td>
+                  </tr>
+                  </tbody>
+              </table>
+                </uib-tab>
+                <uib-tab heading="Confirmed Silverwing Credit Withdraw Requests">
+              <table class="table table-striped table-responsive table-hover table-headings">
+                  <thead>
+                  <tr>
+                      <th style="display: none;">Withdraw Id</th>
+                      <th>Buyer Name</th>
+                      <th>Requested Amount</th>
+                      <th>Accepted Date</th>
+                  </tr>
+                  </thead>
+              
+                  <tbody>
+                  <tr ng-repeat="confirmedCreditWithdrawRequest in vm.confirmedCreditWithdrawRequests">
+                            <td style="display: none;">{{ confirmedCreditWithdrawRequest.id }}</td>
+                      <td>{{ confirmedCreditWithdrawRequest.buyer.user.username }}</td>
+                      <td>{{ confirmedCreditWithdrawRequest.requestedAmount }}</td>
+                      <td>{{ confirmedCreditWithdrawRequest.confirmedDate | date:'short' }}</td>
+                  </tr>
+                  </tbody>
+              </table>
+                </uib-tab>
+                <uib-tab heading="Cancelled Silverwing Credit Withdraw Requests">
+              <table class="table table-striped table-responsive table-hover table-headings">
+                  <thead>
+                  <tr>
+                      <th style="display: none;">Withdraw Id</th>
+                      <th>Buyer Name</th>
+                      <th>Requested Amount</th>
+                      <th>Rejected Date</th>
+                  </tr>
+                  </thead>
+              
+                  <tbody>
+                  <tr ng-repeat="cancelledCreditWithdrawRequest in vm.cancelledCreditWithdrawRequests">
+                            <td style="display: none;">{{ cancelledCreditWithdrawRequest.id }}</td>
+                      <td>{{ cancelledCreditWithdrawRequest.buyer.user.username }}</td>
+                      <td>{{ cancelledCreditWithdrawRequest.requestedAmount }}</td>
+                      <td>{{ cancelledCreditWithdrawRequest.confirmedDate | date:'short' }}</td>
+                  </tr>
+                  </tbody>
+              </table>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>
+</div>

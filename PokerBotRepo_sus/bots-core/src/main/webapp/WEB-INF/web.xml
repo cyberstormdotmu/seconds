@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app
+   PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+   "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+  <description>Bot Server</description>
+
+  <servlet>
+    <servlet-name>StartBatch</servlet-name>
+    <servlet-class>
+      com.game.poker.pokerbots.server.http.StartBatchServlet
+    </servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ViewBatches</servlet-name>
+    <servlet-class>
+      com.game.poker.pokerbots.server.http.ViewBatchesServlet
+    </servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>StopBatch</servlet-name>
+    <servlet-class>
+      com.game.poker.pokerbots.server.http.StopBatchServlet
+    </servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CacheInfo</servlet-name>
+    <servlet-class>
+      com.game.poker.pokerbots.server.http.CacheInfoServlet
+    </servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>BotControlViewBatches</servlet-name>
+    <servlet-class>
+      com.game.poker.pokerbots.server.http.BotControlViewBatchesServlet
+    </servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>BotControlCacheInfo</servlet-name>
+    <servlet-class>
+      com.game.poker.pokerbots.server.http.BotControlCacheInfoServlet
+    </servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>StartBatch</servlet-name>
+    <url-pattern>batch/start</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ViewBatches</servlet-name>
+    <url-pattern>batch/view</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>StopBatch</servlet-name>
+    <url-pattern>batch/stop</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CacheInfo</servlet-name>
+    <url-pattern>cache/info</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BotControlViewBatches</servlet-name>
+    <url-pattern>botcontrol/batch/view</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BotControlCacheInfo</servlet-name>
+    <url-pattern>botcontrol/cache/info</url-pattern>
+  </servlet-mapping>
+</web-app>

@@ -1,0 +1,39 @@
+/* basket formatting */
+
+div.basket-view {
+    margin-top: 20px; }
+div.basket-view h2 {
+    margin-top: 0px;
+    margin-bottom: 0px; }
+div.basket-view  span.expires-in {
+    color: #666;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+div.basket-view-wrapper {
+    padding-bottom: 10px;  }
+
+.basket-view span {
+    display: block;
+    font-size: 20px;
+}
+
+.basket-view i {
+    text-transform: none;
+    color: #666;
+}
+
+.basket-view button {
+    margin-top: 20px;
+}
+
+.sho-float-right {
+    display:block;
+    float:right!important;
+}
+
+.basket-summary {
+    margin-top: 20px;
+    margin-right: 50px;
+}

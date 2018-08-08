@@ -1,0 +1,126 @@
+<div id="credits-partial">
+    <div class="row">
+        <div id="open-orders" class="col-xs-12">
+            <uib-tabset active="activeForm">
+                <uib-tab index="0" heading="Your Credits">
+                    <div class="row">
+                        <div class="col-xs-12">You earn Credits on the orders you have placed whenever the price curve moves during an offer period.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                         <h2>Supplier Credit</h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h3>Pending Credit</h3>
+                                    <h3>{{ vm.creditBalances.lapwingCredits.pendingCreditBalance | currency }}</h3>
+                                    <p>These are credits on orders that are awaiting payment from you.</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h3>Credit Available</h3>
+                                    <h3>{{ vm.creditBalances.lapwingCredits.availableCreditBalance | currency }}</h3>
+                                    <p>You can spend these credits on new orders during checkout. You can also request to withdraw these credits.</p>
+                                </div>
+                                <!-- <div class="col-sm-4">
+                                    <h3>Redeemable Credit</h3>
+                                    <h3>{{ vm.creditBalances.lapwingCredits.redeemableCreditBalance | currency }}</h3>
+                                    <p>You can withdraw these credits using credit withdraw request.</p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                     <!-- <div class="row" ng-show="registrationTokenDisableBasketIcon !== 'CONFIRM'"> -->
+                     <div class="row" ng-hide="true">
+                        <div  ng-show="vm.creditBalances.vendorCredits.length > 0" class="col-xs-12">
+                         <h2>Supplier Credit</h2>
+                          <div class="row" >
+                                <div class="col-sm-4">
+                                    <h3>Supplier Name</h3>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h3>Total Credit</h3>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h3>Available Credit</h3>
+                                </div>
+                            </div>
+                            <div class="row" ng-repeat="vendors in vm.creditBalances.vendorCredits">
+                                <div class="col-sm-4">
+                                    <h3>{{ vendors.vendorName }}</h3>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h3>{{ vendors.totalCredits | currency}}</h3>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h3>{{ vendors.availableCredits | currency}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="1" heading="Withdraw Silverwing Credit">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-1">
+                                <h2>Available Credit</h2>
+                                <h3>{{ vm.creditBalances.lapwingCredits.availableCreditBalance | currency }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <form id="creditWithdrawForm" class="form-horizontal" sho-mark-required-fields role="form" name="creditWithdrawForm" ng-submit="creditWithdrawForm.$valid && vm.saveCreditWithdrawInformation()">
+                            <div class="alert alert-danger" ng-show="vm.creditWithdrawForm.isError">
+                                There was a problem saving your details. Please try again.
+                                <br />
+                            </div>
+                            <div id="creditWithdrawForm-accepted" class="alert alert-success" ng-show="vm.creditWithdrawForm.isCompleted && vm.creditWithdrawForm.isSaved">
+                                Your Credit Withdraw request was submitted successfully.
+                                <br />
+                            </div>
+
+                            <div ng-if="vm.creditBalances.lapwingCredits.availableCreditBalance > 0">
+                                <div class="col-xs-12">
+                                    <label class="col-xs-3 control-label" for="creditToWithdraw"> Credits to Withdraw:</label>
+                                    <div class="form-group" sho-highlight-errors>
+                                        <div ng-if="vm.creditBalances.lapwingCredits.availableCreditBalance > 0" class="input-group">
+                                            <span class="input-group-addon">&pound;</span>
+                                            <input ng-model="vm.creditWithdrawForm.creditToWithdraw" name="credit_to_withdraw"
+                                                   class="form-control input-sm text-right" type="number" min="1"
+                                                   max="{{ vm.creditBalances.lapwingCredits.availableCreditBalance }}" required/>
+                                        </div>
+                                        <div class="help-block" ng-messages="creditWithdrawForm.credit_to_withdraw.$error">
+                                            <p ng-message="required" class="text-danger">
+                                                <small>An amount is required</small>
+                                            </p>
+                                            <p ng-message="integer" class="text-danger">
+                                                <small>An enter valid amount</small>
+                                            </p>
+                                            <p ng-message="min" class="text-danger">
+                                                <small>The amount cannot be less than &pound;0</small>
+                                            </p>
+                                            <p ng-message="max" class="text-danger">
+                                                <small>The amount cannot be greater than {{ vm.creditBalances.lapwingCredits.availableCreditBalance | currency }}
+                                                </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" class="col-xs-3" style="padding-bottom: 15px;">
+                                    <button type="submit" class="btn btn-success pull-right" ng-show="vm.creditWithdrawForm.creditToWithdraw !== 0" ng-disabled="!creditWithdrawForm.$valid" sho-validate-on-click>
+                                        <span>Withdraw Silverwing Credit</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

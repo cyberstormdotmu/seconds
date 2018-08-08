@@ -1,0 +1,40 @@
+<ng-form id="addressesStepForm" name="vm.addressesStepForm">
+<div class="row">
+    <div class="col-xs-6">
+        <div class="checkout-panel">
+            <div class="row"><div class="col-xs-12"><h3>Invoice Address</h3></div></div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div sho-address-picker addresses="vm.addresses" selected-address="vm.order.invoiceAddress" selected-address-key="vm.invoiceAddressKey"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="checkout-panel">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Delivery Address</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div sho-address-picker addresses="vm.addresses" selected-address="vm.order.deliveryAddress" selected-address-key="vm.deliveryAddressKey"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row checkout-action-buttons">
+    <div class="col-xs-1"><a class="btn btn-default" ui-sref="checkout.basket"><i><span
+            class="fa fa-chevron-left"></span></i> Back a Step</a>
+    </div>
+    <div class="col-xs-1 col-xs-offset-10">
+        <div class="pull-right">
+            <a id="checkout-next-step-button" class="btn btn-success" ng-click="vm.next()"
+               >Next Step <i><span
+                    class="fa fa-chevron-right"></span></i></a>
+        </div>
+    </div>
+</div>
+</ng-form>

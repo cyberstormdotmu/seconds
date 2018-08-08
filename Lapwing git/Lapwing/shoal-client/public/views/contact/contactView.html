@@ -1,0 +1,106 @@
+<div class="modal-content" id="savedContact">
+	<div class="modal-header">
+		<h5 class="modal-title">Contact Us</h5>
+		<a href="#" class="close" ng-click="vm.close()"><img
+			src="../app/images/popup-close.png" alt="" /></a>
+	</div>
+
+	<div class="modal-body">
+		<form class="row" id="contactForm" name="vm.contactForm"
+			sho-mark-required-fields role="form" class="form-horizontal"
+			ng-submit="vm.contactForm.$valid">
+			<div class="col-sm-12">
+				<div class="form-group" sho-highlight-errors>
+					<input type="text" id="companyName" class="form-control"
+						name="companyName" ng-model="vm.companyName"
+						placeholder="Company name" required />
+					<div class="help-block"
+						ng-messages="vm.contactForm.companyName.$error">
+						<p ng-message="required" class="text-danger">
+							<small>A company name is required. Please enter your
+								company name.</small>
+						</p>
+					</div>
+				</div>
+				<div class="form-group" sho-highlight-errors>
+					<input type="text" class="form-control" id="name" name="name"
+						ng-model="vm.name" placeholder="Your name" required />
+					<div class="help-block" ng-messages="vm.contactForm.name.$error">
+						<p ng-message="required" class="text-danger">
+							<small>A name is required. Please enter your name.</small>
+						</p>
+					</div>
+				</div>
+
+					<div class="form-group" sho-highlight-errors>
+						<input type="text" class="form-control" id="phoneNumber"
+							name="phoneNumber" ng-model="vm.phoneNumber" required integer placeholder="Telephone number"
+							ng-minlength="11" ng-maxlength="15" />
+						<div class="help-block"
+							ng-messages="vm.contactForm.phoneNumber.$error">
+							<p ng-message="required" class="text-danger">
+								<small>Please enter the Telephone number.</small>
+							</p>
+							<p ng-message="integer" class="text-danger">
+								<small>Please enter a valid Telephone number.</small>
+							</p>
+							<p ng-message="maxlength" class="text-danger">
+								<small>The Telephone number entered is too long. It should
+									be less than 15 digits long with no spaces or country codes(ie
+									+44).</small>
+							</p>
+							<p ng-message="minlength" class="text-danger">
+								<small>The Telephone number entered is too short. It should
+									be more than 11 digits long with no spaces or country codes(ie
+									+44).</small>
+							</p>
+						</div>
+					</div>
+
+				<div class="form-group" sho-highlight-errors>
+					<input type="email" class="form-control" id="emailAddress"
+						name="emailAddress" ng-model="vm.emailAddress"
+						placeholder="Your email address" ng-pattern="/^[a-zA-Z]+[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-zA-Z.]{2,5}$/" required />
+					<div class="help-block"
+						ng-messages="vm.contactForm.emailAddress.$error">
+						<p ng-message="required" class="text-danger">
+							<small>An email address is required. Please enter the
+								email address for your mail.</small>
+						</p>
+						<p ng-message="pattern" class="text-danger">
+							<small>Please ensure your email address is valid.</small>
+						</p>
+					</div>
+				</div>
+
+
+					<div class="form-group" sho-highlight-errors>
+						<textarea rows="3" id="message" name="message"
+							class="form-control input-sm" ng-model="vm.message"
+							placeholder="Message" required>
+							 </textarea>
+						<div class="help-block" ng-messages="vm.contactForm.message.$error">
+							<p ng-message="required" class="text-danger">
+								<small>A message is required Please enter your message.</small>
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<button type="submit" id="submit" class="btn btn-primary btn-lg"
+							ng-disabled="(!vm.contactForm.$valid)" sho-validate-on-click 
+							class="btn btn-primary btn-block" ng-click="vm.submitContactForm()">Send an email</button>
+						&nbsp;
+						<button class="btn btn-default btn-lg" ng-click="vm.close()">Cancel</button>
+					</div>
+					
+					<p ng-hide="true"><a href="#" ng-click="vm.openSupplierRegistrationModal()" >Interested in becoming a supplier? Register here and we will be in contact</a></p><br/>
+				<div ng-if="vm.errorMessage" class="bg-danger">
+					<p>{{ vm.errorMessage }}</p>
+				</div>
+				<div ng-if="vm.successMessage" class="bg-success">
+					<p>{{ vm.successMessage }}</p>
+				</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,138 @@
+
+		<!-- Start Sub Header -->
+		<section class="sub-header">
+			<div class="container" ng-if="pickBuyerByAdminForPlaceOrder" style="color : #17e60b ;">
+				You are placing order on behalf of <b>{{pickBuyerByAdminForPlaceOrder}}</b> buyer.
+			</div>
+			<div class="container">
+				<ul class="breadcrumb">
+					<li ng-repeat="category in vm.product.categories"><a href="#/products?category={{ category }}">{{ category }}</a></li>
+                    <li class="active">{{ vm.product.name }}</li>
+				</ul>
+			</div>
+		</section>
+		<!-- End Sub Header -->
+
+		<section class="products-content content-wrap">
+			<div class="container">				
+			<div id="left-column" class="col-sm-4">
+			    <div id="product_view" sho-gallery main="vm.product.mainImage" thumbnails="vm.product.images" ></div>
+			    <h4 class="features-heading" ng-hide="true">Product Features</h4>
+                <ul ng-repeat="spec in vm.product.specifications" class="features-lisitng" ng-hide="true">
+                    <li><span>{{ spec.name }} : {{ spec.description }}</span></li>
+                </ul>
+			</div>
+				<ul class="product-listing product-listing-detail">
+					<li>
+						<div class="media">
+							<div class="media-body">
+								<h3 class="media-heading"><a href="#" title="HP EliteBook 840 G2 Laptop">{{ vm.product.name }}</a> <span>offer expires on <i>{{ vm.product.offerEndDate | date:'shortDate' }}</i></span></h3>
+								<p>{{ vm.product.description }} <!-- <a sho-page-anchor="detail-tabs" class="read-more">read more</a></p> -->
+								<ul class="price-diff clearfix">
+									<li>
+										<span>Original Price</span>
+										<h5>{{ vm.product.originalPrice | currency }}</h5>
+										<em>ex-vat</em>
+									</li>
+									<li>
+										<span>Current Price</span>
+										<h5>{{ vm.product.currentPrice | currency }}</h5>
+										<em>ex-vat</em>
+									</li>
+									<li>
+										<span>Target Price</span>
+										<h5>{{ vm.product.targetPrice | currency }}</h5>
+										<em>ex-vat</em>
+									</li>
+									<li>
+										<span>Stock Available</span>
+										<h5>{{ vm.product.stock - vm.order.quantity | number}} </span> <span class="value" ng-show="!vm.product.stock"> 0 </span></h5>										
+									</li>
+								</ul>
+								<ul class="price-diff clearfix">
+									<li>
+										<span>Price you Pay</span>
+										<h5>{{ vm.order.pricing.unitPrice | currency }}</h5>
+										<em>ex-vat</em>
+									</li>									
+									<li>
+										<span>Unit Discount</span>
+										<h5>{{ vm.order.pricing.unitDiscount | currency }}</h5>
+										<em>ex-vat</em>
+									</li>
+									<li>
+										<span>Vat</span>
+										<h5>{{ vm.product.vatRate.rate }}%</h5>										
+									</li>
+								</ul>
+
+								<div ng-form name="priceForm" class="order-quntity row" ng-show="registrationTokenProductDisable == 'CONFIRM'">
+									<div class="col-lg-3 col-md-4 col-sm-5">
+											<label>Order Quantity</label>
+	                                        <input id="order-quantity" ng-model-options="{ debounce: 500 }" ng-model="vm.order.quantity" name="order_quantity" class="form-control input-lg" type="number" title="Order Quantity"
+	                        				autofocus required integer min="1" max="{{maximumProductOrderLimit}}"/>
+					                    <div class="help-block" ng-messages="priceForm.order_quantity.$error">
+					                        <div ng-messages-include="views/validation/quantityValidationTemplate.html"></div>
+					                    </div>
+									</div>
+									<div class="col-lg-3 col-md-4 col-sm-5">
+										<div class="form-group" ng-show="vm.loadedBasket">
+											<label class="hidden-xs">&nbsp;</label>
+											<button ng-hide="vm.isProductInBasket" ng-disabled="priceForm.$invalid" class="btn btn-success btn btn-primary" id="add-product" ng-click="vm.addToBasket(vm.product, vm.order)" >Add To Basket</button>
+                        					<button ng-show="vm.isProductInBasket" ng-disabled="priceForm.$invalid || priceForm.$pristine" class="btn btn-warning btn btn-primary" id="update-quantity" ng-click="vm.updateQuantity(); priceForm.$setPristine()">Update Quantity</button>
+										</div> 
+									</div>									
+								</div>
+								<div ng-show="registrationTokenProductDisable != 'CONFIRM'">
+									<p><font color="red">Before you can submit an order, you must apply for a <a  ui-sref="account.suppliercreditfacility">Supplier Credit Facility</a></font></p>
+								</div>
+							</div>
+							<sho-price-chart price-bands="vm.product.priceBands" current-volume="vm.product.currentVolume" order-quantity="vm.order.quantity" product-stock="vm.product.stock" class="img-responsive" style="height:82% !important; width:82% !important"></sho-price-chart>
+						</div>
+					</li>				
+				</ul>
+
+				<div class="nav-tabs-horizontal">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
+						<li><a href="#tab2" data-toggle="tab">Specification</a></li>
+						<li><a href="#tab3" data-toggle="tab">Reviews</a></li>
+						<li><a href="#tab4" data-toggle="tab">Returns Policy</a></li>
+						<li><a href="#tab5" data-toggle="tab">Terms and Conditions</a></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" onClick="ABC(this);"></a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
+								<li><a href="#tab2" data-toggle="tab">Specification</a></li>
+								<li><a href="#tab3" data-toggle="tab">Reviews</a></li>
+								<li><a href="#tab4" data-toggle="tab">Returns Policy</a></li>
+								<li><a href="#tab5" data-toggle="tab">Terms and Conditions</a></li>		
+							</ul>
+						</li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab1" style="word-break: break-all;">
+							{{ vm.product.description }}
+						</div>
+						<div class="tab-pane" id="tab2"><table class="product-specification table table-condensed">
+                    <colgroup>
+                        <col class="row-label" span="1" />
+                        <col class="row-value" span="1" />
+                    </colgroup>
+                    <tr ng-repeat="spec in vm.product.specifications" style="word-break: break-all;">
+                        <td>{{ spec.name }}</td><td>{{ spec.description }}</td>
+                    </tr>
+                </table></div>
+						<div class="tab-pane" style="word-break: break-all;" id="tab3">{{ vm.product.review }}</div>
+						<div class="tab-pane" style="word-break: break-all;" id="tab4"><p>{{ vm.product.suitability }}</p></div>
+						<div class="tab-pane" style="word-break: break-all;" id="tab5">{{ vm.product.termsAndConditions }}</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+	

@@ -1,0 +1,102 @@
+/* product listing formatting */
+
+div.product-listings {
+    margin-top: 20px; }
+div.product-listings h2 {
+    margin-top: 0px;
+    margin-bottom: 0px; }
+div.product-listings  span.expires-in {
+    color: #666;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+div.product-listings > div.product-listing-wrapper {
+    padding-top: 30px;
+    border-style: dotted;
+    border-color: #d8d8d8;
+    border-width: 1px 0 0; }
+div.product-listings > div.product-listing-wrapper:last-child {
+    border-bottom-width: 0px; }
+
+/* product page formatting */
+
+span.expires-in i {
+    display: block;
+    font-style: normal;
+    font-size: 20px;
+}
+
+.product-pricing {
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.product-pricing div[class*='col-'] {
+    margin-bottom: 20px;}
+
+.product-pricing label {
+    font-weight: normal;
+    margin-bottom: 0px;
+    color: #666;
+}
+
+.product-pricing span {
+    display: block;
+    font-size: 20px;
+}
+
+.product-pricing #chart-container span {
+    font-size: 12px !important;
+}
+
+.product-pricing i {
+    text-transform: none;
+    color: #666;
+}
+
+.product-pricing button {
+    margin-top: 20px;
+}
+
+.product-specification col.row-label {
+    background-color: #f4f4f4;
+}
+
+.product-specification > tbody > tr > td {
+    border-top-style: dotted;
+}
+
+.product-specification > tbody > tr > td:first-child {
+    padding-right: 40px;
+}
+
+.pricechartmargin .ct-chart{
+    margin : 0px !important ;
+}
+
+.defaultheight{
+    height: 50px !important;
+}
+
+.ct-series-c .ct-point, .ct-series-c .ct-line, .ct-series-c .ct-bar, .ct-series-c .ct-slice-donut {
+  stroke: #ff5757 !important; 
+}
+.ct-line {
+  fill: none !important;
+  stroke-width: 2px !important; 
+}
+
+.ct-green-line {
+  font-size: 0.6rem !important
+  stroke: #ff5757 !important; 
+}
+.ct-green-line {
+  font-size: 0.6rem !important;
+  fill: none !important;
+  stroke-width: 2px !important; 
+}
+
+.ct-series-d .ct-point, .ct-series-d .ct-line, .ct-series-d .ct-bar, .ct-series-d .ct-slice-donut {
+  stroke: #09ae90 !important; 
+}

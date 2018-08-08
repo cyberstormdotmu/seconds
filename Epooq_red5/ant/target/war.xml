@@ -1,0 +1,18 @@
+<project>
+
+	<import file="../common.xml" />
+
+	<!-- Dependencies -->
+	<import file="compile.xml" />
+	
+	<target name="package" depends="compile">
+		<echo message="WAR" />
+
+		<mkdir dir="${dist.dir}" />
+		<war destfile="${dist.dir}/${project.name}.war" webxml="${war.dir}/WEB-INF/web.xml" basedir="${war.dir}" update="false" duplicate="preserve">
+			<classes dir="${bin.dir}" />
+		</war>
+
+	</target>
+
+</project>

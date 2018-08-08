@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h3 class="modal-title">Record Payment</h3>
+</div>
+<div class="modal-body">
+    <form class="row" id="adminOrderRecordPayment" name="adminOrderRecordPayment" sho-mark-required-fields role="form" class="form-horizontal">
+        <div class="row">
+            <div class="col-sm-2"><p class="text-right"><strong>Date Received:</strong><label class="requiredRed">*<label></p></div>
+            <div class="col-sm-3 form-group" sho-highlight-errors>
+                <p class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd/MM/yyyy"
+                           ng-model="vm.payment.dateReceived"
+                           is-open="vm.datePicker.opened"
+                           datepicker-options="vm.datePicker.options"
+                           max-date="vm.datePicker.maxDate"
+                           ng-required="true"
+                           placeholder="dd/mm/yyyy"
+                           name="dateReceived" required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-xs" ng-click="vm.openDatePicker($event)"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+                <div class="help-block" ng-messages="adminOrderRecordPayment.dateReceived.$error">
+                    <p ng-message="required" class="text-danger">
+                        <small>Please enter your Date Received.</small>
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-2"><p class="text-right"><strong>Payment Type :</strong><label class="requiredRed">*<label></p></div>
+            <div class="col-sm-4 form-group" sho-highlight-errors>
+                <select class="form-control" ng-model="vm.payment.paymentType" name="paymentType" ng-required="true" required>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="Card Payment">Card Payment</option>
+                    <option value="Direct Debit">Direct Debit</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="help-block" ng-messages="adminOrderRecordPayment.paymentType.$error">
+                    <p ng-message="required" class="text-danger">
+                        <small>Please select your Payment Type.</small>
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <label ng-model="vm.payment.paymentRecordType" ng-init="vm.payment.paymentRecordType = 'SUPPLIER_CREDIT_PAYMENT'">
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"><p class="text-right"><strong>Amount:</strong><label class="requiredRed">*<label></p></div>
+            <div class="col-sm-3 form-group" sho-highlight-errors>
+                <div class="input-group">
+                    <span class="input-group-addon">&pound;</span>
+                    <input type="number" name="amount" class="form-control" ng-model="vm.payment.amount" min="1" max="{{vm.unpaidAmount}}" required ng-required="true" placeholder="{{ vm.unpaidAmount }}"/>
+                </div>
+                <div class="help-block" ng-messages="adminOrderRecordPayment.amount.$error">
+                    <p ng-message="required" class="text-danger">
+                        <small>Please enter your Amount.</small>
+                    </p>
+                    <p ng-message="min" class="text-danger">
+                        <small>Amount cannot be less than 1.</small>
+                    </p>
+                    <p ng-message="max" class="text-danger">
+                        <small>Amount cannot be greter than {{ vm.unpaidAmount }}.</small>
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-2"><p class="text-right"><strong>Reference:</strong><label class="requiredRed">*<label></p></div>
+            <div class="col-sm-4 form-group" sho-highlight-errors>
+                <input type="text" class="form-control" ng-model="vm.payment.userReference" name="userReference" required/>
+                <div class="help-block" ng-messages="adminOrderRecordPayment.userReference.$error">
+                    <p ng-message="required" class="text-danger">
+                        <small>Please enter your Reference.</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-disabled="!adminOrderRecordPayment.$valid" type="submit" ng-click="vm.ok()">OK</button>
+    <button class="btn btn-danger" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

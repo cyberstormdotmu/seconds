@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
+        default-autowire="byName">
+
+
+    <context:component-scan base-package="com.cubeia.backoffice.operator.service"/>
+    
+  <context:property-placeholder location="classpath:operator.properties" 
+                              ignore-resource-not-found="true"
+                              ignore-unresolvable="true"
+                              properties-ref="operatorProperties"/>   
+
+    <!--
+    The common backoffice.properties is used to lookup Cubeia Network Wallet URL. 
+     -->
+  <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:backoffice.properties" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="valueSeparator" value="?" />
+  </bean>
+                              
+    <!-- Default to local development setup for Cubeia Network URLs -->
+  <bean id="walletClientFactory" class="com.cubeia.backoffice.operator.service.wallet.WalletClientFactory">
+        <constructor-arg value="${network.wallet-base-url:https://localhost:9091/wallet-service-rest/rest}" type="java.lang.String" />
+  </bean>
+  
+  <bean id="userClient" class="com.cubeia.backoffice.users.client.UserServiceClientHTTP">
+        <constructor-arg value="${network.wallet-base-url:https://localhost:9090/user-service-rest/rest}" type="java.lang.String" />
+  </bean>
+
+  <!-- import_files sql is executed only when "auto" is set to "create" or "create-drop" -->
+  <util:properties id="operatorProperties">
+       <prop key="hibernate.hbm2ddl.auto">update</prop>
+       <prop key="hibernate.hbm2ddl.import_files">/operator-data.sql</prop> 
+  </util:properties>    
+
+    <bean id="operator.transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="operator.entityManagerFactory"/>
+    </bean>
+
+    <!--
+          NOTE: We cannot use an annotation-driven transactional manager since that will take
+            precedence over any other spring module that might include this one. So we will take
+            the AOP route instead. This will ensure that we are using our internal transaction manager.
+       -->
+    <tx:advice id="operator.txAdvice" transaction-manager="operator.transactionManager">
+        <tx:attributes>
+            <tx:method name="*"/>
+            <tx:method name="audit*" rollback-for="throwable" propagation="REQUIRES_NEW"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="operator.txPointcut" expression="execution(* com.cubeia.backoffice.operator.service.manager.*Manager.*(..))"/>
+        <aop:advisor advice-ref="operator.txAdvice" pointcut-ref="operator.txPointcut"/>
+    </aop:config>
+    
+    <aop:config>
+        <aop:pointcut id="operator.wallet.txPointcut" expression="execution(* com.cubeia.backoffice.operator.service.OperatorWalletService.*(..))"/>
+        <aop:advisor advice-ref="operator.txAdvice" pointcut-ref="operator.wallet.txPointcut"/>
+    </aop:config>
+     
+    <aop:config>
+        <aop:pointcut id="operator.wallet.audit.txPointcut" expression="execution(* com.cubeia.backoffice.operator.service.wallet.AuditLog.*(..))"/>
+        <aop:advisor advice-ref="operator.txAdvice" pointcut-ref="operator.wallet.audit.txPointcut"/>
+    </aop:config>
+     
+    <!-- 
+    <tx:annotation-driven transaction-manager="operator.transactionManager" proxy-target-class="true"/>
+    -->
+    
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+    <bean id="operator.entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="operatorPersistenceUnit"/>
+        <property name="dataSource" ref="operator.dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"/>
+                <property name="showSql" value="false"/>
+            </bean>
+        </property>
+        
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.hbm2ddl.import_files">${hibernate.hbm2ddl.import_files}</prop>
+                <!--  
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                -->    
+            </props>
+        </property>        
+    </bean>
+
+    <bean id="operator.dataSource"
+          class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:comp/env/jdbc/operatorDS"/>
+    </bean>
+
+</beans>

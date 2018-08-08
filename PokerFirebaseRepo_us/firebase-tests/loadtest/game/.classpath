@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="src" path="/firebase-api"/>
+  <classpathentry kind="var" path="M2_REPO/xec/oss/xec.se-commons/1.4.6/xec.se-commons-1.4.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/simple-jndi/simple-jndi/0.11.4.1/simple-jndi-0.11.4.1.jar"/>
+  <classpathentry kind="src" path="/firebase-protocol"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/styx/styx-core/1.18-SNAPSHOT/styx-core-1.18-SNAPSHOT.jar"/>
+  <classpathentry kind="src" path="/load-protocol"/>
+  <classpathentry kind="var" path="M2_REPO/org/testng/testng/5.8/testng-5.8-jdk15.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/4.11/junit-4.11.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
+</classpath>

@@ -1,0 +1,30 @@
+2015-08-13 15:04:05 INFO  SocialNetworkService:103 - start of the program
+2015-08-13 15:04:05 ERROR SocialNetworkService:112 - Exception Info:/dijiwise/config.properties (No such file or directory) e.toSting: java.io.FileNotFoundException: /dijiwise/config.properties (No such file or directory)
+2015-08-17 16:53:45 INFO  SocialNetworkService:103 - start of the program
+2015-08-17 16:53:45 ERROR SocialNetworkService:112 - Exception Info:/dijiwise/config.properties (No such file or directory) e.toSting: java.io.FileNotFoundException: /dijiwise/config.properties (No such file or directory)
+2015-08-18 17:11:03 INFO  SocialNetworkService:103 - start of the program
+2015-08-18 17:11:03 ERROR SocialNetworkService:112 - Exception Info:/dijiwise/config.properties (No such file or directory) e.toSting: java.io.FileNotFoundException: /dijiwise/config.properties (No such file or directory)
+2015-08-18 17:14:26 INFO  SocialNetworkService:103 - start of the program
+2015-08-18 17:16:37 INFO  SocialNetworkService:103 - start of the program
+2015-08-18 17:46:16 INFO  SocialNetworkService:103 - start of the program
+2015-08-18 17:47:04 INFO  SocialNetworkService:103 - start of the program
+2015-08-18 17:51:18 INFO  SocialNetworkService:103 - start of the program
+2015-08-18 17:56:10 INFO  SocialNetworkService:166 - 
+
+ No of Locks available : 10
+2015-08-18 17:56:16 INFO  SocialNetworkService:167 - 
+ getThreadsWaitingToAcquire() : 0
+2015-08-18 17:56:20 INFO  SocialNetworkService:168 - 
+ getWhetherAnyThreadsAreWaiting() : false
+2015-08-18 17:56:21 INFO  SocialNetworkService:169 - 
+ find no. of threads running java.lang.Thread.activeCount(): 7
+2015-08-19 11:05:57 INFO  SocialNetworkService:103 - start of the program
+2015-08-19 11:05:57 INFO  SocialNetworkService:166 - 
+
+ No of Locks available : 10
+2015-08-19 11:05:57 INFO  SocialNetworkService:167 - 
+ getThreadsWaitingToAcquire() : 0
+2015-08-19 11:05:57 INFO  SocialNetworkService:168 - 
+ getWhetherAnyThreadsAreWaiting() : false
+2015-08-19 11:05:57 INFO  SocialNetworkService:169 - 
+ find no. of threads running java.lang.Thread.activeCount(): 7

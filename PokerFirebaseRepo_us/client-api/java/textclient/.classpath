@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="src" path="/firebase-java-connector"/>
+  <classpathentry kind="src" path="/firebase-protocol"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/styx/styx-core/1.18-SNAPSHOT/styx-core-1.18-SNAPSHOT.jar"/>
+  <classpathentry kind="src" path="/firebase-api"/>
+  <classpathentry kind="var" path="M2_REPO/xec/oss/xec.se-commons/1.4.6/xec.se-commons-1.4.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/simple-jndi/simple-jndi/0.11.4.1/simple-jndi-0.11.4.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/cubeia/utilities/1.2.0/utilities-1.2.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-client/9.1.1.v20140108/websocket-client-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util/9.1.1.v20140108/jetty-util-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-io/9.1.1.v20140108/jetty-io-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-common/9.1.1.v20140108/websocket-common-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-api/9.1.1.v20140108/websocket-api-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cometd/java/cometd-java-client/3.0.0.beta2/cometd-java-client-3.0.0.beta2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cometd/java/bayeux-api/3.0.0.beta2/bayeux-api-3.0.0.beta2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cometd/java/cometd-java-common/3.0.0.beta2/cometd-java-common-3.0.0.beta2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util-ajax/9.1.1.v20140108/jetty-util-ajax-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.2/slf4j-api-1.6.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-mapper-lgpl/1.9.3/jackson-mapper-lgpl-1.9.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-lgpl/1.9.3/jackson-core-lgpl-1.9.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-client/9.1.1.v20140108/jetty-client-9.1.1.v20140108.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-http/9.1.1.v20140108/jetty-http-9.1.1.v20140108.jar"/>
+</classpath>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <import resource="admin-spring-security.xml"/>
+
+    <context:component-scan base-package="com.cubeia.network.shared.web,com.cubeia.network.web"/>
+
+    <import resource="classpath*:admin-web-module.xml"/>
+
+    <bean id="searchConfig" class="com.cubeia.network.shared.web.wicket.SearchConfiguration">
+
+        <property name="searchUrl" value="${network.search-base-url}" />
+        <property name="searchClusterName" value="${network.search-cluster-name}" />
+    </bean>
+
+    <bean id="adminConfig" class="com.cubeia.network.shared.web.wicket.AdminConfig">
+        <property name="skinCssUrl" value="${admin.skin-css-url}"/>
+    </bean>
+</beans>
+
+
+

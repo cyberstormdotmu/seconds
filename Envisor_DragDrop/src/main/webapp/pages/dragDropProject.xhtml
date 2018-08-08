@@ -1,0 +1,467 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+<h:outputStylesheet id="layoutCSS">  
+    body {  
+        margin: 4px !important;  
+    }  
+
+.vr {
+    width:1px;
+    background-color:#000;
+    position:absolute;
+    top:0;
+    bottom:0;
+}
+
+.safe{
+	<!-- padding:0; 
+	margin:0; 
+	position:relative; --> 
+	top:115px; 
+	left:0px; 
+	z-index:99; 
+	display:none;
+}
+
+.rowColor{
+	background-color:#FFFFFF;
+}
+
+</h:outputStylesheet>  
+</h:head>
+
+<h:body>
+
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{dragDropProjectBean.onLoadProject}" />
+	</f:metadata>
+	
+	<p:growl id="msgs" showDetail="true" showSummary="true"/>
+	<h:form id="mainForm">	
+				
+		<p:layout style="width:100%; height:100%;">
+
+		    <p:layoutUnit position="north" resizable="false" size="100" minSize="100" maxSize="100">
+				<ui:insert name="header">
+					<ui:include src="commonHeader.xhtml" />
+				</ui:insert>
+				<p:breadCrumb model="#{breadCrumbBean.menuModel}">
+				</p:breadCrumb>
+		    </p:layoutUnit>
+
+		    <p:layoutUnit position="west" resizable="false" size="60%">
+		    	<table style="width:100%; height:100%;">
+		    		<tr>
+		    			<td valign="top" width="35%">
+		    				<table>
+		    					<tbody>
+		    						<tr>
+		    							<td><p:outputPanel styleClass="letter"><p:outputLabel value="Building"/></p:outputPanel></td>
+		    							<td>
+											<p:outputPanel id="dragBuilding" style="width:100px; height:84px;">
+												<p:graphicImage id="building"  value="#{dragDropProjectBean.buildingimageurl}" style="width:100px; height:84px;">
+													<p:inputText id="buildingName" value="Building" size="5" styleClass="safe"></p:inputText>
+												</p:graphicImage>													
+											</p:outputPanel>						
+											<p:draggable for="dragBuilding" revert="true" helper="clone"/>							
+		    							</td>
+		    						</tr>	
+		    					</tbody>
+		    				</table>
+        					<br></br>
+        					<hr></hr>
+        					<br></br>
+        					<table>
+        						<tr>
+        							<td>
+										<p:selectOneMenu id="projects" value="#{dragDropProjectBean.selectedProjectId}" style="width:125px" onchange="showNewProject()">
+											<p:ajax listener="#{dragDropProjectBean.onChangeProject}"/>
+								            <f:selectItem itemLabel="Select Proje" itemValue="" noSelectionOption="true" />
+								            <f:selectItems value="#{dragDropProjectBean.projects}" var="project" itemLabel="#{project.projectName}" itemValue="#{project.id}"/>
+			        					</p:selectOneMenu>
+        							</td>
+        							<td><p:commandButton value="Find " id="find" actionListener="#{dragDropProjectBean.findProject}" update="msgs,selectedProjectBuildings" oncomplete="getBuildings()" icon="ui-icon-disk" /></td>
+        						</tr>
+        						<tr>
+        							<td><p:commandButton value="Create Table " id="create" onclick="createTable()" update="msgs" icon="ui-icon-disk" /></td>
+        							<td><p:commandButton value="Save " id="save" actionListener="#{dragDropProjectBean.saveProject}" onclick="validateIsCreateTable()" oncomplete="updateBuildings()" icon="ui-icon-disk" /></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel id="newProjectNameLbl" value="Project Name:" /></td>
+        							<td><p:inputText id="newProjectNameTxt" value="#{dragDropProjectBean.newProjectName}" size="6" /></td>
+        						</tr>
+        					</table>        					        					        												
+		    			</td>
+		    			<td  width="2%">
+		    				<div class="vr"></div> <!-- this div is use to create vertical line between draggable and droppable section -->
+		    			</td>
+		    			<td valign="top" width="63%">
+							<p:outputPanel  id="droppablePanel" layout="block" style="width: 700px; height: 700px; border: 1px solid black;background-image: url('../resources/images/Matrix.jpg');">
+							</p:outputPanel>
+							<p:droppable for="droppablePanel" onDrop="createClone" ></p:droppable>
+		    			</td>
+		    		</tr>
+		    	</table>
+		    </p:layoutUnit>
+
+		    <p:layoutUnit position="center" resizable="false" size="40%">
+		        <p:dataTable id="selectedProjectBuildings" var="building" value="#{dragDropProjectBean.buildingsFromDb}"  rowStyleClass="rowColor" style="overflow-x: hidden; overflow-y: auto; height:700px;">
+				    <p:column>
+				    	<f:facet name="header">ID</f:facet>
+				        <h:outputText value="#{building.id}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Buiilding Name</f:facet>
+				        <h:outputText value="#{building.name}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">X-Axis (top)</f:facet>
+				        <h:outputText value="#{building.imageTop}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Y-Axis (left)</f:facet>
+				        <h:outputText value="#{building.imageLeft}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Width</f:facet>
+				        <h:outputText value="#{building.imageWidth}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Height</f:facet>
+				        <h:outputText value="#{building.imageHeight}" />
+				    </p:column>	
+				    <p:column>
+				        <f:facet name="header">Status</f:facet>
+				        <h:outputText value="#{building.status}" />
+				    </p:column>	
+				</p:dataTable>		    
+		    </p:layoutUnit>
+		</p:layout>		
+		
+		<h:inputHidden id="hiddenCreateTable" value="#{dragDropProjectBean.isCreateTable}" />
+		
+		<p:remoteCommand name="goToSelectedBuilding"  action="#{dragDropProjectBean.goToSelectedBuilding}" />
+		<p:remoteCommand name="command" action="#{dragDropProjectBean.setBuildingList}" />
+		<p:remoteCommand name="setIsCreateTableVar"  action="#{dragDropProjectBean.setIsCreateTableVar}" />
+		<p:remoteCommand name="deleteTmpBuildingFromBuildings" action="#{dragDropProjectBean.deleteTmpBuildingFromBuildings}" />							
+	</h:form>
+	
+</h:body>
+
+<h:outputScript>
+	
+	var isDragDropEventOccured = true;	//variable is use to check whether any drag drop event is occured or not.
+		
+	//Following function is used to delete selected Image while press 'Delete' key.
+	$(document).ready(function() {
+
+		$('html').click(function(e){
+			e = e|| event;
+			$.lastClicked = e.target || e.srcElement;
+		});	
+
+		
+		$('html').keyup(function(e){
+			if(e.keyCode == 46) {
+			 
+				if($.lastClicked != undefined &amp;&amp; !($($.lastClicked).hasClass('safe'))){ 			
+					if($($.lastClicked).parent().parent().hasClass('ui-outputpanel')){
+	                    var hiddenTag = $($.lastClicked).parent().parent().find('input:hidden');
+	                    var deletedbuildingDatabaseId = "";	                    
+	           			if(hiddenTag != null){
+	           				deletedbuildingDatabaseId = $(hiddenTag).attr('value');
+	           			}
+						var dltTmpBuildingDivId = $($.lastClicked).parent().parent().attr('id'); 	           			
+	           			deleteTmpBuildingFromBuildings( [ { name: 'dltTmpBuildingDivId', value: dltTmpBuildingDivId } , { name: 'deletedbuildingDatabaseId', value: deletedbuildingDatabaseId } ] ); <!-- This will send command to bean to remove deleted element from list -->
+	           			
+						$($.lastClicked).parent().parent().remove();
+						isDragDropEventOccured = true;
+						$("#mainForm\\:hiddenCreateTable").attr('value',false);
+					}
+				}
+			}
+		});	
+		
+		getBuildings();	
+		showNewProject();
+	});
+
+	//Following function is used to creat clone of dragged image. 
+	var count = 1;	
+	function createClone(event,ui){
+	
+		ui.helper.remove();	
+		var cloned = $(ui.helper).clone();
+		var imageId =  $(ui.draggable)[0].id;
+		
+		if(cloned.attr('id') == undefined){
+			cloned.attr('id',imageId+count);
+			
+			var defaultName = cloned.find("input").attr('value') + count;
+   			cloned.find("input").attr('value',defaultName);   			
+   			count = count + 1;	
+   			cloned.find("input").show();   			
+		}
+
+		cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+		var temp = cloned.first();
+		
+		$("#mainForm\\:droppablePanel").append(temp);
+		cloned.find('.letter').remove();
+		
+		$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+			$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+		})
+		
+		cloned.find("img").resizable({
+			containment:'#mainForm\\:droppablePanel'
+		});	
+		
+		$.lastClicked = temp.find( "img" );		
+		$("#mainForm\\:hiddenCreateTable").attr('value',false);
+		isDragDropEventOccured = true;
+	}
+
+	//Following function is set table data with backend bean using remote command to set Buildings data.
+	function createTable(){
+
+		if($("#mainForm\\:projects_input").val()=="" &amp;&amp; $("#mainForm\\:newProjectNameTxt").val()==""){
+			$("#mainForm\\:newProjectNameLbl").show();
+			$("#mainForm\\:newProjectNameTxt").show();
+			alert('Please add project name first!');
+			return false;		
+		}
+		
+		var childNodes = $("#mainForm\\:droppablePanel").children();
+		var totalChilds = childNodes.length;
+		var i=0; 
+		var buildingList='';
+		
+		if(totalChilds==0){
+			alert('No Project structure created!');			
+		} else {		
+			$("#mainForm\\:selectedProjectBuildings_data > tr").remove();
+			 for (var i = 0; i &lt; totalChilds; i++) {
+	               var e = childNodes[i].nodeName;
+	               var subParent = childNodes[i].childNodes;
+                   var inputType = subParent[0];
+                   var childDiv = subParent[1];
+                   
+                   var buidingName = $(inputType).val();
+                   var imgWidth = $(childDiv).css('width'); 
+                   var imgHeight = $(childDiv).css('height');
+                   var imgTop = $(childNodes[i]).css('top');
+                   var imgLeft = $(childNodes[i]).css('left');
+                   var imgId = $(childNodes[i]).attr('id');
+				                   
+			       imgWidth = parseInt(imgWidth.substring(0,imgWidth.indexOf("px")));
+			       imgHeight = parseInt(imgHeight.substring(0,imgHeight.indexOf("px")));
+			       imgTop = parseInt(imgTop.substring(0,imgTop.indexOf("px")));
+			       imgLeft = parseInt(imgLeft.substring(0,imgLeft.indexOf("px")));                   
+
+                   var hiddenParent = document.getElementById(imgId);
+                   var hiddenTag = $(hiddenParent).find('input:hidden');
+                   var buildingId = "";
+          			if(hiddenTag != null){
+          				buildingId = $(hiddenTag).val();
+          			 	if(buildingId == undefined){
+          			 		buildingId = "";
+          			 	}
+          			}
+                   
+                   var imgType = "Building";
+                   createRow(buildingId,buidingName,imgType,imgTop,imgLeft,imgWidth,imgHeight);
+
+                   if(isDragDropEventOccured == true){
+						var rowData =    '{ \"imageDivId\": \"' + imgId 
+								  + '\" , \"width\": \"' + imgWidth
+								  + '\" , \"height\": \"' + imgHeight
+								  + '\" , \"top\": \"' + imgTop
+								  + '\" , \"left\": \"' + imgLeft
+								  + '\" , \"imageType\": \"' + imgType
+								  + '\" , \"buildingId\": \"' + buildingId
+								  + '\" , \"buildingName\": \"' + buidingName
+								  + '\" } '; 			
+						if(buildingList == ""){
+							buildingList = rowData;
+						} else {
+							buildingList = buildingList + ', ' + rowData;
+						}  
+					                   	
+                   }
+	           }
+	           buildingList = "[ " + buildingList + "]";
+	           command( [ { name: 'buildingList', value: buildingList } ] );
+	       }
+
+		   $("#mainForm\\:hiddenCreateTable").attr('value',true);
+           isDragDropEventOccured = false;	
+
+	       $("#mainForm\\:buildingName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+      	}
+	
+	//Following function is set table-row data with to set Building data : called from createTable().
+	function createRow(objId,name,imgType,imgTop,imgLeft,imgWidth,imgHeight){
+	
+		var currentdate = new Date(); 
+		var datetime =  currentdate.getFullYear() + "-"
+               + (currentdate.getMonth()+1)  + "-" 
+               + currentdate.getDate() + " "  
+               + currentdate.getHours() + ":"  
+               + currentdate.getMinutes() + ":" 
+               + currentdate.getSeconds();	
+
+		var newRow = $("<tr>");
+		var cols = "";
+        cols += '<td>'+objId+'</td>';
+        cols += '<td>'+name+'</td>';
+        cols += '<td>'+imgTop+'</td>';
+        cols += '<td>'+imgLeft+'</td>';
+        cols += '<td>'+imgWidth+'</td>';
+        cols += '<td>'+imgHeight+'</td>';
+        cols += '<td>0</td>';
+        cols += '</tr>';
+        newRow.append(cols);
+        
+        $("#mainForm\\:selectedProjectBuildings_data").append(newRow);
+        
+	}
+
+	//Following function is used to set Buildings data having status=0 while loading the page.
+	function getBuildings(){	
+	
+	$("#mainForm\\:droppablePanel").empty();		
+
+		var childNodes = $("#mainForm\\:selectedProjectBuildings_data").children();
+		var noOfRows = childNodes.length;
+		var i=0; 
+		
+		 var buildingId = 0
+		 var buildingType = '';
+		 var buidingName = '';
+         var imgWidth = 0; 
+         var imgHeight = 0;
+         var imgTop = 0;
+         var imgLeft = 0;
+         var imgId = 0;		 
+         var status = 0;
+		count = 1;
+		for (var i = 0; i &lt; noOfRows; i++) {		              	
+              var row = childNodes[i].childNodes;
+              buildingId = 	row[0].innerHTML;
+                              
+              if(buildingId == 'No records found.'){               	               
+               	break;               	               	
+              } else {               
+                
+                buildingType =  'Building'; 
+                buidingName  = 	row[1].innerHTML; 
+                imgTop 		= 	row[2].innerHTML.indexOf('px') > 0 ? row[2].innerHTML : row[2].innerHTML+'px'; 
+                imgLeft 	= 	row[3].innerHTML.indexOf('px') > 0 ? row[3].innerHTML : row[3].innerHTML+'px';
+                imgWidth 	= 	row[4].innerHTML.indexOf('px') > 0 ? row[4].innerHTML : row[4].innerHTML+'px';
+                imgHeight 	= 	row[5].innerHTML.indexOf('px') > 0 ? row[5].innerHTML : row[5].innerHTML+'px';
+                status 		 = 	row[6].innerHTML;
+                
+                if(status=='0'){
+                
+	               	var cloned = $("#mainForm\\:dragBuilding").clone();
+	               	cloned.attr('id','mainForm:drag'+buildingType+count);	               	
+	               	count = count + 1;	               	
+	
+					cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+					var temp = cloned.first();
+					cloned.find("input").attr('value',buidingName).show();
+					$('<input></input>').attr('type','hidden').attr('value',buildingId).appendTo(temp);
+					$("#mainForm\\:droppablePanel").append(temp);
+					cloned.find('.letter').remove();
+	
+					$(cloned).resize(function () {
+				      isDragDropEventOccured = true;
+				     });
+
+					$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+						$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+					})
+					
+	               	cloned.css('position','absolute');
+					cloned.css('top',imgTop).css('left',imgLeft);
+					
+					cloned.find("img").resizable({
+						containment:'#mainForm\\:droppablePanel'
+					}).css('width',imgWidth).css('height',imgHeight);	
+					
+					cloned.find("img").parent().css('width',imgWidth).css('height',imgHeight);	
+					cloned.find("img").attr('ondblclick',"goToBuilding("+buildingId+")");
+					$.lastClicked = temp.find( "img" );		
+               	}                                
+               }
+		}
+		
+		for (var i = 0; i &lt; noOfRows; i++) {
+            var row = childNodes[i].childNodes;
+            buildingId = 	row[0].innerHTML;		
+			if(buildingId == 'No records found.') {
+				break;
+			} else {
+                status 	= row[6].innerHTML;
+                if(status=='1'){
+                	childNodes[i].remove();
+                }				
+			}                	
+         }		
+
+         $("#mainForm\\:buildingName").on("keyup", function(event) { 
+       		isDragDropEventOccured = true;
+  		 } );		
+	
+		isDragDropEventOccured = true;
+	} 
+
+	//Following function is used to go to Building Page with given building id.
+	function goToBuilding(buildingId){
+		goToSelectedBuilding( [ { name: 'selectedBuildingId', value: buildingId }] );
+	}
+	
+	//Following function is used to show/hide TEXT field for Project Name. 
+	function showNewProject(){	
+		if($("#mainForm\\:projects_input").val()==""){
+			$("#mainForm\\:newProjectNameLbl").show();
+			$("#mainForm\\:newProjectNameTxt").show().val("");
+			
+			$("#mainForm\\:droppablePanel").empty();
+			$("#mainForm\\:selectedProjectBuildings_data").empty();
+			$("#mainForm\\:selectedProjectBuildings_data").append('<tr><td colspan="7">No records found.</td></tr>');
+			
+			count = 1;					
+		} else {
+			$("#mainForm\\:newProjectNameLbl").hide();
+			$("#mainForm\\:newProjectNameTxt").hide();				
+		}
+		
+		var selectedValue = $("#mainForm\\:projects_input option:selected").val();
+		var selectedText = $("#mainForm\\:projects_input option:selected").text();
+	}
+	
+	function updateBuildings(){		
+		if($("#mainForm\\:hiddenCreateTable").val() == 'true'){
+			$("#mainForm\\:hiddenCreateTable").attr('value',false);
+			getBuildings();
+		}		
+	}
+	
+	function validateIsCreateTable(){
+			var hiddenCreateTableVal = $("#mainForm\\:hiddenCreateTable").val();
+			setIsCreateTableVar( [ { name: 'hiddenCreateTableVal', value: hiddenCreateTableVal } ] );
+	}
+
+</h:outputScript>
+
+</html>

@@ -1,0 +1,18 @@
+#![Single Wallet - Get Main Balance]
+client:Actor
+game:CashGameBackEndAdapter
+opService:OperatorService
+wallet:WalletService
+operator:RemoteOperator
+
+# Enter firebase execution
+client:response=game.login(request)
+(5)game:true=opService.isSingleWallet(operator)
+
+*5 opService
+  This call should be 
+  cached aggressively
+*5
+
+game:response=opService.getBalance()
+opService:response=operator.getBalance(xPlayerId)

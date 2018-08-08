@@ -1,0 +1,17 @@
+INSERT INTO USER_ROLES (USER_ID, ROLE_ID)
+VALUES (
+  (SELECT ID
+   FROM USERS
+   WHERE USER_NAME = 'oliver.squires@ishoal.com'),
+  'BUYER'
+);
+
+INSERT INTO USER_ROLES (USER_ID, ROLE_ID)
+VALUES (
+  (SELECT ID
+   FROM USERS
+   WHERE USER_NAME = 'oliver.squires@ishoal.com'),
+  'ADMIN'
+)
+
+

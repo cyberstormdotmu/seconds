@@ -1,0 +1,60 @@
+    <div class="container">
+        <header class="header">
+            <div class="container">
+                <div class="clearfix">
+                    <button class="nav-icon">
+                        <span class="one"></span>
+                        <span class="two"></span>
+                        <span class="three"></span>
+                    </button>
+
+                    <a href="index.html" title="" class="logo">
+                        <img src="images/logo.png" alt="" style="margin-top: 9px !important;">
+                    </a>
+
+                    <!-- Start Main Navigation -->
+                    <nav class="main-navigation" data-only-arrow-click="true" data-mobile-menu="991" data-animation-speed="300" data-scroll-bg="rgba(255,255,255,0.1)" data-scroll-color="rgba(255,255,255,0.3)" data-scroll-width="5">
+                        <ul>
+<!--                            <li><a href="#" title="Categories">Categories</a>
+                                <ul>
+                                    <li><a href="#" title="Laptops">Laptops</a></li>
+                                    <li><a href="#" title="Desktops">Desktops</a></li>
+                                    <li><a href="#" title="Printers">Printers</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#" title="How it works">How it works</a></li>
+                            <li><a href="#" title="Help">Help</a></li>
+                            <li><a href="#" title="Account">Account</a></li>
+                            <li><a href="#" title="Basket">Basket</a></li> -->
+                            <li data-uib-dropdown>
+                                <a href id="simple-dropdown" data-uib-dropdown-toggle>Shop by category<b class="caret"></b></a>
+                                <ul data-uib-dropdown-menu>
+                                    <li><a class="dropdown-menu-link" data-ui-sref="products.list({category:'Laptops'})">Laptops</a></li>
+                                    <li><a class="dropdown-menu-link" data-ui-sref="products.list({category:'Desktops'})">Desktops</a></li>
+                                    <li><a class="dropdown-menu-link" data-ui-sref="products.list({category:'Printers'})">Printers</a></li>
+                                </ul>
+                            </li>
+                            <li><a data-ui-sref="how-it-works">About Us</a></li>
+                            <li><a href="#/faqs">FAQs</a></li>
+                            <li><a href="#/paymentSuccessfulPage">SP</a></li>
+                            <li><a href="#/account">Account</a></li>
+                            <li id="shoal-basket"><a sho-basket-icon></a></li>
+                            <li id="place-order-buyer"><a sho-placeorder-icon></a></li>
+                        </ul>
+                    </nav>
+                    <!-- End Main Navigation -->
+
+                    <ul class="header-links">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" title="{{vm.fullName}}" style="cursor: pointer !important;"><img src="images/user-icon.png" class="user-icon" alt="{{vm.fullName}}"><span class="user-name">{{vm.fullName}}</span><img src="images/dropdown-arrow.png" alt="" class="down-arrow"></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#/account">My Account</a></li>
+                                <li><a href="#/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!-- End Header --> 
+    </div>

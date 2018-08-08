@@ -1,0 +1,55 @@
+<div class="content-wrap">
+<div id="main-content" class="container">
+
+    <div id="left-column" class="col-sm-12">
+        <div class="row">
+            <div class="pull-right">
+                <button class="btn btn-default btn-xs" id="refresh" ng-click="vm.refresh()"><span
+                        class="fa fa-refresh" aria-hidden="true"></span> Refresh
+                </button>
+            </div>
+        </div>
+		
+        <div class="row">
+            <uib-tabset>
+                <uib-tab heading="Workflow for offering credit terms">
+                <form class="row" id="registrationForm" name="registrationForm" sho-mark-required-fields role="form" class="form-horizontal" ng-submit="registrationForm.$valid && vm.saveTermsAndCondition(vm)">
+				<div ng-if="vm.errorMessage" class="bg-danger">
+					<p>{{ vm.errorMessage }}</p>
+				</div>
+				<div ng-if="vm.successMessage" class="bg-success">
+					<p>{{ vm.successMessage }}</p>
+				</div>
+                <div class="form-group" style="margin-bottom : 52px !important ;" sho-highlight-errors>
+			        <label for="input2" class="control-label col-xs-3">Supplier Name:</label>
+			        <div class="col-xs-4">
+			        <select id="select-default2" required ng-model="vm.vendorName" ng-selected="vm.vendorList[0].name" ng-change="vm.termsAndConditionfetch(vm.vendorName)" class="form-control input-sm">
+			        	<option ng-repeat="vendorlist in vm.vendorList" value="{{vendorlist.name}}">{{vendorlist.name}} 
+             			</option>
+			        </select>
+			        </div>
+			    </div>
+			    <div class="form-group" sho-highlight-errors style="margin-bottom : 52px !important ;">
+                    <label class="control-label col-xs-3">Description:</label>
+                    <div class="col-xs-4"><textarea class="form-control input-sm" name="product_description"
+                                                 ng-model="vm.termsAndCondition" required ></textarea>
+                        <div class="help-block" ng-messages="registrationForm['product_description'].$error">
+                            <p ng-message="required" class="text-danger">
+                                <small>Please enter the terms and condition this Supplier.</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" ng-model="vm.id">
+                <div class="form-group">
+				    <div class="col-xs-4 col-xs-offset-8">
+				        <button type="submit" class="btn btn-success">Save terms and condition</button>
+				    </div>
+				</div>
+                </form>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,608 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+<h:outputStylesheet id="layoutCSS">  
+    body {  
+        margin: 4px !important;  
+    }  
+
+.vr {
+    width:1px;
+    background-color:#000;
+    position:absolute;
+    top:0;
+    bottom:0;
+}
+
+.safe{
+	<!-- padding:0; 
+	margin:0; 
+	position:relative; --> 
+	top:181px; 
+	left:0px; 
+	z-index:99; 
+	display:none;
+}
+
+.rowColor{
+	background-color:#FFFFFF;
+}
+
+</h:outputStylesheet>  
+</h:head>
+
+<h:body>
+
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{dragDropFlatBean.onLoadFlat}" />
+	</f:metadata>
+	
+	<p:growl id="msgs" showDetail="true" showSummary="true"/>
+	<h:form id="mainForm">	
+				
+		<p:layout style="width:100%; height:100%;">
+
+		    <p:layoutUnit position="north" resizable="false" size="100" minSize="100" maxSize="100">
+				<ui:insert name="header">
+					<ui:include src="commonHeader.xhtml" />
+				</ui:insert>
+				<p:breadCrumb model="#{breadCrumbBean.menuModel}">
+				</p:breadCrumb>
+		    </p:layoutUnit>
+
+		    <p:layoutUnit position="west" resizable="false" size="60%">
+		    	<table style="width:100%; height:100%;">
+		    		<tr>
+		    			<td valign="top" width="35%">
+			    			<table>
+        						<tbody>
+        							<tr>
+	        							<td>
+											<p:outputPanel id="dragLShapeLeftTop" style="width:150px; height:150px;">
+												<p:graphicImage id="lShapeLeftTop"  value="#{dragDropFlatBean.lshapelefttopurl}"  style="width:150px; height:150px;">
+													<p:inputText id="lShapeLeftTopName" value="LLT" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragLShapeLeftTop" revert="true" helper="clone"/>
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragLShapeRightTop" style="width:150px; height:150px;">
+												<p:graphicImage id="lShapeRightTop"  value="#{dragDropFlatBean.lshaperighttopurl}"  style="width:150px; height:150px;">
+													<p:inputText id="lShapeRightTopName" value="LRT" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragLShapeRightTop" revert="true" helper="clone"/>
+	        							</td>
+        							</tr>        								
+
+        							<tr>
+	        							<td>
+											<p:outputPanel id="dragLShapeLeftBottom" style="width:150px; height:150px;">
+												<p:graphicImage id="lShapeLeftBottom"  value="#{dragDropFlatBean.lshapeleftbottomurl}"  style="width:150px; height:150px;">
+													<p:inputText id="lShapeLeftBottomName" value="LLB" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragLShapeLeftBottom" revert="true" helper="clone"/>
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragLShapeRightBottom" style="width:150px; height:150px;">
+												<p:graphicImage id="lShapeRightBottom"  value="#{dragDropFlatBean.lshaperightbottomurl}"  style="width:150px; height:150px;">
+													<p:inputText id="lShapeRightBottomName" value="LRB" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragLShapeRightBottom" revert="true" helper="clone"/>
+	        							</td>
+        							</tr>   
+									<tr ><td></td></tr>
+        							<tr>
+	        							<td>
+											<p:outputPanel id="dragSquare" style="width:100px; height:100px;">
+												<p:graphicImage id="square"  value="#{dragDropFlatBean.squareshapeurl}" style="width:100px; height:100px;" >
+													<p:inputText id="squareName" value="S" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragSquare" revert="true" helper="clone"/>
+	        							</td>
+	        							<td>
+											<p:outputPanel id="dragRectangle" style="width:200px; height:100px;">
+												<p:graphicImage id="rectangle"  value="#{dragDropFlatBean.rectangleshapeurl}" style="width:200px; height:100px;" >
+													<p:inputText id="rectangleName" value="R" size="5" styleClass="safe" ></p:inputText>
+												</p:graphicImage>
+											</p:outputPanel>						
+											<p:draggable for="dragRectangle" revert="true" helper="clone"/>
+	        							</td>
+        							</tr>        								        							     								
+								</tbody>			    			
+			    			</table>		    			
+        					<br></br>
+        					<hr></hr>
+        					<br></br>
+        					<table>
+        						<tr>
+        							<td><p:outputLabel value="Project:"/></td>
+        							<td><p:inputText id="selectedProjectName" value="#{dragDropFlatBean.dragDropFloorBean.dragDropBuildingBean.selectedProject.projectName}" disabled="true"/></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel value="Building:"/></td>
+        							<td><p:inputText id="selectedBuildingName" value="#{dragDropFlatBean.dragDropFloorBean.selectedBuilding.name}" disabled="true"/></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel value="Floor:"/></td>
+        							<td><p:inputText id="selectedFloorName" value="#{dragDropFlatBean.dragDropFloorBean.selectedFloor.name}" disabled="true"/></td>
+        						</tr>
+        						<tr>
+        							<td><p:outputLabel value="Flat:"/></td>
+        							<td><p:inputText id="selectedFlatName" value="#{dragDropFlatBean.selectedFlat.name}" disabled="true"/></td>
+        						</tr>
+        					</table>
+        					<br></br>
+        					<hr></hr>
+        					<br></br>
+        					<table>
+        						<tr>
+        							<td><p:commandButton value="Create Table " id="create" onclick="createTable()" update="msgs" icon="ui-icon-disk" /></td>
+        							<td><p:commandButton value="Save " id="save" actionListener="#{dragDropFlatBean.saveFlat}" onclick="validateIsCreateTable()" oncomplete="updateRooms()" icon="ui-icon-disk" /></td>
+        						</tr>
+        						<tr>
+        							<td><p:commandButton value="Copy to... " id="saveAs" actionListener="#{dragDropFlatBean.saveAsFlat}" onclick="validateIsCreateTable()" oncomplete="updateRooms()" icon="ui-icon-disk" /></td>
+        							<td>
+										<p:selectManyMenu id="flatForSaveAs" value="#{dragDropFlatBean.selectedFlatsForSaveAs}" style="width:125px">
+								            <f:selectItems value="#{dragDropFlatBean.flats}" var="flat" itemLabel="#{flat.name}" itemValue="#{flat.id}"/>
+			        					</p:selectManyMenu>
+									</td>
+        						</tr>
+        					</table>
+		    			</td>
+		    			<td  width="2%">
+		    				<div class="vr"></div> <!-- this div is use to create vertical line between draggable and droppable section -->
+		    			</td>
+		    			<td valign="top" width="63%">
+							<p:outputPanel  id="droppablePanel" layout="block" style="width: 700px; height: 700px; border: 1px solid black;background-image: url('../resources/images/Matrix.jpg');">
+							</p:outputPanel>
+							<p:droppable for="droppablePanel" onDrop="createClone" ></p:droppable>
+		    			</td>
+		    		</tr>
+		    	</table>
+		    </p:layoutUnit>
+
+		    <p:layoutUnit position="center" resizable="false" size="40%">
+		        <p:dataTable id="selectedFlatRooms" var="room" value="#{dragDropFlatBean.roomsFromDb}"  rowStyleClass="rowColor" style="overflow-x: hidden; overflow-y: auto; height:500px;">
+				    <p:column>
+				    	<f:facet name="header">ID</f:facet>
+				        <h:outputText value="#{room.id}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Room Name</f:facet>
+				        <h:outputText value="#{room.name}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Room Type</f:facet>
+				        <h:outputText value="#{room.imageType}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">X-Axis (top)</f:facet>
+				        <h:outputText value="#{room.imageTop}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Y-Axis (left)</f:facet>
+				        <h:outputText value="#{room.imageLeft}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Width</f:facet>
+				        <h:outputText value="#{room.imageWidth}" />
+				    </p:column>				
+				    <p:column>
+				    	<f:facet name="header">Height</f:facet>
+				        <h:outputText value="#{room.imageHeight}" />
+				    </p:column>	
+				    <p:column>
+				        <f:facet name="header">Status</f:facet>
+				        <h:outputText value="#{room.status}" />
+				    </p:column>				
+				</p:dataTable>		    
+		    </p:layoutUnit>
+		</p:layout>		
+		
+		<h:inputHidden id="hiddenCreateTable" value="#{dragDropFlatBean.isCreateTable}" />
+		<h:inputHidden id="hiddenRoomTypesString" value="#{dragDropFlatBean.hiddenRoomTypesString}" />
+	
+		<p:remoteCommand name="goToSelectedRoom"  action="#{dragDropFlatBean.goToSelectedRoom}" />
+		<p:remoteCommand name="command" action="#{dragDropFlatBean.setRoomsList}" />		
+		<p:remoteCommand name="setIsCreateTableVar"  action="#{dragDropFlatBean.setIsCreateTableVar}" />
+		<p:remoteCommand name="deleteTmpRoomFromRooms" action="#{dragDropFlatBean.deleteTmpRoomFromRooms}" />	
+										
+	</h:form>
+	
+</h:body>
+
+<h:outputScript>
+	
+	var isDragDropEventOccured = true;	//variable is use to check whether any drag drop event is occured or not.
+		
+	//Following function is used to delete selected Image while press 'Delete' key.
+	$(document).ready(function() {
+
+		$('html').click(function(e){
+			e = e|| event;
+			$.lastClicked = e.target || e.srcElement;
+		});	
+
+		$('html').keyup(function(e){
+			if(e.keyCode == 46) {
+				if($.lastClicked != undefined &amp;&amp; !($($.lastClicked).hasClass('safe'))){
+					if($($.lastClicked).parent().parent().hasClass('ui-outputpanel')){
+	                    var hiddenTag = $($.lastClicked).parent().parent().find('input:hidden');
+	                    var deletedroomDatabaseId = "";	                    
+	           			if(hiddenTag != null){
+	           				deletedroomDatabaseId = $(hiddenTag).attr('value');
+	           			}
+						var dltTmpRoomDivId = $($.lastClicked).parent().parent().attr('id'); 	           			
+	           			deleteTmpRoomFromRooms( [ { name: 'dltTmpRoomDivId', value: dltTmpRoomDivId } , { name: 'deletedroomDatabaseId', value: deletedroomDatabaseId } ] ); <!-- This will send command to bean to remove deleted element from list -->
+	           			
+						$($.lastClicked).parent().parent().remove();
+						isDragDropEventOccured = true;
+						$("#mainForm\\:hiddenCreateTable").attr('value',false);
+					}
+				}
+			}
+		});	
+		
+		getRooms();	
+	});
+
+	//Following function is used to creat clone of dragged image. 
+	var rectangleShapeCount = 1;
+	var squareShapeCount = 1;
+	
+	var lShapeLeftTopCount = 1;
+	var lShapeRightTopCount = 1;
+	var lShapeLeftBottomCount = 1;
+	var lShapeRightBottomCount = 1;
+	
+	var doorCount = 1;
+	var windowCount = 1;
+		
+	function createClone(event,ui){
+	
+		ui.helper.remove();	
+		var cloned = $(ui.helper).clone();
+		var imageId =  $(ui.draggable)[0].id;
+		
+		if(cloned.attr('id') == undefined){
+			var defaultName = '';
+								
+			if(imageId.indexOf("Rectangle") > -1){
+				cloned.attr('id',imageId+rectangleShapeCount);
+				defaultName = cloned.find("input").attr('value') + rectangleShapeCount;
+				rectangleShapeCount+=1;
+			}else if(imageId.indexOf("Square") > -1){
+				cloned.attr('id',imageId+squareShapeCount);
+				defaultName = cloned.find("input").attr('value') + squareShapeCount;
+				squareShapeCount+=1;
+			}else if(imageId.indexOf("LShapeLeftTop") > -1){
+				cloned.attr('id',imageId+lShapeLeftTopCount);
+				defaultName = cloned.find("input").attr('value') + lShapeLeftTopCount;
+				lShapeLeftTopCount+=1;
+			}else if(imageId.indexOf("LShapeRightTop") > -1){
+				cloned.attr('id',imageId+lShapeRightTopCount);
+				defaultName = cloned.find("input").attr('value') + lShapeRightTopCount;
+				lShapeRightTopCount+=1;
+			}else if(imageId.indexOf("LShapeLeftBottom") > -1){
+				cloned.attr('id',imageId+lShapeLeftBottomCount);
+				defaultName = cloned.find("input").attr('value') + lShapeLeftBottomCount;
+				lShapeLeftBottomCount+=1;
+			}else if(imageId.indexOf("LShapeRightBottom") > -1){
+				cloned.attr('id',imageId+lShapeRightBottomCount);
+				defaultName = cloned.find("input").attr('value') + lShapeRightBottomCount;
+				lShapeRightBottomCount+=1;
+			}
+			cloned.find("input").attr('value',defaultName).show();			
+		}
+
+		cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+		var temp = cloned.first();
+		
+		$("#mainForm\\:droppablePanel").append(temp);
+		
+		$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+			$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+		})
+		
+		cloned.find("img").resizable({
+			containment:'#mainForm\\:droppablePanel'
+		});	
+		
+		$.lastClicked = temp.find( "img" );		
+		$("#mainForm\\:hiddenCreateTable").attr('value',false);
+		isDragDropEventOccured = true;
+	}
+
+	//Following function is set table data with backend bean using remote command to set Rooms data. 
+	function createTable(){
+
+		var childNodes = $("#mainForm\\:droppablePanel").children();
+		var count = childNodes.length;
+		var i=0;
+		var roomList=''; 
+		
+		if(count==0){
+			alert('No Flat structure created!');			
+		} else {		
+			$("#mainForm\\:selectedFlatRooms_data > tr").remove();
+			 for (var i = 0; i &lt; count; i++) {
+	               var e = childNodes[i].nodeName;
+               	   var subParent = childNodes[i].childNodes;
+                   var inputType = subParent[0];
+                   var childDiv =  subParent[1];
+                   
+                   var roomName = $(inputType).val();
+                   var imgWidth = $(childDiv).css('width'); 
+                   var imgHeight = $(childDiv).css('height');
+                   var imgTop = $(childNodes[i]).css('top');
+                   var imgLeft = $(childNodes[i]).css('left');
+                   var imgId = $(childNodes[i]).attr('id');
+                   
+			       imgWidth = parseInt(imgWidth.substring(0,imgWidth.indexOf("px")));
+			       imgHeight = parseInt(imgHeight.substring(0,imgHeight.indexOf("px")));
+			       imgTop = parseInt(imgTop.substring(0,imgTop.indexOf("px")));
+			       imgLeft = parseInt(imgLeft.substring(0,imgLeft.indexOf("px")));                   
+                   
+                   var hiddenParent = document.getElementById(imgId);
+                   var hiddenTag = $(hiddenParent).find('input:hidden');
+                   var roomId = "";
+          			if(hiddenTag != null){
+           				roomId = $(hiddenTag).val();
+           			 	if(roomId == undefined){
+           			 		roomId = "";
+           			 	}
+          			}
+                   
+					var imgType = "";
+					if(imgId.indexOf("Rectangle") > -1){
+						imgType = "Rectangle";
+					}else if(imgId.indexOf("Square") > -1){
+						imgType = "Square";
+					}else if(imgId.indexOf("LShapeLeftTop") > -1){
+						imgType = "LShapeLeftTop";
+					}else if(imgId.indexOf("LShapeRightTop") > -1){
+						imgType = "LShapeRightTop";
+					}else if(imgId.indexOf("LShapeLeftBottom") > -1){
+						imgType = "LShapeLeftBottom";
+					}else if(imgId.indexOf("LShapeRightBottom") > -1){
+						imgType = "LShapeRightBottom";
+					}
+                   
+                   createRow(roomId,roomName,imgType,imgTop,imgLeft,imgWidth,imgHeight);
+
+                   if(isDragDropEventOccured == true){
+						var rowData =    '{ \"imageDivId\": \"' + imgId 
+								  + '\" , \"width\": \"' + imgWidth
+								  + '\" , \"height\": \"' + imgHeight
+								  + '\" , \"top\": \"' + imgTop
+								  + '\" , \"left\": \"' + imgLeft
+								  + '\" , \"imageType\": \"' + imgType
+								  + '\" , \"roomId\": \"' + roomId
+								  + '\" , \"roomName\": \"' + roomName
+								  + '\" } '; 			
+						if(roomList == ""){
+							roomList = rowData;
+						} else {
+							roomList = roomList + ', ' + rowData;
+						}  
+                   }
+	           }
+	           roomList = "[ " + roomList + "]";
+	           command( [ { name: 'roomList', value: roomList } ] );	           
+           }
+		   $("#mainForm\\:hiddenCreateTable").attr('value',true);
+           isDragDropEventOccured = false;	
+
+	       $("#mainForm\\:rectangleName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:squareName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:lShapeLeftTopName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:lShapeRightTopName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:lShapeLeftBottomName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:lShapeRightBottomName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	  	   
+	}	
+	
+	//Following function is set table-row data with to set Room data : called from createTable().
+	function createRow(objId,name,imgType,imgTop,imgLeft,imgWidth,imgHeight){
+	
+		var currentdate = new Date(); 
+		var datetime =  currentdate.getFullYear() + "-"
+               + (currentdate.getMonth()+1)  + "-" 
+               + currentdate.getDate() + " "  
+               + currentdate.getHours() + ":"  
+               + currentdate.getMinutes() + ":" 
+               + currentdate.getSeconds();	
+
+		var newRow = $("<tr>");
+		var cols = "";
+        cols += '<td>'+objId+'</td>';
+        cols += '<td>'+name+'</td>';
+        cols += '<td>'+imgType+'</td>';
+        cols += '<td>'+imgTop+'</td>';
+        cols += '<td>'+imgLeft+'</td>';
+        cols += '<td>'+imgWidth+'</td>';
+        cols += '<td>'+imgHeight+'</td>';
+        cols += '<td>0</td>';
+        cols += '</tr>';
+        newRow.append(cols);
+        
+        $("#mainForm\\:selectedFlatRooms_data").append(newRow);
+        
+	}
+
+	//Following function is used to set Rooms data having status=0 while loading the page.
+	function getRooms(){	
+	
+	$("#mainForm\\:droppablePanel").empty();		
+
+		var childNodes = $("#mainForm\\:selectedFlatRooms_data").children();
+		var noOfRows = childNodes.length;
+		var i=0; 
+		
+		var roomId = 0
+		var roomName = '';
+		var roomType = '';
+        var imgWidth = 0; 
+        var imgHeight = 0;
+        var imgTop = 0;
+        var imgLeft = 0;
+        var imgId = 0;		 
+        var status = 0;
+
+		rectangleShapeCount = 1;
+		squareShapeCount = 1;
+		
+		lShapeLeftTopCount = 1;
+		lShapeRightTopCount = 1;
+		lShapeLeftBottomCount = 1;
+		lShapeRightBottomCount = 1;
+		
+		doorCount = 1;
+		windowCount = 1;
+		
+		for (var i = 0; i &lt; noOfRows; i++) {		               	
+               var row = childNodes[i].childNodes;
+               roomId  = row[0].innerHTML; 
+               
+               if(roomId == 'No records found.'){               	
+               	
+               	break;
+               	               	
+               } else {
+               
+                roomName  	=  row[1].innerHTML; 
+                roomType 	=  row[2].innerHTML; 
+                imgTop 		=  row[3].innerHTML.indexOf('px') > 0 ? row[3].innerHTML : row[3].innerHTML+'px'; 
+                imgLeft 	=  row[4].innerHTML.indexOf('px') > 0 ? row[4].innerHTML : row[4].innerHTML+'px';
+                imgWidth 	=  row[5].innerHTML.indexOf('px') > 0 ? row[5].innerHTML : row[5].innerHTML+'px';
+                imgHeight 	=  row[6].innerHTML.indexOf('px') > 0 ? row[6].innerHTML : row[6].innerHTML+'px';
+                status 		=  row[7].innerHTML;
+
+                if(status=='0'){
+                
+	               	var cloned = $("#mainForm\\:drag"+roomType).clone();
+	               	
+	              	if(roomType.indexOf("Rectangle") > -1){		              	
+						cloned.attr('id','mainForm:drag'+roomType+rectangleShapeCount);
+						rectangleShapeCount = rectangleShapeCount + 1;						
+					}else if(roomType.indexOf("Square") > -1){					
+						cloned.attr('id','mainForm:drag'+roomType+squareShapeCount);
+						squareShapeCount = squareShapeCount + 1;						
+					}else if(roomType.indexOf("LShapeLeftTop") > -1){					
+						cloned.attr('id','mainForm:drag'+roomType+lShapeLeftTopCount);
+						lShapeLeftTopCount = lShapeLeftTopCount + 1;
+					}else if(roomType.indexOf("LShapeRightTop") > -1){					
+						cloned.attr('id','mainForm:drag'+roomType+lShapeRightTopCount);
+						lShapeRightTopCount = lShapeRightTopCount + 1;
+					}else if(roomType.indexOf("LShapeLeftBottom") > -1){
+						cloned.attr('id','mainForm:drag'+roomType+lShapeLeftBottomCount);
+						lShapeLeftBottomCount = lShapeLeftBottomCount + 1;
+					}else if(roomType.indexOf("LShapeRightBottom") > -1){
+						cloned.attr('id','mainForm:drag'+roomType+lShapeRightBottomCount);
+						lShapeRightBottomCount = lShapeRightBottomCount + 1;
+					}
+					cloned.draggable({containment:'#mainForm\\:droppablePanel'});
+					var temp = cloned.first();
+					cloned.find("input").attr('value',roomName).show();				
+					$('<input></input>').attr('type','hidden').attr('value',roomId).appendTo(temp);
+					$("#mainForm\\:droppablePanel").append(temp);
+	
+					$(cloned).resize(function () {
+				      isDragDropEventOccured = true;
+				     });
+
+					$("#mainForm\\:droppablePanel").bind('keypress','',function(e){
+						$("#mainForm\\:droppablePanel").unbind('keypress','delete');			
+					})
+					
+	               	cloned.css('position','absolute');
+					cloned.css('top',imgTop).css('left',imgLeft);
+					
+					cloned.find("img").resizable({
+						containment:'#mainForm\\:droppablePanel'
+					}).css('width',imgWidth).css('height',imgHeight);		
+					
+					cloned.find("img").parent().css('width',imgWidth).css('height',imgHeight);		
+					cloned.find("img").attr('ondblclick',"goToRoom("+roomId+")");
+					$.lastClicked = temp.find( "img" );		
+               	}                                
+            }
+		}
+		
+		for (var i = 0; i &lt; noOfRows; i++) {
+            var row = childNodes[i].childNodes;
+         	roomId = row[0].innerHTML;					
+			if(roomId == 'No records found.') {
+				break;
+			} else {
+                status 	= row[7].innerHTML;
+                if(status=='1'){
+                	childNodes[i].remove();
+                }				
+			}                	
+         }
+
+	       $("#mainForm\\:rectangleName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:squareName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:lShapeLeftTopName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:lShapeRightTopName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:lShapeLeftBottomName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	       $("#mainForm\\:lShapeRightBottomName").on("keyup", function(event) { 
+	       		isDragDropEventOccured = true;
+	  	   } );		
+	
+		isDragDropEventOccured = true;
+         		
+	} 
+
+	//Following function is used to go to Room Page with given room id.
+	function goToRoom(roomId){
+		goToSelectedRoom( [ { name: 'selectedRoomId', value: roomId }] );
+	}
+	
+	function updateRooms(){		
+		if($("#mainForm\\:hiddenCreateTable").val() == 'true'){
+			$("#mainForm\\:hiddenCreateTable").attr('value',false);
+			getRooms();
+		}		
+	}
+	
+	function validateIsCreateTable(){
+			var hiddenCreateTableVal = $("#mainForm\\:hiddenCreateTable").val();
+			setIsCreateTableVar( [ { name: 'hiddenCreateTableVal', value: hiddenCreateTableVal } ] );
+	}
+
+</h:outputScript>
+
+</html>

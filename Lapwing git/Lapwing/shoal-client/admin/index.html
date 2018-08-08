@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="shoalAdmin" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="shoalAdmin" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="shoalAdmin" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="shoalAdmin" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../vendor/vendor.css">
+    <link rel="stylesheet" href="../shared/shared.css">
+    <link rel="stylesheet" href="admin.css">
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
+    <script type="text/javascript">
+		function copylinktoclipboard(obj) {
+			var url = window.location.href;
+			var pos = url.lastIndexOf("admin");
+			var link  = url.substring(0, pos).concat("public/#/registration/confirm/").concat(obj.name);
+			var textArea = document.createElement("textarea");
+			textArea.style.position = 'fixed';
+			textArea.style.top = 0;
+			textArea.style.left = 0;
+			  textArea.style.width = '2em';
+			  textArea.style.height = '2em';
+			  textArea.style.padding = 0;
+			  textArea.style.border = 'none';
+			  textArea.style.outline = 'none';
+			  textArea.style.boxShadow = 'none';
+			  textArea.style.background = 'transparent';
+			  textArea.value = link;
+			  document.body.appendChild(textArea);
+			  textArea.select();
+			  try {
+			    var successful = document.execCommand('copy');
+			    var msg = successful ? 'successful' : 'unsuccessful';
+			    console.log('Copying text command was ' + msg);
+			    $("#copiedClipboardMessageSuccess").click();
+			  } catch (err) {
+			  	$("#copiedClipboardMessageError").click();
+			    console.log('Oops, unable to copy');
+			  }
+			  document.body.removeChild(textArea);
+		}
+    </script>
+    <!-- Hotjar Tracking Code for http://www.silverwing.co -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:670643,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    
+    
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<div id="wrapper" ui-view>
+</div>
+
+<script type="text/javascript" src="js/ajquery.js"></script>
+<!-- load all vendor modules including angular -->
+<script src="../vendor/vendor.min.js"></script>
+
+<!-- load shared components -->
+<script src="../shared/config.js"></script>
+<script src="../shared/shared.min.js"></script>
+
+<!-- load application modules -->
+<script src="admin.min.js"></script>
+
+
+</body>
+</html>

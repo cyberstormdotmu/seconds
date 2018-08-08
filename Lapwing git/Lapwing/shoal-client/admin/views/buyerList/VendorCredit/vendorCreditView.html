@@ -1,0 +1,51 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click="vm.cancel()">&times;</button>
+	<h3 class="modal-title">Vendor Credit Update</h3>
+</div>
+<div class="modal-body">
+	<form id="changeVendorCreditForm" class="form-horizontal" sho-mark-required-fields role="form" name="changeVendorCreditForm"
+		ng-submit="changeVendorCreditForm.$valid && vm.changeVendorCreditSave()">
+		<fieldset>
+			<div class="form-group">
+				<label class="control-label col-xs-3">Supplier Name:</label>
+				<div class="col-xs-4">
+				<input type="text" class="form-control input-sm" 
+					 ng-model="vm.vendorCreditWithBuyerId.vendorName" readonly="readonly"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-xs-3">Available Credits:</label>
+				<div class="col-xs-4">
+				<input type="text" class="form-control input-sm" 
+					 ng-model="vm.vendorCreditWithBuyerId.totalCredits - vm.vendorCreditWithBuyerId.usedCredits" readonly="readonly"/>
+				</div>
+			</div>
+
+			<div class="form-group" sho-highlight-errors>
+				<label class="control-label col-xs-3">Total Credits:</label>
+				<div class="col-xs-4">
+					<input type="number" class="form-control input-sm" name="totalCredits"
+					 ng-model="vm.vendorCreditWithBuyerId.totalCredits" required 
+					 ng-maxlength="7" min="{{vm.vendorCreditWithBuyerId.usedCredits}}"/>
+					 <div class="help-block" ng-messages="changeVendorCreditForm.totalCredits.$error">
+                        <p ng-message="required" class="text-danger">
+                            <small>Please Enter Credits.</small>
+                        </p>
+                        <p ng-message="maxlength" class="text-danger">
+                            <small>The Credits entered is too long. It should be less 7.</small>
+                        </p>
+                        <p ng-message="min" class="text-danger">
+                            <small>The Credits can't be less than Used Credits.</small>
+                        </p>
+                      </div>
+				</div>
+			</div>
+		</fieldset>
+		<div class="form-group">
+			<div class="col-xs-4 col-xs-offset-8">
+                    <button type="submit" class="btn btn-success">Update Credit </button>
+           	</div>
+        </div>
+	</form>
+</div>

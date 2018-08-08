@@ -1,0 +1,281 @@
+<ng-form id="paymentStepForm" name="vm.paymentStepForm" sho-form-submit>
+<div class="container-fluid" ng-show="paymentStepOne">
+    <h2 class="page-name">Payment</h2>
+    <div class="row">
+        <div class="col-sm-6">
+            <ng-form class="form-horizontal" name="vm.creditSpendForm">
+                <ul class="credit-info form-horizontal">
+                    <li>
+                        <h4><i>1</i> Apply Silverwing Credit</h4>
+                        <label class="col-xs-6 control-label text-right">Available Silverwing Credit:</label>
+                        <div class="col-xs-6 text-right"><label class="value-label">{{ vm.availableCreditBalance | currency }}</label></div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label text-right">Apply Silverwing Credit:</label>
+                            <div class="col-xs-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">£</span> 
+                                    <!--<input class="form-control input-lg text-right" type="number" min="0" max="100" required=""> -->
+
+                                    <input ng-model="vm.order.creditToBeApplied" id="creditToSpend"
+                                        name="creditToSpend" class="form-control input-lg text-right" type="number" min="0" max="{{ vm.maximumCreditSpend }}" required ng-disabled="vm.availableCreditBalance === 0"/>
+                                    <div ng-messages="vm.creditSpendForm.creditToSpend.$error">
+                                        <p ng-message="min" class="text-danger">
+                                            <small>The amount cannot be less than £0</small>
+                                        </p>
+                                        <p ng-message="max" class="text-danger">
+                                            <small>The amount cannot be greater than {{
+                                                vm.maximumCreditSpend | currency }} </small>
+                                        </p>
+                                        <p ng-message="required" class="text-danger">
+                                            <small>An amount is required</small>
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>                
+                    </li>
+                    <li>
+                        <h4><i>2</i> Pay Using Supplier Credit</h4>
+                        <div class="form-group" ng-repeat="vendors in vm.vendorCreditBalance">
+                            <label class="col-xs-6 control-label text-right">Available Westcoast Credit:</label>
+                            <div class="col-xs-6 text-right"><label class="value-label">{{ vendors.availableVendorCredits | currency}}</label></div>
+                        </div> 
+                        <div class="form-group" ng-repeat="vendors in vm.vendorCreditBalance">
+                            <label class="col-xs-6 control-label text-right">Apply Westcoast Credit:</label>
+                            <div class="col-xs-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">£</span> 
+                                    <!--<input class="form-control input-lg text-right" type="number" min="0" max="100" required="">-->
+
+                                <input ng-init="vm.order.appliedVendorCredits[0].creditsApplied = (vendors.availableVendorCredits >=  vm.order.basket.grossTotal) 
+									? vm.order.basket.grossTotal : 0 " ng-model="vm.order.appliedVendorCredits[0].creditsApplied" id="vendorCreditToSpend"
+                                    name="vendorCreditToSpend" class="form-control input-lg text-right"
+                                    type="number" min="0" max="{{ vendors.maximumVendorCreditSpend }}" ng-disabled="vendors.availableVendorCredits === 0" required/>
+                                <div ng-messages="vm.creditSpendForm.vendorCreditToSpend.$error">
+                                    <p ng-message="min" class="text-danger">
+                                        <small>The amount cannot be less than £0</small>
+                                    </p>
+                                    <p ng-message="max" class="text-danger">
+                                        <small>The amount cannot be greater than {{
+                                            vendors.maximumVendorCreditSpend | currency }} </small>
+                                    </p>
+                                    <p ng-message="required" class="text-danger">
+                                        <small>An amount is required</small>
+                                    </p>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>                
+                    </li>
+                    <li ng-if="vm.order.balanceToPay > 0" ng-hide="true">
+                        <h4><i>3</i> Pay on Credit or Debit Card</h4>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label text-right"><b>Card Fee:</b></label>
+                            <div class="col-xs-6 text-right"><label class="value-label">{{ (vm.order.balanceToPay * vm.paymentChargesPercentage / 100) + vm.paymentExtraCharge | currency }}</label></div>
+                        </div> 
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label text-right"><b>Remaining Amout to Pay Now:</b> <span>Inc VAT</span></label>
+                            <div class="col-xs-6 text-right"><label class="value-label">{{ vm.order.balanceToPay + ((vm.order.balanceToPay * vm.paymentChargesPercentage / 100) + vm.paymentExtraCharge) | currency }}</label></div>
+                        </div>
+                    </li>
+                    <li ng-if="vm.order.balanceToPay > 0" ng-hide="true">
+                        <a ng-click="vm.stepChange()" class="btn btn-success">Procced to Secure Payment</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.stepChange()" class="btn btn-success" ng-disabled="vm.order.basket.grossTotal != vm.order.creditToBeApplied + vm.order.appliedVendorCredits[0].creditsApplied">Proceed</a>
+                    </li>
+                </ul>
+        </ng-form>
+        </div>
+        <div class="col-sm-6">
+            <div class="content-panel">
+                <div class="form-horizontal">
+                    <div class="form-group">                    
+                        <label class="col-xs-6 control-label text-right"><b>Order Total:</b> <span>Inc VAT</span></label>
+                        <div class="col-xs-6 text-right"><label class="value-label">{{ vm.order.basket.grossTotal |
+                        currency }}</label></div>
+                    </div>                 
+                    <div class="form-group">
+                        <label class="col-xs-6 control-label text-right"><b>Silverwing Credit Applied:</b></label>
+                        <div class="col-xs-6 text-right"><label class="value-label">{{vm.order.creditToBeApplied | currency}}</label></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-6 control-label text-right"><b>Westcoast Credit Applied:</b> <span>Inc VAT</span></label>
+                        <div class="col-xs-6 text-right"><label class="value-label">{{vm.order.appliedVendorCredits[0].creditsApplied | currency}}</label></div>
+                    </div>
+                    <div class="form-group" ng-hide="true">
+                        <label class="col-xs-6 control-label text-right"><b>Card Fee:</b></label>
+                        <div class="col-xs-6 text-right"><label class="value-label">{{ (vm.order.balanceToPay * vm.paymentChargesPercentage / 100) + vm.paymentExtraCharge | currency }}</label></div>
+                    </div> 
+                     <div class="form-group" ng-hide="true">
+                        <label class="col-xs-6 control-label text-right"><b>Remaining Amout to Pay Now:</b> <span>Inc VAT</span></label>
+                        <div class="col-xs-6 text-right"><label class="value-label">{{ vm.order.balanceToPay + ((vm.order.balanceToPay * vm.paymentChargesPercentage / 100) + vm.paymentExtraCharge) | currency }}</label></div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" ng-show="paymentStepTwo">
+    <h2 class="page-name text-center">Verify</h2>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="content-panel">
+                <div class="form-horizontal">
+                    <div class="form-group">                    
+                        <label class="col-xs-6 control-label text-right"><b>Order Total:</b> <span>Inc VAT</span></label>
+                        <div class="col-xs-6 text-right"><label class="value-label ng-binding">{{ vm.order.basket.grossTotal |
+                        currency }}</label></div>
+                    </div>                 
+                    <div class="form-group">
+                        <label class="col-xs-6 control-label text-right"><b>Silverwing Credit Applied:</b></label>
+                        <div class="col-xs-6 text-right"><label class="value-label ng-binding">{{vm.order.creditToBeApplied | currency}}</label></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-6 control-label text-right"><b>Westcoast Credit Applied:</b> <span>Inc VAT</span></label>
+                        <div class="col-xs-6 text-right"><label class="value-label ng-binding">{{vm.order.appliedVendorCredits[0].creditsApplied | currency}}</label></div>
+                    </div>
+                    <!-- ngIf: vm.order.balanceToPay > 0 --><div class="form-group ng-scope" ng-hide="true">
+                        <label class="col-xs-6 control-label text-right"><b>Card Fee:</b></label>
+                        <div class="col-xs-6 text-right"><label class="value-label ng-binding">{{ (vm.order.balanceToPay * vm.paymentChargesPercentage / 100) + vm.paymentExtraCharge | currency }}</label></div>
+                    </div><!-- end ngIf: vm.order.balanceToPay > 0 --> 
+                     <!-- ngIf: vm.order.balanceToPay > 0 --><div class="form-group ng-scope" ng-hide="true">
+                        <label class="col-xs-6 control-label text-right"><b>Remaining Amout to Pay Now:</b> <span>Inc VAT</span></label>
+                        <div class="col-xs-6 text-right"><label class="value-label ng-binding">{{ vm.order.balanceToPay + ((vm.order.balanceToPay * vm.paymentChargesPercentage / 100) + vm.paymentExtraCharge) | currency }}</label></div>
+                    </div><!-- end ngIf: vm.order.balanceToPay > 0 -->
+                </div>
+            </div> 
+        </div>
+    </div>    
+    <div class="payment-block" ng-hide="true">
+        <h3 class="block-heading">Payment Detail <span>*Indicate a require field</span> <img src="/app/images/4 card logos.png" class="payment-card-logo"></h3>
+        <div class="row">
+            <form class="form-horizontal" name="vm.paymentCardForm">
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Card Number <span class="sho-required-field-icon">*</span></label>
+                            <!-- <input type="text" class="form-control"> -->
+                            <div
+                                ng-class="{ 'has-error': vm.paymentStepForm.hasError(vm.paymentCardForm.cardNumber) }">
+                                <input type="text" autocomplete="off" ng-cut="$event.preventDefault()" ng-copy="$event.preventDefault()"
+                            ng-paste="$event.preventDefault()" id="cardNumber" name="cardNumber"
+                                    class="form-control credit-form-margin"
+                                    ng-model="vm.paymentCard.cardNumber" sho-restrict-numeric
+                                    minlength="13" maxlength="19" required />
+                                <div class=""
+                                    ng-if="vm.paymentStepForm.hasError(vm.paymentCardForm.cardNumber)"
+                                    ng-messages="vm.paymentCardForm.cardNumber.$error">
+                                    <p ng-message="required" class="text-danger">
+                                        <small>Please enter the long number from the front of
+                                            the card</small>
+                                    </p>
+                                    <p ng-message="minlength" class="text-danger">
+                                        <small>Please enter the long number from the front of
+                                            the card</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Card Holder's Name <span class="sho-required-field-icon">*</span></label>
+                            <!-- <input type="text" class="form-control"> -->
+                            <div ng-class="{ 'has-error': vm.paymentStepForm.hasError(vm.paymentCardForm.cardholderName) }">
+                                <input type="text" autocomplete="off" ng-cut="$event.preventDefault()" ng-copy="$event.preventDefault()"
+                                    ng-paste="$event.preventDefault()" id="cardholderName" name="cardholderName"
+                                    class="form-control credit-form-margin"
+                                    ng-model="vm.paymentCard.cardholderName" maxlength="26" required />
+                                <div class=""
+                                    ng-if="vm.paymentStepForm.hasError(vm.paymentCardForm.cardholderName)"
+                                    ng-messages="vm.paymentCardForm.cardholderName.$error">
+                                    <p ng-message="required" class="text-danger">
+                                        <small>Please enter the name as it appears on the front
+                                            of the card</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div>
+                                <label>Expiry Date <span class="sho-required-field-icon">*</span></label>
+                            </div>
+                            <div>
+                                <div ng-class="{ 'has-error': vm.paymentStepForm.hasError(vm.paymentCardForm.expiry) }">
+                                    <sho-payment-card-expiry ng-model="vm.paymentCard.expiry"
+                                        id="expiry" name="expiry"></sho-payment-card-expiry>
+                                    <div class=""
+                                        ng-if="vm.paymentStepForm.hasError(vm.paymentCardForm.expiry)"
+                                        ng-messages="vm.paymentCardForm.expiry.$error">
+                                        <p ng-message="required" class="text-danger">
+                                            <small>Please enter the card expiry date</small>
+                                        </p>
+                                        <p ng-message="cardExpired" class="text-danger">
+                                            <small>The card expiry cannot be in the past</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Security Code <span class="sho-required-field-icon">*</span></label>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <!-- <input type="text" class="form-control"> -->
+                                <div ng-class="{ 'has-error': vm.paymentStepForm.hasError(vm.paymentCardForm.cvc) }">
+                                    <input type="password" autocomplete="off" ng-cut="$event.preventDefault()" ng-copy="$event.preventDefault()" ng-paste="$event.preventDefault()" id="cvc" name="cvc"
+                                    class="form-control credit-form-margin" ng-model="vm.paymentCard.cvc"
+                                    sho-restrict-numeric minlength="3" maxlength="4" required />
+                                    <div class=""
+                                        ng-if="vm.paymentStepForm.hasError(vm.paymentCardForm.cvc)"
+                                        ng-messages="vm.paymentCardForm.cvc.$error">
+                                        <p ng-message="required" class="text-danger">
+                                            <small>Please enter the card verification number</small>
+                                        </p>
+                                        <p ng-message="minlength" class="text-danger">
+                                            <small>Please enter the card verification number</small>
+                                        </p>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <span class="card-code"><img src="/app/images/card-icon.png"> 3 digits on the back of card or 4 digits on the front of the card.</span>
+                                </div>      
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="btn-outer clearfix">
+            <button class="btn btn-default" ng-click="vm.paymentCancel()">Cancel Payment</button>
+            <button class="btn btn-success pull-right" ng-click="vm.paymentStepForm.submitAttempted(); vm.next()">Make Payment</button>
+        </div>
+    </div>
+</div>
+<div class="row checkout-action-buttons">
+    <div class="col-xs-1">
+        <a class="btn btn-default" ui-sref="checkout.addresses" ng-show="paymentStepOne"><i><span
+                class="fa fa-chevron-left"></span></i> Back a Step</a>
+    </div>
+    <div class="col-xs-1 col-xs-offset-10" ng-if="vm.order.balanceToPay == 0">
+        <div class="pull-right">
+            <a id="checkout-next-step-button" ng-show="paymentStepTwo" ng-disabled="vm.order.balanceToPay < 0" class="btn btn-success"
+                ng-click="vm.paymentStepForm.submitAttempted(); vm.next()">Next
+                Step <i><span class="fa fa-chevron-right"></span></i>
+            </a>
+        </div>
+    </div>
+</div>
+</ng-form>

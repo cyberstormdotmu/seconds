@@ -1,0 +1,20 @@
+2014-05-12 18:57:48,800 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0]
+2014-05-12 18:57:48,845 WARN  main api.mtt.seating.TournamentSeating - Player 10 does not sit at any table, returning null.
+2014-05-12 18:57:48,846 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+2014-05-12 18:57:48,848 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0]
+2014-05-12 18:57:48,849 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0, 1]
+2014-05-12 18:57:48,850 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0]
+2014-05-12 18:57:48,859 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0, 1, 2]
+2014-05-12 18:57:48,863 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0, 1]
+2014-05-12 18:57:48,864 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0, 1]
+2014-05-12 18:57:48,871 DEBUG main api.mtt.support.MTTSupport - sending mtt start action to tables: [0, 1]
+2014-05-12 18:57:48,874 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0, 1]
+2014-05-12 18:57:48,875 DEBUG main api.mtt.support.MTTSupport - Move player[10] From [0] To[1]
+2014-05-12 18:57:48,877 DEBUG main api.mtt.support.MTTStateSupport - Tables Created : [0, 1]
+2014-05-12 18:57:48,884 DEBUG main api.mtt.support.MTTSupport - sending mtt stop action to tables: [0, 1]
+2014-05-12 18:57:51,711 DEBUG Thread-2 firebase.api.util.TaskRepeater - Task 'test' failed, repeating in 1000 millis; Count: 0
+2014-05-12 18:57:52,713 DEBUG Thread-2 firebase.api.util.TaskRepeater - Task 'test' failed, repeating in 1000 millis; Count: 1
+2014-05-12 18:57:52,915 DEBUG main firebase.api.util.TaskRepeater - Task 'test' failed, repeating in 10 millis; Count: 0
+2014-05-12 18:57:52,925 DEBUG main firebase.api.util.TaskRepeater - Task 'test' failed, repeating in 10 millis; Count: 1
+2014-05-12 18:57:52,935 DEBUG main firebase.api.util.TaskRepeater - Task 'test' failed, repeating in 10 millis; Count: 2
+2014-05-12 18:57:52,945 WARN  main firebase.api.util.TaskRepeater - Task 'test' timed out after 3 attempts; Returning false
